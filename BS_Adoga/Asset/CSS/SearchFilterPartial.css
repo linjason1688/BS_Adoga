@@ -1,0 +1,296 @@
+﻿.search-filter-nav {
+    background-color: #1F264C;
+    color: grey;
+    font-size: 16px;
+}
+
+    .search-filter-nav p {
+        margin: auto;
+    }
+
+    .search-filter-nav i {
+        font-size: 20px;
+        margin: auto 10px;
+    }
+
+    .search-filter-nav img {
+        vertical-align: bottom;
+    }
+
+    .search-filter-nav .search-bar,
+    .main-body,
+    .nav-item,
+    .filter-container {
+        /* 控制整体维持60vw在中间 */
+        width: 70vw;
+        margin: auto;
+    }
+
+.search-bar,
+.main-body,
+.nav-item,
+.search-bar button {
+    margin: 10px auto;
+}
+
+    .search-filter-nav .search-bar,
+    .main-body,
+    .nav-item,
+    .nav-item .search-date,
+    .filter-container,
+    .filter-container .array-list,
+    .filter-container .array-list .array-item,
+    .main-body .infomation .card {
+        display: flex;
+        justify-content: space-between;
+    }
+        /*.filter-container .array-list{*/
+        /*没有作用*/
+        /*padding-bottom: 100px;
+    }*/
+        .nav-item .choose-info,
+        .nav-item .search-date,
+        .main-body .infomation {
+            flex-grow: 1;
+        }
+
+    .search-bar .nav-item {
+        border-radius: 5px;
+        background-color: #fff;
+        width: 25%;
+        position: relative;
+    }
+    .search-bar .nav-item:nth-child(2) {
+            width: 40%;
+        }
+
+.search-filter-nav .nav-item:nth-child(2) div.line {
+    width: 1px;
+    height: 100%;
+    background-color: grey;
+}
+
+
+.el-input.el-input--suffix,
+input#inputGroupSelect {
+    height: 100%;
+}
+
+.el-select {
+    width: 100%;
+}
+
+input#final-person,
+input#final-room {
+    pointer-events: none;
+    border: 0;
+}
+
+
+div#person-info {
+    width: 100%;
+    display: flex;
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+    background-color: transparent;
+}
+
+    .dropdown-item:focus, .dropdown-item:hover button > p {
+        color: #5392F9;
+    }
+
+/* filter人数设定 */
+.nav-item #person-box {
+    position: absolute;
+    top: 120%;
+    display: none;
+}
+
+    .nav-item #person-box #choosing-box,
+    .nav-item #person-box #count-person {
+        /* height: 300px;  */
+        width: 300px;
+        visibility: hidden;
+        display: none;
+        z-index: 2;
+    }
+
+    .nav-item #person-box #choosing-box {
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        background-color: #F8F7F9;
+    }
+
+        .nav-item #person-box #choosing-box > div {
+            display: flex;
+            justify-content: space-between;
+        }
+
+            .nav-item #person-box #choosing-box > div > * {
+                margin: 0 10px;
+            }
+
+            .nav-item #person-box #choosing-box > div:hover {
+                color: #5392F9;
+            }
+
+.travel.onUse {
+    background-color: white;
+    box-shadow: 5px 5px 10px rgba(59, 59, 59, 0.1);
+}
+
+.nav-item #person-box #choosing-box > div,
+.nav-item #person-box #count-person .count-box {
+    padding: 12px 5px;
+    font-size: 18px;
+    border-bottom: 1px solid #DDDFE2;
+    margin: 10px 0;
+}
+
+.nav-item #person-box #count-person {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    box-shadow: 5px 5px 10px rgba(59, 59, 59, 0.1);
+    background-color: white;
+}
+
+    .nav-item #person-box #count-person .count-box {
+        display: flex;
+        flex-direction: row;
+    }
+
+        .nav-item #person-box #count-person .count-box span {
+            color: #5392F9;
+            font-size: 24px;
+        }
+
+        .nav-item #person-box #count-person .count-box i {
+            color: #B4D0FC;
+        }
+
+    .nav-item #person-box #count-person button#done-counting {
+        justify-self: flex-end;
+        align-self: flex-end;
+        position: absolute;
+        bottom: 0;
+        padding: 6px 20px;
+        font-size: 18px;
+        left: 40%;
+    }
+
+    .nav-item #person-box #count-person button#done-counting {
+        background-color: #5392F9;
+        color: #CBDEFD;
+        border: none;
+        border-radius: 5px;
+    }
+
+        /*button:hover,*/
+        .nav-item #person-box #count-person button#done-counting:hover {
+            background-color: #75A8F9;
+        }
+
+.nav-item #filter-black {
+    position: absolute;
+    top: 100%;
+    /* background: #000;
+    opacity: .7;
+    z-index: 1; */
+    /* height: fit-content();
+        width: 30vw;
+        background-color: rgba(0, 0, 0, 0.7); */
+}
+
+
+/*日期*/
+/*div#datetime,
+.timebox.d-flex.justify-content-center.align-items-center {
+    height: 100%;
+    position: relative;
+}*/
+
+
+/*日曆*/
+#datetime{
+    position:relative;
+    width: 100%;
+}
+input#demo {
+    /*display:none;*/
+    position: absolute;
+    z-index: 2;
+    background-color: transparent;
+    color: transparent;
+    top:0;
+    width:100%;
+    height: 100%;
+    border: none;
+}
+    input#demo:focus {
+        outline: none;
+    }
+#datetime .timebox {
+    /*position: absolute;*/
+    /*height: 66px;*/
+    /*z-index: 3;*/
+
+    /*border: 1px solid #DDDFE2;
+    pointer-events: none;*/
+
+    width:100%;
+    box-sizing: border-box;
+    display:flex;
+    /*justify-content:center;*/
+    align-items:center;
+    border-radius: 5px;
+    background-color: white;
+}
+
+    #datetime .line {
+        /*position: absolute;
+        /*height: 50px;*/
+        /*margin-left: -50px;*/
+
+        z-index: 4;
+        width: 1px;
+        height: 100%;
+        background-color: darkgray;
+        margin: 0;
+    }
+
+    #datetime .d-flex{
+        /*flex-grow: 1;*/
+        margin: 0;
+    }
+        #datetime .timebox .d-flex i {
+            /*margin: 0;
+            width: 20%;*/
+            /*padding: auto;*/
+            /*height: 44px;*/
+        }
+        #datetime .timebox .d-flex div{
+            width: 80%;
+        }
+                #datetime .timebox .d-flex input {
+                    border-style: none;
+                    width: 100%
+                }
+                #datetime .timebox .d-flex input:nth-child(2){
+                    color: grey;
+                }
+        
+
+/*input#demo {*/
+    /*width: 100%;
+    position: absolute;*/
+    /*z-index: 5;*/
+    /*display: none;*/
+/*}*/
+/*div#datetime,
+input#range_end, input#week_end,
+.timebox.d-flex.justify-content-center.align-items-center {
+    width: 100%;
+}*/

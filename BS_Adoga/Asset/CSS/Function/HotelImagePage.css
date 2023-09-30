@@ -1,0 +1,294 @@
+﻿
+
+
+/*--------------------上傳圖片 input們---------------------*/
+.preview-img {
+    display: flex;
+    /* height: 300px; */
+    margin-bottom: 100px;
+    overflow: auto;
+}
+
+.img-figure {
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: space-between; */
+    /* height: 300px; */
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid rgb(240, 240, 240);
+    border-radius: 5px;
+}
+
+.img-figure .img-wrap {
+    display:flex;
+    height: 200px;
+    overflow: auto;
+}
+
+.img-figure .img-wrap::-webkit-scrollbar {
+    width: 6px;
+    background-color: rgb(255, 255, 255);
+}
+
+.img-figure .img-wrap::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: #808080;
+}
+
+.img-figure .img-wrap::-webkit-scrollbar-thumb:hover {
+    background-color: #548dd8;
+}
+
+.img-figure .img-wrap::-webkit-scrollbar-track {
+    padding: 3px 0;
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+    background-color: #ffffff;
+}
+
+.img-figure .img-wrap img {
+    /* height: 100%; */
+    /* max-height: 100%; */
+    /* max-width: 100%; */
+    margin: auto;
+    display: block;
+}
+
+#upload-img-btn {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    padding: 0 20px;
+    color: #fff;
+    background-color: rgb(95, 133, 238);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 1px solid rgb(95, 133, 238);
+}
+
+    #upload-img-btn:focus {
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+    }
+
+    #upload-img-btn:hover {
+        /* font-weight: bold; */
+        color: rgb(95, 133, 238);
+        background-color: #fff;
+    }
+
+.preview-img img {
+    max-width: 100%;
+    /* max-height: 200px; */
+    border: 1px solid rgb(211, 211, 211);
+    border-radius: 3px;
+}
+
+.re-upload-btn,
+.upload-cancel-btn {
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.re-upload-btn {
+    background-color: rgb(95, 133, 238);
+    border: 1px solid rgb(95, 133, 238);
+    color: #fff;
+}
+
+    .re-upload-btn:hover {
+        background-color: #fff;
+        color: rgb(95, 133, 238);
+    }
+
+
+.upload-cancel-btn {
+    background-color: rgb(219, 219, 219);
+    border: 1px solid rgb(219, 219, 219);
+    color: rgb(73, 73, 73);
+}
+
+    .upload-cancel-btn:hover {
+        background-color: rgb(151, 151, 151);
+        color: rgb(250, 250, 250);
+    }
+
+.remind-text {
+    margin-bottom: 5px;
+    margin-left: 10px;
+    font-size: 12px;
+    color: gray;
+}
+
+.shadow-cover {
+    display:none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.459);
+    z-index: 3;
+}
+.shadow-cover .box {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+    width: 300px;
+    height: 200px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 4px 2px 6px rgba(85, 85, 85, 0.37);
+    text-align:center;
+}
+.uploading-box{
+    font-size:20px;
+}
+.finish-box {
+    display: none;
+    font-size: 20px;
+}
+.finish-box .fa-check {
+    font-size: 40px;
+    color: rgb(40, 196, 53);
+}
+.adoga-purple {
+    color: #f641ee;
+}
+
+/*-------------------預覽圖片群----------------------- */
+.media-group {
+    width: 900px;
+    /* margin-right: 20px; */
+    margin: 0 auto 20px auto;
+}
+.media-group img[id^="show-img"] {
+    display: none;
+}
+.hotel-video .img-wrap {
+    width: 500px;
+    height: 355px;
+    overflow: hidden;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.medium-pic .img-wrap {
+    width: 332px;
+    height: 220px;
+    overflow: hidden;
+    border-top-right-radius: 5px;
+}
+
+.two-pic .img-wrap {
+    width: 164px;
+    height: 130px;
+    overflow: hidden;
+}
+
+.two-pic img {
+    max-height: 100%;
+    margin: auto;
+    display: block;
+}
+
+.two-pic .img-wrap .show-shadow {
+    height: 100%;
+}
+
+.two-pic .img-wrap:last-child {
+    border-bottom-right-radius: 5px;
+}
+
+    .two-pic .img-wrap:last-child .show-shadow {
+        text-align: center;
+        line-height:126px;
+        background-color: rgba(0, 0, 0, 0.356);
+        border-bottom-right-radius: 5px;
+    }
+
+
+.hotel-video img,
+.medium-pic img {
+    height: 100%;
+    width:100%;
+    /*max-height: 100%;
+    max-width: 100%;*/
+    margin: auto;
+    display: block;
+}
+
+.pic-group .img-wrap,
+.hotel-video .img-wrap {
+    position: relative;
+    vertical-align: middle;
+}
+
+.hotel-video .img-wrap {
+    background-color: rgb(230 230 230);
+}
+
+.medium-pic .img-wrap {
+    background-color: rgb(197 193 193);
+}
+
+.two-pic .img-wrap:first-child {
+    background-color: rgb(171 171 171);
+}
+
+.two-pic .img-wrap:last-child {
+    background-color: rgb(202 202 202);
+}
+
+.img-wrap .show-shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: 0.3s;
+}
+
+    .img-wrap .show-shadow:hover,
+    .two-pic .img-wrap:last-child .show-shadow:hover,
+    .hotel-video .show-shadow:hover {
+        background-color: rgba(0, 0, 0, 0.493);
+    }
+
+.add-fav-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: block;
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    color: rgb(202, 202, 202) !important;
+    background-color: rgb(248, 248, 248);
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+    .add-fav-button:hover {
+        color: rgb(221, 59, 59) !important;
+    }
+
+.album-link {
+    display: inline;
+    font-family: 'Noto Sans TC', serif;
+    text-decoration: none;
+    color: #fff;
+}
+
+.show-shadow:hover .album-link {
+    color: rgb(88, 150, 243);
+}

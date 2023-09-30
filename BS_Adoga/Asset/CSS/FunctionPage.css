@@ -1,0 +1,25 @@
+html,body {
+	height: 100%;
+	overflow: hidden;
+}
+
+.menu {
+	width: 15%;
+	height: 100%;
+	float: left;
+	background: black;
+	color: white;
+}
+
+.content {
+	width: 85%;
+	height: 100%;
+	float: right;
+	overflow: auto;
+}
+
+/*li {*/
+	/*margin: 0;
+	padding: 0;*/
+	/*list-style: none;
+}*/

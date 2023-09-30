@@ -1,0 +1,779 @@
+﻿@model  BS_Adoga.Models.ViewModels.MemberLogin.MixMemberLoginViewModel
+@{
+    ViewBag.Title = "MemberLogin";
+    Layout = "~/Views/Shared/_AdogaLayout.cshtml";
+}
+
+@section topCSS{
+    <link rel="stylesheet" href="~/Asset/CSS/MemberLogin.css" />
+}
+
+<!-- Bear加：，頁面中間用來登入的區塊-->
+<!-- Bear：這個區塊是複製signinModal的區塊，然後把裡面所有id有關的名稱後面加上 “-card”，避免跟SigninModal裡面的id重複，導致出錯。 -->
+<div class="card sigin-card w-500 mx-auto my-5">
+    <div class="card-body">
+        <div class="ps-3 pt-3">
+            <h5 class="modal-title fw-bold fz-24" id="exampleModalLabel-card">
+                A咖登入
+            </h5>
+            <p id="emailHelp-card" class="form-text fw-normal fz-16">
+                為了保障你的個資安全，請先登入才能查看個人資訊
+            </p>
+
+        </div>
+
+        <!-- modal內部控制 -->
+        <div class="modal-body signin_modal">
+            <ul class="nav nav-tabs" id="myTab-card" role="tablist">
+                <!-- 手機與電子郵件的切換 -->
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab-card" data-bs-toggle="tab" data-bs-target="#emailgo-card"
+                            type="button" role="tab" aria-controls="home" aria-selected="true">
+                        電子郵件登入
+                    </button>
+                </li>
+                @*0715手機註冊註解掉
+                            <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab-card" data-bs-toggle="tab" data-bs-target="#phonego-card"
+                                type="button" role="tab" aria-controls="profile" aria-selected="false">
+                            手機號碼登入
+                        </button>
+                    </li>*@
+            </ul>
+            <div class="tab-content" id="myTabContent-card">
+                <div class="tab-pane fade show active" id="emailgo-card" role="tabpanel" aria-labelledby="home-tab-card">
+                    <!-- 電子郵件登入區塊 -->
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        <form>
+                            <div class="mb-3 form-group">
+                                @Html.LabelFor(model => model.MemberLoginViewModel.Email)
+                                @Html.EditorFor(model => model.MemberLoginViewModel.Email, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control" }, { "id", "RegisterEmail-card" }, { "aria-describedby", "emailHelp" }, { "placeholder", "電子信箱" } } })
+                                @Html.ValidationMessageFor(model => model.MemberLoginViewModel.Email, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="mb-3 form-group">
+                                @Html.LabelFor(model => model.MemberLoginViewModel.Password)
+                                @Html.EditorFor(model => model.MemberLoginViewModel.Password, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control" }, { "id", "RegisterEmailPassword-card" }, { "aria-describedby", "emailHelp" }, { "placeholder", "密碼" } } })
+                                @Html.ValidationMessageFor(model => model.MemberLoginViewModel.Password, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="mb-3 form-group">
+                                @Html.EditorFor(model => model.MemberLoginViewModel.Remember)
+                                @Html.LabelFor(model => model.MemberLoginViewModel.Remember)
+                                @Html.ValidationMessageFor(model => model.MemberLoginViewModel.Remember, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary my-2 py-2 login-btn" name="login">登入</button>
+                            </div>
+                            <div class="register">
+                                <a href="#modal" data-bs-toggle="modal" data-bs-target="#RegisterModal"
+                                   id="EmailLogintoRegister">我是新朋友</a>
+                                <a href="#modal" data-bs-toggle="modal" data-bs-target="#ForgetPasswordModal"
+                                   id="EmailLogintoForgetPassword"><i class="fas fa-lock"></i>忘記密碼？別慌，點此找幫手！</a>
+                            </div>
+                        </form>
+                    }
+                    <!--@Html.ActionLink("登入", "HomePage", "Home", null, new { @type = "submit", @class = "btn btn-primary my-2 py-2 login-btn" })-->
+                </div>
+                @*0715手機註冊註解掉*@
+                <!--<div class="tab-pane fade" id="phonego-card" role="tabpanel" aria-labelledby="profile-tab-card">
+                    <form>-->
+                <!-- phone登入區塊 -->
+                <!--<div class="mb-3 inputphone">
+                    <label for="PhoneLogin" class="form-label">手機號碼</label>
+                    <input type="tel" class="form-control" id="PhoneLogin-card" aria-describedby="emailHelp-card"
+                           placeholder="手機號碼">
+                </div>
+                <div class="mb-3 phone-password">
+                    <label for="PhonePassword" class="form-label">密碼</label>
+                    <input type="password" class="form-control" id="PhonePassword-card" aria-describedby="emailHelp-card"
+                           placeholder="密碼">
+                </div>
+                <div class="d-grid gap-2">-->
+                <!--bear : 0610新增-->
+                <!--@Html.ActionLink("登入", "HomePage", "Home", null, new { @type = "button", @class = "btn btn-primary my-2 py-2 login-btn" })
+                        </div>
+                        <div class="register">
+                            <a href="#modal" data-bs-toggle="modal" data-bs-target="#RegisterModal"
+                               id="PhoneLogintoRegister-card">我是新朋友</a>
+                            <a href="#modal" data-bs-toggle="modal" data-bs-target="#ForgetPasswordModal"
+                               id="PhoneLogintoForgetPassword-card"><i class="fas fa-lock"></i>忘記密碼？別慌，點此找幫手！</a>
+                        </div>
+                    </form>
+                </div>-->
+            </div>
+            <div class="otherlogin">
+                <p>使用其他登入方式</p>
+            </div>
+
+            <div class="d-grid gap-2 otherlogin-btn-group">
+                <button class="otherlogin-btn " id="btnSignIn" type="button">
+                    <img src="~/Asset/images/MemberLogin/google_PNG19635.png" alt=""> Google
+                </button>
+                <div class="loginbuttonwithfa">
+                    <button type="button" class="otherlogin-btn col-5" id="Phonefacebooklogin-card" onclick="FBLoginReal();">
+                        <img src="~/Asset/images/MemberLogin/f_logo_RGB-Blue_58.png" alt="">
+                        Facebook
+                    </button>
+                    <button type="button" class="otherlogin-btn col-5" id="Phoneapplelogin-card" onclick="location.href='@Url.Action("LineLoginDirect")'">
+                        <img src="~/Asset/images/MemberLogin/btn_base.png" alt="">
+                        Line
+                    </button>
+                </div>
+            </div>
+
+            <div class="youshouldknow">
+                <p>
+                    點擊登錄即代表我同意Agoda的 <a href="">服務條款</a> 和 <a href="">隱私權政策</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+<!-- 第一個Modal -->
+<!-- 忘記密碼 -->
+<div class="modal fade" id="ForgetPasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header " style="border:0;">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <strong> 忘記密碼?</strong><br />
+                    <div id="ForgetPasswordLabel" class="form-text" style="font-size: 15.5px">
+                        <p>記不住你的Agoda密碼？改用Facebook登入，從此少記一組密碼！</p>
+                    </div>
+                    <div class="d-grid gap-2 otherlogin-btn-group">
+                        <button type="button" class="otherlogin-btn" id="Phonefacebooklogin-cardforget" onclick="FBLoginReal();">
+                            <img src="~/Asset/images/MemberLogin/f_logo_RGB-Blue_58.png" alt="">
+                            Facebook
+                        </button>
+                    </div>
+                </h5>
+
+            </div>
+            <div class="otherloginor">
+                <p>或</p>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                    <form>
+                        <!-- 忘記密碼內容 -->
+                        <div class="mb-3" id="aaa">
+                            <div class="mb-3 form-group">
+                                @Html.LabelFor(model => model.ForgetPasswordViewModel.Email)
+                                @Html.EditorFor(model => model.ForgetPasswordViewModel.Email, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control" }, { "id", "RegisterEmail" }, { "aria-describedby", "emailHelp" }, { "placeholder", "電子信箱" } } })
+                                @Html.ValidationMessageFor(model => model.ForgetPasswordViewModel.Email, "", new { @class = "text-danger" })
+                            </div>
+                            <p>請於上方欄位輸入您的電子信箱 協助您找回密碼的操作說明將會寄至您的電子信箱。</p>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" type="submit" name="useremail">
+                                重設密碼
+                            </button>
+                        </div>
+                        <div class="ForgetPasswordtoLogin">
+                            @Html.ActionLink("已經是會員?登入", "MemberLogin", "MemberLogin")
+                        </div>
+                    </form>
+                }
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+<!-- 第二個Modal -->
+<!-- 登入 -->
+<div class="modal fade" id="SigninModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content mx-3">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold fz-24" id="exampleModalLabel">
+                    A咖登入
+                </h5>
+                <p id="emailHelp" class="form-text fw-normal fz-16">
+                    為了保障你的個資安全，請先登入才能查看個人資訊
+                </p>
+                <!-- <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button> -->
+            </div>
+
+            <!-- modal內部控制 -->
+            <div class="modal-body signin_modal mx-2">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <!-- 手機與電子郵件的切換 -->
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#emailgo" type="button"
+                                role="tab" aria-controls="home" aria-selected="true">
+                            電子郵件登入
+                        </button>
+                    </li>
+                    @*0715手機註冊註解掉*@
+                    @*<li class="nav-item" role="presentation">
+                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#phonego" type="button"
+                                    role="tab" aria-controls="profile" aria-selected="false">
+                                手機號碼登入
+                            </button>
+                        </li>*@
+                </ul>
+                <div class="social_login"></div>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="emailgo" role="tabpanel" aria-labelledby="home-tab">
+                        <!-- 電子郵件登入區塊 -->
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                            <form>
+                                @*<div class="mb-3">
+                                        <label for="LoginEmail" class="form-label">電子信箱</label>
+                                        <input type="email" class="form-control" id="LoginEmail" aria-describedby="emailHelp"
+                                               placeholder="電子信箱" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="LoginPassword" class="form-label">密碼</label>
+                                        <input type="password" class="form-control" id="LoginPassword" placeholder="密碼" />
+                                    </div>*@
+                                <div class="mb-3 form-group">
+                                    @Html.LabelFor(model => model.MemberLoginViewModel.Email)
+                                    @Html.EditorFor(model => model.MemberLoginViewModel.Email, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control" }, { "id", "RegisterEmailLogin" }, { "aria-describedby", "emailHelp" }, { "placeholder", "電子信箱" } } })
+                                    @Html.ValidationMessageFor(model => model.MemberLoginViewModel.Email, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="mb-3 form-group">
+                                    @Html.LabelFor(model => model.MemberLoginViewModel.Password)
+                                    @Html.EditorFor(model => model.MemberLoginViewModel.Password, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control" }, { "id", "LoginEmailPassword" }, { "aria-describedby", "emailHelp" }, { "placeholder", "密碼" } } })
+                                    @Html.ValidationMessageFor(model => model.MemberLoginViewModel.Password, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="mb-3 form-group">
+                                    @Html.EditorFor(model => model.MemberLoginViewModel.Remember)
+                                    @Html.LabelFor(model => model.MemberLoginViewModel.Remember)
+                                    @Html.ValidationMessageFor(model => model.MemberLoginViewModel.Remember, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary my-2 py-2 login-btn" name="login">登入</button>
+                                </div>
+                                <div class="register">
+                                    <a href="#modal" data-bs-toggle="modal" data-bs-target="#RegisterModal"
+                                       id="EmailLogintoRegister">我是新朋友</a>
+                                    <a href="#modal" data-bs-toggle="modal" data-bs-target="#ForgetPasswordModal"
+                                       id="EmailLogintoForgetPassword"><i class="fas fa-lock"></i>忘記密碼？別慌，點此找幫手！</a>
+                                </div>
+                            </form>
+
+                        }
+                    </div>
+                    @*0715手機註冊註解掉*@
+                    <!--<div class="tab-pane fade" id="phonego" role="tabpanel" aria-labelledby="profile-tab">-->
+                    <!-- phone登入區塊 -->
+                    <!--<form>
+                        <div class="mb-3 inputphone">
+                            <label for="PhoneLogin" class="form-label">手機號碼</label>
+                            <input type="tel" class="form-control" id="PhoneLogin" aria-describedby="emailHelp"
+                                   placeholder="手機號碼">
+                        </div>
+                        <div class="mb-3 phone-password">
+                            <label for="PhonePassword" class="form-label">密碼</label>
+                            <input type="password" class="form-control" id="PhonePassword" aria-describedby="emailHelp"
+                                   placeholder="密碼">
+                        </div>-->
+                    <!-- <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="PhoneLoginCheck">
+                      <label class="form-check-label" for="PhoneLoginCheck">我想要收到特惠情報</label>
+                    </div> -->
+                    <!-- <div class="robot">
+
+                      </div> -->
+                    <!--<div class="phonelogin">
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-primary my-2 py-2 login-btn" type="button">
+                                        @Html.ActionLink("登入", "HomePage", "Home")
+
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="register">
+                                <a href="#modal" data-bs-toggle="modal" data-bs-target="#RegisterModal"
+                                   id="PhoneLogintoRegister">我是新朋友</a>
+                                <a href="#modal" data-bs-toggle="modal" data-bs-target="#ForgetPasswordModal"
+                                   id="PhoneLogintoForgetPassword"><i class="fas fa-lock"></i>忘記密碼？別慌，點此找幫手！</a>
+                            </div>
+                        </form>
+
+                    </div>-->
+                </div>
+
+                <div class="otherlogin">
+                    <p>使用其他登入方式</p>
+                </div>
+                <div class="d-grid gap-2">
+                    <button class="otherlogin-btn" id="btnSignIn" type="button">
+                        <img src="~/Asset/images/MemberLogin/google_PNG19635.png" alt=""> Google
+                    </button>
+                    <div class="loginbuttonwithfa">
+                        <button type="button" class="otherlogin-btn col-5" id="Phonefacebooklogin">
+                            <img src="~/Asset/images/MemberLogin/f_logo_RGB-Blue_58.png" alt="">
+                            Facebook
+                        </button>
+                        <button type="button" class="otherlogin-btn col-5" id="Phoneapplelogin">
+                            <img src="~/Asset/images/MemberLogin/btn_base.png" alt=""> Line
+                        </button>
+                    </div>
+                </div>
+                <div class="youshouldknow">
+                    <p>
+                        點擊登錄即代表我同意Agoda的 <a href="">服務條款</a> 和 <a href="">隱私權政策</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+<!-- 第三個Modal2 -->
+<!-- 註冊 -->
+
+<div class="modal fade" id="RegisterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="border:0; ">
+                <h5 class="modal-title fw-bold fz-24" id="exampleModalLabel">免費入會</h5>
+                <!-- <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button> -->
+            </div>
+            <!-- modal內部控制 -->
+            <div class="modal-body signin_modal">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#signup" type="button"
+                                qwq role="tab" aria-controls="home" aria-selected="true">
+                            電子信箱
+                        </button>
+                    </li>
+                    @*0715手機註冊註解掉*@
+                    @*<li class="nav-item" role="presentation">
+                            <button class="nav-link" id="-card" data-bs-toggle="tab" data-bs-target="#signin" type="button" role="tab"
+                                    aria-controls="profile" aria-selected="false">
+                                手機號碼
+                            </button>
+                        </li>*@
+                </ul>
+                <div class="social_login"></div>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="signup" role="tabpanel" aria-labelledby="home-tab">
+                        <!-- 註冊電子信箱內部 -->
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                            <form>
+                                <div class="mb-3 form-group">
+                                    @Html.LabelFor(model => model.MemberRegisterViewModel.FirstName)
+                                    @Html.EditorFor(model => model.MemberRegisterViewModel.FirstName, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control" }, { "id", "EnglishFirstName" }, { "placeholder", "英文護照名" } } })
+                                    @Html.ValidationMessageFor(model => model.MemberRegisterViewModel.FirstName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="mb-3 form-group">
+                                    @Html.LabelFor(model => model.MemberRegisterViewModel.LastName)
+                                    @Html.EditorFor(model => model.MemberRegisterViewModel.LastName, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control" }, { "id", "EnglishLastName" }, { "placeholder", "英文護照姓" } } })
+                                    @Html.ValidationMessageFor(model => model.MemberRegisterViewModel.LastName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="mb-3 form-group">
+                                    @Html.LabelFor(model => model.MemberRegisterViewModel.Email)
+                                    @Html.EditorFor(model => model.MemberRegisterViewModel.Email, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control" }, { "id", "RegisterEmail" }, { "aria-describedby", "emailHelp" }, { "placeholder", "電子信箱" } } })
+                                    @Html.ValidationMessageFor(model => model.MemberRegisterViewModel.Email, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="mb-3 form-group">
+                                    @Html.LabelFor(model => model.MemberRegisterViewModel.Password)
+                                    @Html.EditorFor(model => model.MemberRegisterViewModel.Password, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control" }, { "id", "RegisterEmailPassword" }, { "aria-describedby", "emailHelp" }, { "placeholder", "密碼" } } })
+                                    @Html.ValidationMessageFor(model => model.MemberRegisterViewModel.Password, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="mb-3 form-group">
+                                    @Html.LabelFor(model => model.MemberRegisterViewModel.ConfirmPassword)
+                                    @Html.EditorFor(model => model.MemberRegisterViewModel.ConfirmPassword, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control" }, { "id", "DoubleCheck" }, { "aria-describedby", "emailHelp" }, { "placeholder", "確認密碼" } } })
+                                    @Html.ValidationMessageFor(model => model.MemberRegisterViewModel.ConfirmPassword, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="EmailRegisterCheck">
+                                    <label class="form-check-label"
+                                           for="EmailRegisterCheck">我想要收到Adoga的獨家促銷情報，同時根據隱私權政策，我保留隨時取消訂閱的權利</label>
+                                </div>
+                                <div class="robot">
+                                    <div class="g-recaptcha" data-sitekey="6LfoWhYbAAAAAI1Uq4RYT2eeVwdT_6QQKE0EcaSV"
+                                         data-callback="enableBtn"></div>
+                                </div>
+                                <div class="checkcodeline">
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary py-2" name="register" id="submit_details" disabled>加入會員</button>
+                                    </div>
+                                </div>
+                                <div class="otherlogin">
+                                    <p>使用其他登入方式</p>
+                                </div>
+                                <div class="d-grid gap-2 otherlogin-btn-group">
+                                    <button class="otherlogin-btn" id="btnSignIn" type="button">
+                                        <img src="~/Asset/images/MemberLogin/google_PNG19635.png" alt=""> Google
+                                    </button>
+                                    <div class="loginbuttonwithfa">
+                                        <button type="button" class="otherlogin-btn col-5" id="Emailfacebooklogin" onclick="FBLoginReal();">
+                                            <img src="~/Asset/images/MemberLogin/f_logo_RGB-Blue_58.png" alt="">
+                                            Facebook
+                                        </button>
+                                        <button type="button" class="otherlogin-btn col-5" id="EmailLinelogin" onclick="location.href='@Url.Action("LineLoginDirect")'">
+                                            <img src="~/Asset/images/MemberLogin/btn_base.png" alt="">
+                                            Line
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="line">
+                                </div>
+                                <div class="tologin">
+                                    <div class="d-grid gap-2">
+                                        @Html.ActionLink("已經是會員?登入", "MemberLogin", "MemberLogin", null, new { @type = "submit", @class = "btn btn-outline-primary" })
+                                        @*原始程式碼*@
+                                        @*<button class="btn btn-outline-primary" id="SignintoPhone" type="button">
+                                              已經是會員?登入
+                                            </button>*@
+                                    </div>
+                                </div>
+                                <div class="youshouldknow">
+                                    <p>
+                                        點擊登錄即代表我同意Agoda的 <a href="">服務條款</a> 和 <a href="">隱私權政策</a>
+                                    </p>
+                                </div>
+                            </form>
+                        }
+
+                    </div>
+                    @*0715手機註冊註解掉*@
+                    <!--<div class="tab-pane fade" id="signin" role="tabpanel" aria-labelledby="-card">-->
+                    <!-- 註冊電話號碼片段 -->
+                    <!--<div class="Phone_container">
+                            <form id="login" onsubmit="process(event)">
+                                <p>請輸入手機號碼:</p>
+                                <input id="phone" type="tel" name="phone" placeholder="手機號碼" />
+
+                                <div class="mb-3 phone-password">
+                                    <label for="PhoneRegisterpassword">密碼</label>
+                                    <input type="password" class="form-control" id="PhoneRegisterpassword" aria-describedby="emailHelp"
+                                           placeholder="密碼">
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="PhoneRegisterCheck">
+                                    <label class="form-check-label" for="PhoneRegisterCheck">我想要收到特惠情報</label>
+                                </div>
+                                <div class="robot">
+
+                                    <div class="g-recaptcha"
+                                         data-sitekey="6LfoWhYbAAAAAI1Uq4RYT2eeVwdT_6QQKE0EcaSV"></div>
+                                </div>
+                                <div class="checkcodeline">
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-primary" type="button">
+                                            發送認證碼
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="otherlogin">
+                                    <p>使用其他登入方式</p>
+                                </div>
+
+                                <div class="d-grid gap-2 otherlogin-btn-group">
+                                    <button class="otherlogin-btn" id="btnSignIn" type="button">
+                                        <img src="~/Asset/images/MemberLogin/google_PNG19635.png" alt=""> Google
+                                    </button>
+                                    <div class="loginbuttonwithfa">
+                                        <button type="button" class="otherlogin-btn" id="Phonefacebooklogin" onclick="FBLoginReal();">
+                                            <img src="~/Asset/images/MemberLogin/f_logo_RGB-Blue_58.png" alt="">
+                                            Facebook
+                                        </button>
+                                        <button type="button" class="otherlogin-btn col-5" id="EmailLinelogin" onclick="location.href='@Url.Action("LineLoginDirect")'">
+                                            <img src="~/Asset/images/MemberLogin/btn_base1.png" alt="">
+                                            Line
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="line">
+                                </div>
+                                <div class="tologin">
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-outline-primary" id="RegisterPhonetoLogin" type="button">
+                                            已經是會員?登入
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="youshouldknow">
+                                    <p>
+                                        點擊登錄即代表我同意Agoda的 <a href="">服務條款</a> 和 <a href="">隱私權政策</a>
+                                    </p>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+<!-- 第四個Modal -->
+<!-- 重設密碼 -->
+<!-- Button trigger modal -->
+@*維修用按鈕*@
+@*<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ResetPasswordModal">
+        Launch demo modal
+    </button>*@
+
+<!-- Modal -->
+<div class="modal fade" id="ResetPasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">請為此帳號設定一組新密碼</h5>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                    <div class="mb-3 form-group">
+                        @Html.LabelFor(model => model.ResetPasswordViewModel.Password)
+                        @Html.EditorFor(model => model.ResetPasswordViewModel.Password, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control" }, { "id", "Password" }, { "aria-describedby", "emailHelp" }, } })
+                        @Html.ValidationMessageFor(model => model.ResetPasswordViewModel.Password, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3 form-group">
+                        @Html.LabelFor(model => model.ResetPasswordViewModel.ConfirmPassword)
+                        @Html.EditorFor(model => model.ResetPasswordViewModel.ConfirmPassword, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control" }, { "id", "ConfirmPassword" }, { "aria-describedby", "emailHelp" }, } })
+                        @Html.ValidationMessageFor(model => model.ResetPasswordViewModel.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="robot">
+                        <div class="g-recaptcha"
+                             data-sitekey="6LfoWhYbAAAAAI1Uq4RYT2eeVwdT_6QQKE0EcaSV"data-callback="enableBtn"></div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="submit" name="ResetPassword"id="submit_detailsinreset" disabled>
+                            變更密碼
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*維修用按鈕*@
+@*<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#VerifyEmail">
+        Launch demo modal
+    </button>*@
+
+<!-- Modal -->
+<div class="modal fade" id="VerifyEmail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">您的帳號已經通過驗證,請點選確認以完成驗證</h5>
+            </div>
+            <div class="modal-body">
+
+                @using (Html.BeginForm("VerifyEmail", "MemberLogin"))
+
+                {
+
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                    <div class="d-grid gap-2">
+
+                        <div>
+                            <input type="hidden" name="VerifyEmailValue" value=@Request.Params["verify"] />
+                        </div>
+                        <button class="btn btn-primary" type="submit" name="Verify">
+                            確認
+                        </button>
+
+                    </div>
+                }
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+@section endJS{
+    @*如果帳號已被使用*@
+    @if (TempData["Account"] != null)
+    {
+        <script type="text/javascript">
+        var message = @Html.Raw(Json.Encode(TempData["Account"]));
+        alert(message);
+        </script>
+    }
+    @if (TempData["NewAccount"] != null)
+    {
+        <script type="text/javascript">
+        var message = @Html.Raw(Json.Encode(TempData["NewAccount"]));
+        alert(message);
+        </script>
+    }
+
+    <script>
+        //程式碼區域
+    </script>
+    <!-- //google我不是機器人 -->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <!--bear新增的主畫面大登入表單 -->
+    <script>
+        window.addEventListener("load", function (event) {
+            // All resources finished loading!'
+            if (window.location.toString().includes("email")) {
+                $('#ResetPasswordModal').modal('show');
+            }
+            if (window.location.toString().includes("verify")) {
+                $('#VerifyEmail').modal('show');
+            }
+        });
+    </script>
+    <script>
+        //機器人認證
+        function enableBtn() {
+            document.getElementById("submit_details").disabled = false;
+            document.getElementById("submit_detailsinreset").disabled = false;
+        }
+    </script>
+    <!--電子郵件登入到忘記密碼 -->
+    <!--<script>
+        let EmailLogintoForgetPassword = document.getElementById('EmailLogintoForgetPassword')
+        EmailLogintoForgetPassword.addEventListener('click', function () {
+            $('#SigninModal').modal('hide');
+        })
+    </script>-->
+    <!-- 電話登入到忘記密碼 -->
+    <!--<script>
+        let PhoneLogintoForgetPassword = document.getElementById('PhoneLogintoForgetPassword')
+        PhoneLogintoForgetPassword.addEventListener('click', function () {
+            $('#SigninModal').modal('hide');
+        })
+    </script>-->
+    <!-- 忘記密碼的超連結到註冊 -->
+    <!--<script>
+        let ForgetPasswordtoLogin = document.getElementById('ForgetPasswordtoLogin')
+        ForgetPasswordtoLogin.addEventListener('click', function () {
+            $('#ForgetPasswordModal').modal('hide');
+
+        })
+    </script>-->
+    <!-- 電子郵件登入到註冊 -->
+    <!--<script>
+        let EmailLogintoRegister = document.getElementById('EmailLogintoRegister')
+        EmailLogintoRegister.addEventListener('click', function () {
+            $('#SigninModal').modal('hide');
+
+        })
+    </script>-->
+    <!-- 電話號碼登入到註冊 -->
+    <!--<script>
+        let PhoneLogintoRegister = document.getElementById('PhoneLogintoRegister')
+        PhoneLogintoRegister.addEventListener('click', function () {
+            $('#SigninModal').modal('hide');
+
+        })
+    </script>-->
+    <!-- 電話註冊到登入按鈕 -->
+    <!--<script>
+        let RegisterPhonetoLogin = document.getElementById('RegisterPhonetoLogin')
+        RegisterPhonetoLogin.addEventListener('click', function () {
+            $('#RegisterModal').modal('hide');
+            $('#SigninModal').modal('show');
+        })
+    </script>-->
+    <script>
+        //官方script
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '287554039737731',
+                cookie: true,
+                xfbml: true,
+                version: 'v11.0'
+            });
+
+            FB.AppEvents.logPageView();
+        };
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+        //登出按鈕
+        function FacebookLogout() {
+            FB.logout(function (response) {
+                statusChangeCallback(response);
+            });
+        }
+        //自製fb登入按鈕
+        function FBLoginReal() {
+            FB.login(
+                function (response) {
+                    //debug用
+                    console.log(response);
+                    if (response.status === "connected") {
+
+                        //user已登入FB
+                        //抓userID
+
+                        FB.api('/me', {
+                            'fields': 'id,name,email,picture'
+                        }, function (response) {
+                            console.log(response.name);
+                            console.log(response.email);
+                            console.log(response.picture);
+                            console.log(response);
+                            $.ajax({
+                                url: "https://adoga.azurewebsites.net/MemberLogin/FacebookLoginAPI",
+                                method: "post",
+                                data: { Id: response.email, Name: response.name, Email: response.email, Picture: response.picture },
+
+                                success: function (msg) {
+                                    console.log(msg);
+                                    document.location.href = "https://adoga.azurewebsites.net";
+                                }
+                            });
+                            /*   window.loction.href = "https://localhost:44352/";*/
+                        });
+                    } else {
+                        // user FB取消授權
+                        alert("Facebook帳號無法登入");
+                    }
+                },
+                { scope: "public_profile,email" }
+            );
+        }
+    </script>
+    @*<script type="text/javascript" src="~/Asset/js/fblogin.js"></script>*@
+}
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

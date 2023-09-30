@@ -1,0 +1,112 @@
+﻿.Attractions {
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: rgba(0,0,0,.6);
+    height:80px;
+}
+#box{
+    width:1100px;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+
+}
+.img {
+    /*       background-image: url("/Asset/images/Home/台北w酒店.jpg");*/
+    background-repeat: no-repeat;
+    width: 231px;
+    height: 231px;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    -webkit-background-size: cover;
+    /* For WebKit*/
+    -moz-background-size: cover;
+    /* Mozilla*/
+    -o-background-size: cover;
+   
+}
+.city {
+    width: 231px;
+    height: 231px;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: flex-end
+}
+.zdinx1 {
+    position: absolute;
+    z-index: 3;
+    display:flex;
+    flex-wrap:wrap;
+    width:1100px;
+  
+}
+.zdinx2 {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    width: 1100px;
+    
+}
+.zdinx3 {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    width: 1100px;
+}
+.bottom{
+    margin-bottom:700px;
+}
+.title {
+    color: black;
+    font-size: 1.07em;
+    margin-bottom: 40px;
+    margin-left: 30px;
+    font-weight: 600;
+  
+    background: none;
+    outline: none;
+    border: 0px;
+}
+.textbox {
+    width: 231px;
+    height: 231px;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: flex-end
+}
+.text {
+    color: #bec2c9;
+    font-size: 12px;
+    margin-bottom: 20px;
+    margin-left: 30px;
+    font-weight: 500;
+}
+.search {
+  
+   
+    background: none;
+    outline: none;
+    border: 0px;
+}
+.nnn {
+    display: none;
+}
+
+/*0823 bear新增*/
+
+.d-block {
+    background-color: #00000069;
+    width: 100%;
+}
+input.title {
+    color: #ffffff;
+}
+
+.text {
+    color: #ffffff;
+}

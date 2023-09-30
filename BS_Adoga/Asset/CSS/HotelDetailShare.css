@@ -1,0 +1,157 @@
+﻿
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+TC");
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+
+.wrap-1100 {
+    width: 1100px;
+    margin: auto;
+}
+
+.w-500 {
+    width: 500px;
+}
+
+.mb-4-5 {
+    margin-bottom: 35px;
+}
+
+.ff-mont {
+    font-family: Montserrat, serif;
+}
+
+.fz-12 {
+    font-size: 12px;
+}
+
+.fz-14 {
+    font-size: 14px;
+}
+
+.fz-16 {
+    font-size: 16px;
+}
+
+.fz-20 {
+    font-size: 20px;
+}
+
+.fz-24 {
+    font-size: 24px;
+}
+
+.fz-big-icon {
+    font-size: 32px;
+}
+
+.color-blue {
+    color: rgb(57, 130, 238);
+}
+
+.color-gray {
+    color: rgb(141, 141, 141);
+}
+
+.color-dark-gray {
+    color: rgb(99, 98, 98);
+}
+
+.color-green {
+    color: rgb(3, 170, 31);
+}
+
+.color-red {
+    color: rgb(233, 3, 3);
+}
+
+.red-del-line {
+    position: relative;
+}
+
+    .red-del-line::before {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -1px;
+        right: -1px;
+        margin: auto;
+        display: block;
+        height: 2px;
+        background-color: rgba(250, 44, 44, 0.712);
+        content: "";
+        font-size: 40px;
+    }
+
+/* 灰色下框線 border-bottom */
+.border-b-gray {
+    border-bottom: 1px solid rgb(216, 216, 216);
+}
+
+/* 灰色上框線 border-top */
+.border-t-gray {
+    border-top: 1px solid rgb(216, 216, 216);
+}
+
+/* 淺灰色右框線 */
+.border-e-light-gray {
+    border-right: 2px solid rgb(238, 237, 237);
+}
+
+/*沒有資料時顯示一個box*/
+.no-data-box {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid rgb(211, 211, 211);
+    /* background-color: rgb(70, 70, 70); */
+    border-radius: 5px;
+}
+
+    .no-data-box p {
+        text-align: center;
+        font-size: 30px;
+        color: rgb(194, 193, 193);
+    }
+
+    .no-data-box i.fa-home, .no-data-box i.fa-comment-slash, .no-data-box i.fa-search {
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 60px;
+        color: rgb(194, 193, 193);
+    }
+.no-data-box i.fa-home{
+    animation-name: shake-icon;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in;
+}
+
+@keyframes shake-icon {
+    0% {
+        transform: rotate(10deg);
+    }
+
+    25% {
+        transform: rotate(-10deg);
+    }
+
+    50% {
+        transform: rotate(10deg);
+    }
+
+    75% {
+        transform: rotate(-10deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+        color: rgba(0, 0, 0, 0);
+    }
+}
+
+/* 方便給footer前面隔開大塊的空間*/
+.extend {
+    height: 100px;
+}

@@ -1,0 +1,282 @@
+﻿@model BS_Adoga.Models.ViewModels.Account.BookingDetailViewModel
+@{
+    ViewBag.Title = "訂單明細";
+    Layout = "~/Views/Account/_LayoutMember.cshtml";
+
+    //顯示所有床型名稱跟數量
+    string BedNameString = string.Empty;
+    foreach (var item in Model.RoomBed)
+    {
+        BedNameString = string.Join("", BedNameString + $"{item.Name}X{item.Amount}，");
+    }
+    BedNameString = BedNameString.Remove(BedNameString.LastIndexOf("，"), 1);
+
+    //確認是否退房 等於1代表未退房 0或-1代表退房
+    var CheckCheckOut = Model.CheckOutDate.CompareTo(DateTime.Now);
+
+    //住幾天
+    var night = new TimeSpan(Model.CheckOutDate.Ticks - Model.CheckInDate.Ticks).Days + 1;
+}
+@section topCSS{
+    <link rel="stylesheet" href="~/Asset/CSS/MemberAccount/BookingDetail.css" />
+}
+
+<div id="booking-page" class="ps-5 pt-4 mb-5">
+    <div id="booking-detail-page">
+        <div class="link-row">
+            <a href="/Account/MemberBooking"><i class="fas fa-caret-left"></i> 返回「管理訂單」頁面</a>
+            <!-- <button class="btn btn-primary">索取電子收據</button> -->
+        </div>
+        <div class="booking-detail-item mt-4 pb-4">
+            <div class="hotel-status pt-5 px-5 ">
+                <!-- <div> -->
+                <h4>@Model.HotelName @Model.HotelEngName</h4>
+                <p class="star mb-1">
+                    @for (int i = 1; i <= Model.Star; i++)
+                    {
+                        <i class="fas fa-star"></i>
+                    }
+                </p>
+                <div class="d-flex">
+                    <p class="contact me-2"><i class="fas fa-phone-volume me-2"></i>無</p>
+                    <address><i class="fas fa-map-marker-alt me-2"></i>@Model.HotelCity @Model.HotelDistrict @Model.HotelAddress</address>
+                </div>
+                @*<a href="#" class="stay-rule"><i class="fas fa-file-alt me-2"></i>查看住宿規定</a>*@
+                <a href="mailto:hotel@gmail.com" class="mail-to-hotel">
+                    <i class="fas fa-envelope me-2"></i>寄電子郵件給住宿
+                </a>
+                <!-- </div> -->
+                <!-- <button class="btn btn-primary">索取入住憑證</button> -->
+            </div>
+            <div class="main row my-5 mx-5">
+                <div class="col-4 gx-0">
+                    <img src=@Model.HotelImageURL alt="">
+                </div>
+                <div class="col-8 gx-5">
+                    <table>
+                        <tr class="border-b-gray">
+                            <th class="col-4" scope="row">訂單編號</th>
+                            <td class="col-8">
+                                <p>@Model.OrderID</p>
+                                @{
+                                    if (Model.PayStatus == true)
+                                    {
+
+                                        if (CheckCheckOut < 1)
+                                        {<p class="order-status-suc"><i class="fas fa-check-circle me-2"></i>已退房</p>}
+                                        else
+                                        {<p class="order-status-suc"><i class="fas fa-check-circle me-2"></i>已付款</p>}
+                                    }
+                                    else
+                                    {
+                                        {<p class="order-status-fail"><i class="fas fa-times-circle me-2"></i>未付款</p>}
+                                    }
+                                }
+                            </td>
+                        </tr>
+                        <tr class="">
+                            <th class="col-4" scope="row">入住日期</th>
+                            <td class="col-8">
+                                <time>@Model.CheckInDate.ToString("HH:mm - yyyy年MM月dd日")</time>
+                            </td>
+                        </tr>
+                        <tr class="border-b-gray">
+                            <th class="col-4" scope="row">退房日期</th>
+                            <td class="col-8" colspan="2">
+                                <time>@Model.CheckOutDate.ToString("HH:mm - yyyy年MM月dd日")</time>
+                                <p>@night 晚</p>
+                            </td>
+                        </tr>
+                        <tr class="border-b-gray">
+                            <th class="col-4" scope="row">聯絡資料</th>
+                            <td class="col-8" colspan="2">
+                                <p>@Model.Email</p>
+                                <p>+886 @Model.PhoneNumber</p>
+                            </td>
+                        </tr>
+                        <tr class="border-b-gray">
+                            <th class="col-4" scope="row">住客姓名</th>
+                            <td class="col-8" colspan="2">
+                                <p>@Model.Name</p>
+                            </td>
+                        </tr>
+                        <tr class="border-b-gray">
+                            <th class="col-4" scope="row">預訂房型和房數</th>
+                            <td class="col-8" colspan="2">
+                                @*<p>@BedNameString</p>*@
+                                <p>@Model.RoomName ,房間數:@Model.RoomCount 間</p>
+                            </td>
+                        </tr>
+                        @*<tr class="border-b-gray">
+                <th class="col-4" scope="row">加床數</th>
+                <td class="col-8" colspan="2">
+                    <p>0</p>
+                </td>
+            </tr>
+            <tr class="border-b-gray">
+                <th class="col-4" scope="row">客房費用</th>
+                <td class="col-8" colspan="2">
+                    <p>NT$ 4,567</p>
+                </td>
+            </tr>
+            <tr class="border-b-gray">
+                <th class="col-4" scope="row">加床費用</th>
+                <td class="col-8" colspan="2">
+                    <p>0</p>
+                </td>
+            </tr>
+            <tr class="border-b-gray">
+                <th class="col-4" scope="row">折扣</th>
+                <td class="col-8" colspan="2">
+                    <p>7折</p>
+                </td>
+            </tr>
+            <tr class="border-b-gray">
+                <th class="col-4" scope="row">稅額</th>
+                <td class="col-8" colspan="2">
+                    <p>15%</p>
+                </td>
+            </tr>*@
+                        <tr class="border-b-gray">
+                            <th class="col-4" scope="row">總計應付金額</th>
+                            <td class="col-8" colspan="2">
+                                <p>NT$ @Math.Floor(@Model.RoomPriceTotal).ToString("N0")</p>
+                            </td>
+                        </tr>
+                    </table>
+                    @if (Model.PayStatus == false)
+                    {
+                        if (DateTime.Now.Subtract(Model.OrderDate) < TimeSpan.FromHours(24))
+                        {
+                            @Html.ActionLink("立即付款", "RePayOrder", "Account",new { orderID = Model.OrderID },new { @class="btn-continue-pay"})
+                        }
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*原始碼*@
+<!--<div id="booking-page" class="ps-5 pt-4 mb-5">
+    <div id="booking-detail-page">
+        <div class="link-row">
+            <a href="/Account/MemberBooking"><i class="fas fa-caret-left"></i> 返回「管理訂單」頁面</a>-->
+            <!-- <button class="btn btn-primary">索取電子收據</button> -->
+        <!--</div>
+        <div class="booking-detail-item mt-4 pb-4">
+            <div class="hotel-status pt-5 px-5 ">-->
+                <!-- <div> -->
+                <!--<h4>美棧 - 大街旅店 (A.MAZ.INN Kending)</h4>
+                <p class="star mb-1">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </p>
+                <div class="d-flex">
+                    <p class="contact me-2"><i class="fas fa-phone-volume me-2"></i>8868862988</p>
+                    <address><i class="fas fa-map-marker-alt me-2"></i>墾丁路235號 墾丁 台灣</address>
+                </div>
+                <a href="#" class="stay-rule"><i class="fas fa-file-alt me-2"></i>查看住宿規定</a>
+                <a href="mailto:hotel@gmail.com" class="mail-to-hotel">
+                    <i class="fas fa-envelope me-2"></i>寄電子郵件給住宿
+                </a>-->
+                <!-- </div> -->
+                <!-- <button class="btn btn-primary">索取入住憑證</button> -->
+            <!--</div>
+            <div class="main row my-5 mx-5">
+                <div class="col-3 gx-0">
+                    <img src="http://pix6.agoda.net/hotelImages/234/234438/234438_16042615400041817947.jpg?s=1024x768"
+                         alt="">
+                </div>
+                <div class="col-9 gx-5">
+                    <table>
+                        <tr class="border-b-gray">
+                            <th class="col-4" scope="row">訂單編號</th>
+                            <td class="col-8">
+                                <p>312313131</p>
+                                <p class="order-status mb-0"><i class="fas fa-check-circle me-2"></i>已退房</p>
+                            </td>
+                        </tr>
+                        <tr class="">
+                            <th class="col-4" scope="row">入住日期</th>
+                            <td class="col-8">
+                                <time>15:00 - 2021年06月20日</time>
+                            </td>
+                        </tr>
+                        <tr class="border-b-gray">
+                            <th class="col-4" scope="row">退房日期</th>
+                            <td class="col-8" colspan="2">
+                                <time>11:00 - 2021年06月22日</time>
+                                <p>1晚</p>
+                            </td>
+                        </tr>
+                        <tr class="border-b-gray">
+                            <th class="col-4" scope="row">聯絡資料</th>
+                            <td class="col-8" colspan="2">
+                                <p>xxxxx@gmail.com</p>
+                                <p>+886 0923232323</p>
+                            </td>
+                        </tr>
+                        <tr class="border-b-gray">
+                            <th class="col-4" scope="row">住客姓名</th>
+                            <td class="col-8" colspan="2">
+                                <p>Tom Hsu</p>
+                            </td>
+                        </tr>
+                        <tr class="border-b-gray">
+                            <th class="col-4" scope="row">預訂房型和房數</th>
+                            <td class="col-8" colspan="2">
+                                <p>高級房（兩床）（共1間）</p>
+                            </td>
+                        </tr>
+                        <tr class="border-b-gray">
+                            <th class="col-4" scope="row">加床數</th>
+                            <td class="col-8" colspan="2">
+                                <p>0</p>
+                            </td>
+                        </tr>
+                        <tr class="border-b-gray">
+                            <th class="col-4" scope="row">客房費用</th>
+                            <td class="col-8" colspan="2">
+                                <p>NT$ 4,567</p>
+                            </td>
+                        </tr>
+                        <tr class="border-b-gray">
+                            <th class="col-4" scope="row">加床費用</th>
+                            <td class="col-8" colspan="2">
+                                <p>0</p>
+                            </td>
+                        </tr>
+                        <tr class="border-b-gray">
+                            <th class="col-4" scope="row">折扣</th>
+                            <td class="col-8" colspan="2">
+                                <p>7折</p>
+                            </td>
+                        </tr>
+                        <tr class="border-b-gray">
+                            <th class="col-4" scope="row">稅額</th>
+                            <td class="col-8" colspan="2">
+                                <p>15%</p>
+                            </td>
+                        </tr>
+                        <tr class="border-b-gray">
+                            <th class="col-4" scope="row">總計應付金額</th>
+                            <td class="col-8" colspan="2">
+                                <p>NT$ 3,677</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>-->
+            <!-- <div class="footer">
+                <div class="link-group">
+                    <a href="">留下住宿評鑑</a>
+                    <a href="">索取電子收據</a>
+                    <a href="">訂別間</a>
+                </div>
+            </div> -->
+        <!--</div>
+    </div>
+</div>-->
+

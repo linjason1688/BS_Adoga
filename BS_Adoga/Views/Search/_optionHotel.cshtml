@@ -1,0 +1,12 @@
+﻿@model  BS_Adoga.Models.ViewModels.Search.HotelOptionViewModel
+
+@*@foreach (var item in Model)
+{
+    new MvcHtmlString("{value:"+item.HotelName+",label = "+item.HotelName+",price = "+item.HotelCity+",area = "+"item.HotelAddress},");
+}*@
+{
+    value: '@Model.HotelID',
+    label: '@Model.HotelName',
+    price: '@Model.HotelCity',
+    area: '@Model.HotelAddress'
+},

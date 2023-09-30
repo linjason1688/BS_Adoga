@@ -1,0 +1,115 @@
+﻿@model BS_Adoga.Models.DBContext.Room
+@{
+    ViewBag.Title = "HotelRoomDetails";
+    Layout = "~/Views/Shared/_FunctionPage.cshtml";
+}
+
+<h2>HotelRoomDetails</h2>
+
+<div>
+    <h4>Room</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Hotel.HotelName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hotel.HotelName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoomName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfPeople)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfPeople)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoomCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoomPrice)
+        </dd>
+
+        <dt>
+            床型
+        </dt>
+
+        <dd>
+            @ViewBag.BedNameString
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BathroomType.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BathroomType.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NoSmoking)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoSmoking)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Breakfast)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Breakfast)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WiFi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WiFi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Logging)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Logging)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("編輯", "HotelRoomEdit", new { hotelids = Model.HotelID, roomid = Model.RoomID }, htmlAttributes: new { @class = "btn btn-success" }) |
+    @Html.ActionLink("返回列表", "HotelRoomsIndex", new { hotelid = Model.HotelID }, htmlAttributes: new { @class = "btn btn-warning" })
+</p>
+

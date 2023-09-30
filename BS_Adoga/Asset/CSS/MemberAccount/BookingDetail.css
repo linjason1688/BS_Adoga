@@ -1,0 +1,131 @@
+﻿
+/* -------訂單詳細頁面的區塊-------- */
+#booking-detial-page .link-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+#booking-detail-page .link-row a, .link-row i {
+    font-size: 18px;
+    color: rgb(81, 131, 240);
+    font-weight: bold;
+    text-decoration:none;
+}
+#booking-detail-page .link-row a:hover {
+    color: rgb(175, 200, 253);
+}
+
+#booking-detail-page .link-row a:hover i {
+    color: rgb(175, 200, 253);
+}
+
+div.booking-item {
+    width: 900px;
+}
+
+
+/* 共用的灰底線設定 */
+.border-b-gray {
+    border-bottom: 1px solid rgb(204, 204, 204);
+}
+
+
+/*----------白色訂單區塊的設定-------------- */
+.booking-detail-item {
+    width: 900px;
+    box-shadow: 2px 2px 5px rgba(66, 65, 65, 0.295);
+    background-color: #fff;
+}
+
+    .booking-detail-item img {
+        width: 260px;
+        /*height: 250px;*/
+    }
+
+/* 飯店相關區塊 */
+.hotel-status {
+    /* display: flex;
+    justify-content: space-between;
+    align-items: flex-start; */
+}
+
+    .hotel-status h4 {
+        margin-bottom: 1rem;
+        color: rgb(81, 131, 240);
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .hotel-status .fas.fa-star {
+        color: rgb(245, 188, 2);
+    }
+
+    .hotel-status .stay-rule, .hotel-status .mail-to-hotel {
+        display: inline-block;
+        padding: 10px 85px;
+        margin-right: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        color: rgb(56, 119, 255);
+        background-color: rgb(233, 236, 243);
+        border-radius: 3px;
+    }
+
+.stay-rule i, .mail-to-hotel i {
+    color: rgb(56, 119, 255);
+}
+
+/*------------------表格設定--------------------*/
+.main table {
+    width: 100%;
+}
+
+    .main table p {
+        margin-bottom: 0;
+    }
+
+.main th {
+    vertical-align: top;
+}
+
+.main tr:first-child ~ tr th {
+    padding-top: 1rem;
+}
+
+.main tr:first-child ~ tr td {
+    padding-top: 1rem;
+}
+
+.main tr.border-b-gray td {
+    padding-bottom: 1rem;
+}
+
+.main table td > *:nth-child(2) {
+    margin-top: 0.5rem;
+}
+
+.main .order-status-suc, .order-status-suc i {
+    color: rgb(41, 172, 41);
+}
+
+.main .order-status-fail, .order-status-fail i {
+    color: rgb(220, 53, 69);
+}
+
+.btn-continue-pay {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 10px 30px;
+    font-weight: 600;
+    border-radius: 5px;
+    background-color: rgb(81, 131, 240);
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid rgb(81, 131, 240);
+}
+
+    .btn-continue-pay:hover {
+        background-color: #fff;
+        color: rgb(81, 131, 240);
+        text-decoration: none;
+    }

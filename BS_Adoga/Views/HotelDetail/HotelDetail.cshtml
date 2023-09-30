@@ -1,0 +1,754 @@
+﻿@model  DetailVM
+
+@{
+    ViewBag.Title = Model.hotelVM.HotelName;
+    Layout = "~/Views/Shared/_AdogaLayout.cshtml";
+
+    HotelVM hotel = Model.hotelVM;
+    IEnumerable<RoomTypeVM> rooms = Model.roomTypeVM;
+    ScoreVM score = Model.HotelScoreVM;
+    string[] imagesURL = Model.HotelImages;
+}
+
+@section topCSS{
+    <link rel="stylesheet" href="~/Asset/CSS/HotelDetailShare.css" />
+    <link rel="stylesheet" href="~/Asset/CSS/HotelDetail.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcdn.net/ajax/libs/bootstrap-daterangepicker/3.1/daterangepicker.min.css" />
+    <link href="~/Asset/CSS/SearchFilterPartial.css" rel="stylesheet" />
+    <style>
+    </style>
+}
+
+@section scrollNav{
+    <div class="scroll-nav">
+        @*@Html.Partial("~/Views/Search/_SearchFilterPartial.cshtml")*@
+        @using (Html.BeginForm("GetTempData", "HotelDetail"))
+        {
+            <nav id="nav" class="search-filter-nav">
+                <div class="search-bar">
+                    <div class="nav-item" id="choose-city">
+                        @*<i class="fas fa-search"></i>
+                            <div class="choose-info city-info">
+                                <p id="city-name">台南市</p>
+                                <p id="place-left">794間住宿還有空房</p>
+                            </div>*@
+
+                        <el-select style="color: #666;" id="inputGroupSelect" v-model="Value"
+                                   placeholder="&#xf002; 輸入城市、區域、景點或住宿名稱" filterable name="search">
+                            <el-option-group v-for="item in Options"
+                                             :key="item.label"
+                                             :label="item.label">
+                                <el-option v-for="o in item.option"
+                                           :key="o.value"
+                                           :label="o.label"
+                                           :value="o.value">
+                                    <span v-cloak style="float: left">{{o.label}}</span>
+                                    <span v-cloak style="float: right; color: #8492a6; font-size: 13px">{{o.price}}</span>
+                                </el-option>
+                            </el-option-group>
+                        </el-select>
+                    </div>
+
+                    <div class="nav-item">
+                        <div id="datetime">
+                            <div class="timebox">
+                                <div class="d-flex">
+                                    <i class="far fa-calendar fa-2x"></i>
+                                    <div>
+                                        <input type="text" id="range_start" name="start" value="" />
+                                        <input type="text" id="week_start" value="" />
+                                    </div>
+                                </div>
+
+                                <div class="line">
+
+                                </div>
+                                <div class="d-flex">
+                                    <i class="fas fa-calendar fa-2x"></i>
+                                    <div>
+                                        <input type="text" id="range_end" name="end" value="" />
+                                        <input type="text" id="week_end" value="" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            @* 真正選擇日期的input *@
+                            <input type="text" class="calendar-minus calendar-plus from-control" id="demo" name="date_range" />
+
+                        </div>
+
+                    </div>
+
+                    <div class="nav-item">
+                        <div id="person-info" class="choose-bar">
+                            <i class="fas fa-user-friends"></i>
+                            <div class="choose-info">
+                                <input id="final-person" name="people" /><br>
+                                <input id="final-room" name="room" />
+                            </div>
+                            <i class="fas fa-angle-down"></i>
+                        </div>
+                        <div id="person-box">
+                            <div id="choosing-box">
+                                <div class="travel single">
+                                    <p>單人旅遊</p>
+                                    <p>1間客房, 1位大人</p>
+                                </div>
+                                <div class="travel couple">
+                                    <p>雙人旅遊</p>
+                                    <p>1間客房, 2位大人</p>
+                                </div>
+                                <div class="travel family">
+                                    <p>家庭旅遊</p>
+                                    <div><i class="fas fa-chevron-right"></i></div>
+                                </div>
+                                <div class="travel group">
+                                    <p>團體旅遊</p>
+                                    <div><i class="fas fa-chevron-right"></i></div>
+                                </div>
+                                <div class="travel bussiness">
+                                    <p>商務旅遊</p>
+                                    <div><i class="fas fa-chevron-right"></i></div>
+                                </div>
+                            </div>
+                            <div id="count-person">
+                                <div class="count-box" id="room-num">
+                                    <i class="fas fa-minus" v-on:click="minus('room')"></i>
+                                    <p><span>{{room}}</span>間房間</p>
+                                    <i class="fas fa-plus" v-on:click="plus('room')"></i>
+                                </div>
+                                <div class="count-box" id="adult-num">
+                                    <i class="fas fa-minus" v-on:click="minus('adult')"></i>
+                                    <p><span>{{adult}}</span>位大人</p>
+                                    <i class="fas fa-plus" v-on:click="plus('adult')"></i>
+                                </div>
+                                <div class="count-box" id="kids-num">
+                                    <i class="fas fa-minus" v-on:click="minus('kids')"></i>
+                                    <p><span>{{kids}}</span>位兒童</p>
+                                    <i class="fas fa-plus" v-on:click="plus('kids')"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="btn-searchAll" type="submit" name="SaveButton" value="Save" class="btn btn-primary btn-search">搜出好價</button>
+                </div>
+            </nav>
+        }
+
+        @*<nav class="hotel-nav bg-white">
+            <div class="wrap-1100 d-flex justify-content-between">
+                <div class="hotel-nav-wrap d-flex align-items-center">
+                    <a href="#" class="hotel-nav-item ">房型</a>
+                    <a href="#" class="hotel-nav-item ">設施與服務</a>
+                    <a href="#" class="hotel-nav-item ">住宿評鑒</a>
+                    <a href="#" class="hotel-nav-item ">孩童收費標準 & 加床規定</a>
+                    <a href="#" class="hotel-nav-item ">住宿位置圖</a>
+                    <a href="#" class="hotel-nav-item ">入住日期</a>
+                </div>
+                <div class="hotel-nav-wrap d-flex align-items-center">
+                    <a href="#head-nav" class="hotel-nav-item">返回頁面頂端<i class="fas fa-angle-double-up"></i></a>
+                </div>
+            </div>
+        </nav>*@
+    </div>
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb wrap-1100">
+        <li class="breadcrumb-item"><a href="/">首頁</a></li>
+        <!--<li class="breadcrumb-item"><a href="#">台灣住宿</a>-->@*<span>&nbsp;(17,283)</span>*@<!--</li>-->
+        <li class="breadcrumb-item"><a id="link-to-search-page">@hotel.HotelCity 住宿</a>@*<span>&nbsp;(1,597)</span>*@</li>
+        <li class="breadcrumb-item active" aria-current="page">預定 @hotel.HotelName @hotel.HotelEngName </li>
+        @*台中商旅 (Hung's Mansion)*@
+    </ol>
+</nav>
+<div class="wrap-1100 mb-3"> @* row *@
+    <div class="main-content">@* col-9 *@
+        <div class="media-group d-flex justify-content-center"><!--row-->
+            <div class="hotel-video "><!--col-7 gx-2-->
+                <div class="img-wrap">
+                    <img alt="" src=@imagesURL[0]>
+                    <div class="show-shadow"></div>
+                </div>
+                <!-- <img src="https://picsum.photos/505/366/?random=1" alt=""> -->
+            </div>
+            <div class="pic-group"><!--col-5 gx-0-->
+                <div class="medium-pic">
+                    <div class="img-wrap">
+                        <img src=@imagesURL[1]>
+                        <div class="show-shadow"></div>
+                        @*<a class="add-fav-button"><i class="fas fa-heart"></i></a>*@
+                    </div>
+                </div>
+                <!-- <img class="medium-pic" src="https://picsum.photos/360/226/?random=2"> -->
+                <div class="two-pic d-flex">
+                    <div class="img-wrap">
+                        <img class="" src=@imagesURL[2]>
+                        <div class="show-shadow"></div>
+                    </div>
+                    <!-- <img class="me-1" src="https://picsum.photos/180/131/?random=3"> -->
+                    <div class="img-wrap">
+                        <img class="" src=@imagesURL[3]>
+                        <div class="show-shadow">
+                            @*@Html.ActionLink("【完整相簿】共12張", "DetailAlbum", null,new { @class= "album-link fz-14" })*@
+                            @*<a href="#" class="album-link fz-14">【完整相簿】共12張</a>*@
+                        </div>
+                    </div>
+                    <!-- <img class="" src="https://picsum.photos/180/131/?random=4"> -->
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="row mb-5">
+        <div class="hotel-title col-9 card">
+            <div class="card-body">
+                <span>免費Wi-Fi</span>
+                <h2>
+                    @hotel.HotelName @hotel.HotelEngName @*<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>*@
+                    @for (int i = 1; i <= hotel.Star; i++)
+                    {
+                        <i class="fas fa-star"></i>
+                    }
+                </h2>
+                <address class="mb-0">@hotel.HotelAddress</address>@*臺灣大道三段593號, 西屯區, 台中市, 台灣, 40757*@
+            </div>
+        </div>
+
+        <div class="right-side-bar col-3">
+            <div class="rate-box card">
+                <div class="card-body">
+                    <div class="wrap d-flex flex-wrap">
+                        <p class="rate-num">@score.ScoreAvg</p>
+                        <div class="rate-content">
+                            <p class="rate-category">@score.ScoreLevel</p>
+                            <p class="month-rate-change">@*<i class="fas fa-caret-up"></i> 本月8.6%*@</p>
+                            <!-- <i class="fas fa-caret-down"></i> -->
+                            <a href="#comment-area" class="comment-count">(@score.AllMessageCount.ToString("N0") 篇評鑒)</a>
+                        </div>
+                        <p><i class="fas fa-user-friends me-1"></i>@score.HighScorePercent %的住客給予好評</p>
+                    </div>
+                </div>
+            </div>
+            @*<div class="map-box card mb-3">
+                <div class="map-wrap">
+                    <div class="map-img-wrap">
+                        <img src="https://cdn6.agoda.net/images/MAPS-1214/default/property-map-entry-1.svg" alt="">
+                    </div>
+                    <span>查看地圖位置</span>
+                </div>
+                <div class="card-body">
+
+                    <div class="car-park-service d-flex justify-content-between">
+                        <p><i class="fas fa-parking me-2"></i>停車服務</p>
+                        <p>有提供</p>
+                    </div>
+                </div>
+            </div>*@
+        </div>
+    </div>
+</div>
+<div class="choose-room wrap-1100 mb-5">
+    <div class="title d-flex justify-content-between mb-3">
+        <h3>客房選擇</h3>
+        <div>
+            <i class="far fa-check-circle"></i>
+            <span>本站價格保證！</span>
+        </div>
+    </div>
+    <div id="filter-room" class="filter-room mb-4">
+        <div class="small-title d-flex justify-content-between mb-3">
+            <h4><i class="fas fa-sliders-h me-2"></i>顯示特定房型</h4>
+            <span v-on:click="clearFilter">清除所有房型</span>
+        </div>
+        <div class="tag-group d-flex">
+            <input v-model="FreeBreakfast" type="checkbox" id="free-breakfast" class="chk-box d-none">
+            <label for="free-breakfast" class="rounded-pill d-flex align-items-center">
+                <i class="fas fa-mug-hot"></i>
+                免費早餐
+            </label>
+            <input v-model="NoSmoking" type="checkbox" id="no-smoking" class="chk-box d-none">
+            <label for="no-smoking" class="rounded-pill d-flex align-items-center">
+                <i class="fas fa-smoking-ban"></i>
+                禁菸房
+            </label>
+            <input v-model="FamilyRoom" type="checkbox" id="family-recommend" class="chk-box d-none">
+            <label for="family-recommend" class="rounded-pill d-flex align-items-center">
+                <i class="fas fa-home"></i>
+                親子游推薦房型
+            </label>
+        </div>
+    </div>
+
+    <div class="room-type-group">
+        <div class="small-title mb-3">
+            <p>我們現有 @Model.roomTypeVM.Count() 種房型@*，共26個訂房專案*@：</p>
+            <span>價格未包含稅金和附加費用</span>
+        </div>
+        <div id="room-group" class="wrap-1100">
+            <room-type v-for="room in group" v-bind:room="room" @@album="OpenAlbum"></room-type>
+            <div v-if="group.length==0" class="no-data-box mb-4">
+                <i v-if="isFiltered" class="fas fa-home"></i>
+                <i v-else class="fas fa-search"></i>
+                <p v-if="isFiltered">沒有符合您條件的房型，試試看改變您的篩選條件？</p>
+                <p v-else>沒有符合您搜尋條件的房型 <br />（您可以改變日期和入住人數後重新搜尋）</p>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="introduce-area card wrap-1100 mb-5">
+    <div class="card-body d-flex">
+        <div class="img-wrap col-7 me-2">
+            <img src=@imagesURL[0]
+                 alt="關於 @hotel.HotelName">
+            <div class="title">
+                <h3 class="d-flex flex-column">關於<span>@hotel.HotelName</span></h3>
+            </div>
+            <a href="#filter-room">查看空房房型</a>
+        </div>
+        <p class="col-5 mt-2">
+            @hotel.HotelAbout
+        </p>
+    </div>
+</section>
+<section class="equim-serv-area wrap-1100 mb-5">
+    <div class="usual-serv wrap-1100 row pb-4">
+        <div class="col-3 border-t-gray ">
+            <h3 class="fz-20 color-dark-gray mt-3">服務設施</h3>
+        </div>
+        <div class="col-9 border-t-gray gx-0" id="facility-collapse">
+            <facility-icon v-for="cat in categories" v-bind:cat="cat" :fac="cat.facilities"></facility-icon>
+        </div>
+    </div>
+    <div class="stay-rule wrap-1100 row pb-4">
+        <div class="col-3 border-t-gray">
+            <h3 class="fz-20 color-dark-gray mt-3">住宿規定</h3>
+        </div>
+        <div class="col-9 color-dark-gray border-t-gray ">
+            <h4 class="fz-16 fw-bold mt-3">兒童與加床收費標準</h4>
+            <p>歡迎兒童入住。</p>
+
+            <div class="row my-4 gx-1">
+                <div class="col-5 fz-14">
+                    <p class="fw-bold py-2 ps-2 mb-3">住客年齡</p>
+                    <div class="d-flex mb-3 border-e-light-gray">
+                        <i class="fas fa-child d-block fz-30 border-e-light-gray"></i>
+                        <p class="fw-bold ps-3">0至2歲(含)兒童</p>
+                    </div>
+                    <div class="d-flex mb-2 border-e-light-gray">
+                        <i class="fas fa-male d-block fz-30 border-e-light-gray"></i>
+                        <p class="fw-bold ps-3">3歲(含)以上兒童依大人標準收費。</p>
+                    </div>
+                </div>
+                <div class="col-6 fz-14">
+                    <p class="fw-bold py-2 ps-2 mb-3">加床規定</p>
+                    <div class="ms-3 mb-3">
+                        <strong class="fw-bold">在不加床之情況下可免費與大人同住。</strong>
+                        <p>加床請直接和住宿聯絡（可能需加付額外費用）</p>
+                    </div>
+                    <div class="ms-3 mb-2">
+                        <p>加床請直接和住宿聯絡（可能需加付額外費用）</p>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse" id="stay-rule-collapse">
+                <h4 class="fz-16 fw-bold mt-3">其他規定</h4>
+                <ul class="fz-14">
+                    <li>
+                        接待處服務時間：平日至<span>15:00</span>｜週末例假日至<span>17:00</span>。如欲在上述時間外抵達，請於抵達前直接聯絡下榻住宿以利安排。
+                    </li>
+                    <li>禁止攜帶寵物入住，導盲犬除外。</li>
+                </ul>
+                <p>加床規定依房型而異，更多細節請向住宿洽詢。</p>
+                @*<a class="ask-btn fw-bold fz-14 mt-2" href="#"><i class="far fa-comment-dots"></i>詢問住宿問題</a>*@
+            </div>
+            <a class="collapse-control d-block fz-14 mt-4" data-bs-toggle="collapse" href="#stay-rule-collapse"
+               role="button" aria-expanded="false" aria-controls="stay-rule-collapse">
+                <i class="fas fa-caret-up fz-16"></i>
+            </a>
+        </div>
+    </div>
+    <div class="useful-infm wrap-1100 row pb-4 border-b-gray">
+        <div class="col-3 border-t-gray">
+            <h3 class="fz-20 color-dark-gray mt-3">實用入住資訊</h3>
+        </div>
+        <div class="col-9 fz-14 color-dark-gray border-t-gray ">
+            <h4 class="fz-16 fw-bold mt-3">入住與退房時間</h4>
+            <p><i class="fas fa-key"></i>最早可辦理入住的時間 : <span class="fw-bold">15:00</span></p>
+            <p><i class="fas fa-user-check"></i>最晚可辦理退房的時間 : <span class="fw-bold">11:00</span></p>
+            @*<div class="collapse" id="useful-infm-collapse">
+                <h4 class="fz-16 fw-bold mt-4">其他實用資訊</h4>
+                <p><i class="fas fa-utensils"></i>早餐收費（適用未附早餐房價）: <span class="fw-bold"> 475 TWD</span></p>
+                <h4 class="fz-16 fw-bold mt-4">住宿概況</h4>
+                <p><i class="fas fa-utensils"></i>餐廳總數 : <span class="fw-bold">1</span></p>
+                <p><i class="fas fa-door-open"></i>客房總數 : <span class="fw-bold">101</span></p>
+                <p><i class="fas fa-hotel"></i>建築完工年份 : <span class="fw-bold">2008</span></p>
+            </div>
+            <a class="collapse-control d-block mt-4" data-bs-toggle="collapse" href="#useful-infm-collapse"
+               role="button" aria-expanded="false" aria-controls="useful-infm-collapse">
+                <i class="fas fa-caret-up fz-16"></i>
+            </a>*@
+        </div>
+    </div>
+
+</section>
+<div id="comment-area" class="comment-area wrap-1100 mt-3">
+    <div class="title d-flex justify-content-between mb-3">
+        <h3>來自<span>@hotel.HotelName</span>實際住客的評鑑</h3>
+    </div>   
+    <div class="d-flex justify-content-between mb-3">
+        <p class="fw-bold fz-14">共<span>@score.AllMessageCount</span>篇評鑑</p>
+    </div>
+    <div id="messageList" class="comment-group ">
+        <message-item v-for="item in paginatedData" :item="item" :key="item.OrderID"></message-item>
+        <div v-if="paginatedData.length==0" class="no-data-box mb-4">
+            <i class="fas fa-comment-slash"></i>
+            <p>暫無評鑒</p>
+        </div>
+        <nav class="mb-4" aria-label="...">
+            <ul class="pagination">
+                <li :class="[pageNumber === 0 ? 'page-item disabled' : 'page-item']">
+                    <button class="page-link circle-border" :disabled="pageNumber === 0" @@click="prevPage">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                </li>
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" v-cloak>第{{pageNumber + 1}}頁</a>
+                </li>
+                <li :class="[pageNumber >= (pageCount -1) ? 'page-item disabled' : 'page-item']">
+                    <button class="page-link circle-border" :disabled="pageNumber >= pageCount -1" @@click="nextPage"><i class="fas fa-chevron-right"></i></button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<div id="room-album" class="album-back">
+    <div class="album container mt-3">
+        <div class="row gx-0">
+            <i id="room-album-close-icon" class="fas fa-times d-block text-end pe-1 pt-4" @@click="closeAlbum()"></i>
+            <div class="carousel-wrap col-9 ">
+                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div v-for="img in ImgGroup"
+                             :class="[img.IsActive ? 'carousel-item active' : 'carousel-item']">
+                            <img :src="img.ImgURL" alt="...">
+                            <div class="carousel-caption d-none d-md-flex justify-content-between px-3">
+                                <h5>{{RoomInfo.RoomName}}</h5>
+                                <p><span>{{img.Index + 1}}</span> / <span>{{ImgGroup.length}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                            data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                            data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            <div class="col-3 text-white">
+                <div class="side-info-wrap mt-5 mx-3">
+                    <p class="title">{{RoomInfo.RoomName}} {{RoomInfo.RoomEngName}}</p>
+                    <div class="service-group my-4">
+                        <div v-if="RoomInfo.FreeWiFi" class="d-flex align-items-center mb-2">
+                            <i class="fas fa-wifi me-3"></i>
+                            <span>免費Wi-Fi</span>
+                        </div>
+                        <div v-for="b in RoomInfo.Bed" class="d-flex align-items-center mb-2">
+                            <i class="fas fa-bed me-3"></i>
+                            <span>{{b.Amount}}</span><span>張{{b.Name}}</span>
+                        </div>
+                        <div v-if="RoomInfo.NoSmoking" class="d-flex align-items-center mb-2">
+                            <i class="fas fa-smoking-ban me-3"></i>
+                            <span>禁菸房</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-bath me-3"></i>
+                            <span>{{RoomInfo.Bathroom}}</span>
+                        </div>
+                    </div>
+                    <p class="color-red mb-1">本站剩{{RoomInfo.RoomLeft}}間！</p>
+                    <p v-if="RoomInfo.RoomDiscount > 0" class="discount">今日優惠 - 下殺<span>{{RoomInfo.RoomDiscount}}</span>折</p>
+                    <p class="price-wrap">
+                        NT$ <span class="price">{{RoomInfo.RoomNowPrice}}</span><span> / 每晚</span>
+                    </p>
+                    @*<a :href="'#'+ RoomInfo.RoomID" class="anchor-room-type" @@click="closeAlbum()">查看特惠房型</a>*@
+                </div>
+            </div>
+            <div class="img-pages">
+                <div class="carousel-indicators">
+                    <img v-for="img in ImgGroup" type="button" data-bs-target="#carouselExampleCaptions"
+                         @@click="ImgChange(img.Index)" :data-bs-slide-to="img.Index"
+                         :class="[img.IsActive ? 'active' : '']" :aria-current="img.IsActive"
+                         :aria-label="'Slide'+ img.Index+1" :src="img.ImgURL" :alt="'imgAsButton' + img.Index">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="extend">
+
+</div>
+@section endJS{
+    <!-- axios 的引用 -->
+    <script src="~/Scripts/axios.min.js"></script>
+    <!-- 搜尋欄的JS和Vue -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+
+    <script>
+        //var td = ViewData["con"];
+
+        //過濾出地區(distinct)
+        var deduped = dedup([
+            @foreach (var item in Model.hotelOptionVM)
+            {
+                 @Html.Partial("~/Views/Search/_optionCity.cshtml", item);
+            }
+        ]);
+        function dedup(arr) {
+            var hashTable = {};
+            return arr.filter(function (el) {
+                var key = JSON.stringify(el);
+                var match = Boolean(hashTable[key]);
+                return (match ? false : hashTable[key] = true);
+            });
+        }
+        @{
+            var searchData =  (SearchByMemberVM)TempData["SearchData"];
+            TempData.Keep("SearchData");
+         }
+
+        //搜尋地區、人數
+        var filternav = new Vue({
+            el: '#nav',
+            data: {
+                room: @searchData.RoomOrder, @*@ViewData["room"],*@
+                adult: @searchData.Adult, @*@ViewData["adult"],*@
+                kids: @searchData.Child, @*@ViewData["kid"],*@
+                Value: '@searchData.CityOrHotel', @*'@ViewData["CityOrName"]',*@
+                startDate: '@searchData.CheckInDate', @*'@ViewData["sDate"]',*@
+                endDate: '@searchData.CheckOutDate', @*'@ViewData["end"]',*@
+                Options: [
+                    {
+                        label: '熱門城市',
+                        option: deduped
+                    },
+                    {
+                        label: '飯店名稱',
+                        option: [
+                            @foreach (var item in Model.hotelOptionVM)
+                            {
+                                @Html.Partial("~/Views/Search/_optionHotel.cshtml", item);
+                            }
+                        ]
+                    }
+                ]
+            },
+            computed: {
+                //Value() {
+                //    let vd = ViewData["con"];
+                //    debugger;
+                //    if (vd!=null) {
+                //        return vd;
+                //    }
+                //    else {
+                //        return "";
+                //    }
+                //}
+            },
+            methods: {
+                minus: function (e) {
+                    switch (e) {
+                        case 'room':
+                            if (this.room > 1) {
+                                this.room -= 1;
+                            }
+                            break;
+                        case "adult":
+                            if (this.adult > 1) {
+                                this.adult -= 1
+                            }
+                            break;
+                        default:
+                            if (this.kids > 0) {
+                                this.kids -= 1
+                            }
+                            break;
+                    }
+                },
+                plus: function (e) {
+                    switch (e) {
+                        case 'room':
+                            if (this.room < 9) {
+                                this.room += 1;
+                            }
+                            break;
+                        case "adult":
+                            if (this.adult < 9) {
+                                this.adult += 1
+                            }
+                            break;
+                        default:
+                          if (this.kids < 9) {
+                                this.kids += 1
+                          }
+                          break;
+                    }
+                }
+            }
+        });
+    </script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/moment.js/2.24.0/moment.min.js"></script>
+
+    <script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/bootstrap-daterangepicker/3.1/daterangepicker.min.js"></script>
+
+    <script src="~/Asset/js/Search/_SearchFilterPartial.js"></script>
+
+    <!--此處開始是飯店詳細頁面的JS-->
+    <script>
+        //根據捲軸往下的高度，決定是否顯示固定頂端列
+        window.addEventListener('scroll', function () {
+            let html = document.getElementsByTagName('html')[0];
+            let scrollNav = document.querySelector('.scroll-nav')
+            let hotelNav = document.querySelector('.hotel-nav')
+            if (html.scrollTop > 60) {
+                // scrollNav.classList[1] == 'fix-nav'
+                scrollNav.classList.add('fix-nav');
+                //hotelNav.style.display = 'block'
+            }
+            else {
+                scrollNav.classList.remove('fix-nav');
+                //hotelNav.style.display = 'none'
+            }
+            //console.log(html.scrollTop);//61=滑掉了最頂端的nav
+        })
+
+        //let SearchPageLink = document.getElementById('link-to-search-page');
+        //let inputDateRange = document.querySelector('input[name="date_range"]')
+        //let inputPeople = document.getElementById('final-person')
+        //let inputRoom = document.getElementById('final-room')
+        //var dateRange = inputDateRange.value.replace(/\//g, "%2F"); //示範：(/,/g,'-') 會把逗號換成 - 。但是因為我要換的是'/'屬於特殊例子，所以要再前面加個'/'跳脫字元才會正常
+        //SearchPageLink.addEventListener('click', function () {
+        //    console.log(dateRange)
+        //    console.log(`../Search/${filternav.Value}`)///${dateRange}/${inputPeople.value}/${inputRoom.value}`)
+        //    window.location.href = `../Search/${filternav.Value}`///${dateRange}/${inputPeople.value}/${inputRoom.value}`
+        //})
+
+        //var date = date_range.Split('-');
+        //var start = date[0];
+        //var end = date[1];
+        //myStr.replace(/,/g, '-');
+
+        var MessageList = new Vue({
+            el: '#messageList',
+            data: {
+                group: [],
+                pageNumber: 0,
+                size: 3
+            },
+            methods: {
+                nextPage() {
+                    this.pageNumber++;
+                },
+                prevPage() {
+                    this.pageNumber--;
+                }
+            },
+            watch: {
+                group() {
+                    this.pageNumber = 0;
+                }
+            },
+            computed: {
+                pageCount() {
+                    let l = this.group.length,
+                        s = this.size;
+                    //console.log(Math.floor(l / s));
+                    return Math.ceil(l / s);
+                },
+                paginatedData() {
+                    const start = this.pageNumber * this.size,
+                        end = start + this.size;
+                    return this.group.slice(start, end);
+                }
+            },
+            created: function () {
+                axios.get('../api/HotelDetail/GetHotelMessage', {
+                    params: {
+                        hotelID:'@hotel.HotelID'
+                    }
+                }).then(function (response) {
+                    //console.log(response.data)
+                    //console.log('success')
+                    SetMessageGroupData(response.data)
+                    //MessageList.$set(MessageList, 'group', response.data);
+                    //console.log(MessageList.group);
+                }).catch((error) => console.log(error))
+            },
+            components: {
+                'message-item': {
+                    props: ['item'] ,
+                    template:`<div class="comment-item wrap-1100 row pt-3 pb-5 border-b-gray">
+                                 <div class="rate-item col-3 fz-14 pt-3">
+                                     <span class="rate-num color-blue ">{{item.Score}}</span>
+                                     <div class="mt-3 mb-1">
+                                         <i class="far fa-flag"></i><span class="fw-bold">{{ item.CustomerName }}</span>
+                                     </div>
+                                     <div class="mb-1"><i class="fas fa-bed"></i><span>{{ item.RoomName }}</span></div>
+                                     <div class="mb-1"><i class="far fa-calendar"></i><span>入住{{ item.Stay }}晚</span></div>
+                                 </div>
+                                 <div class="comment-content col-9 ">
+                                     <q class="d-block fz-20 fw-bold mb-4-5">{{ item.Title }}</q>
+                                     <p class="content fz-14 color-gray ps-2 mb-4-5">
+                                         {{ item.MessageText }}
+                                     </p>
+                                     <p class="fz-14 color-gray ps-2">評鑑日期：<span>{{ item.MessageDate }}</span></p>
+                                 </div>
+                               </div>`
+                }
+            }
+        })
+
+        function SetMessageGroupData(data) {
+            MessageList.group = [];
+            console.log(data)
+            console.log(data.length)
+            if (data.length > 1) {
+                for (index = 0; index < data.length; index++) {
+                    MessageList.$set(MessageList.group, index,
+                        {
+                            CustomerID: data[index].CustomerID,
+                            CustomerName: data[index].CustomerName,
+                            HotelID: data[index].HotelID,
+                            HotelName: data[index].HotelName,
+                            MessageDate: data[index].MessageDate,
+                            MessageText: data[index].MessageText,
+                            OrderID: data[index].OrderID,
+                            RoomName: data[index].RoomName,
+                            Score: data[index].Score,
+                            Stay: data[index].Stay,
+                            Title: data[index].Title,
+                    });
+                }
+            }
+
+        }
+
+    </script>
+
+    <!--jQuery 和 Vue相關的程式-->
+    <script type="module" src="~/Asset/js/HotelDetail/RoomFilter.js"></script>
+    <script type="module" src="~/Asset/js/HotelDetail/HotelFacility.js"></script>
+}
+
+
+

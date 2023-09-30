@@ -1,0 +1,332 @@
+﻿@model RoomImageVM
+@{
+    ViewBag.Title = "HotelImagePage";
+    Layout = "~/Views/Shared/_FunctionPage.cshtml";
+
+    string user_id = Model.HotelEmployeeID;
+    var hotel_option = Model.HotelOptions.ToArray();
+}
+
+@section topCSS{
+    <link href="~/Asset/CSS/Function/HotelImagePage.css" rel="stylesheet" />
+}
+<div class="container mt-5">
+    <h2 class="m-3">房間圖片</h2>
+
+    <div id="OptionArea" class="row">
+        <!--選擇飯店-->
+        <div class="input-group col-6 mb-3">
+            <select class="custom-select" id="hotelOptionSelect" v-model="selectedHotel">
+                <option value="none" selected>Choose Hotel</option>
+                @foreach (var hotel in Model.HotelOptions)
+                {
+                    <option value="@hotel.HotelID">@hotel.HotelName</option>
+                }
+
+                @*<hotel-option v-for="option in hotelOptions" :option="option"></hotel-option>*@
+            </select>
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="hotelOptionSelect">飯店選項</label>
+            </div>
+        </div>
+        <!--選擇房間-->
+        <div class="input-group col-6 mb-3">
+            <select class="custom-select" id="roomOptionSelect" v-model="selectedRoom">
+                <option value="none" selected>Choose Room</option>
+                <option v-for="opt in roomOptions" :value="opt.RoomID">{{opt.RoomName}}</option>
+            </select>
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="roomOptionSelect">房間選項</label>
+            </div>
+        </div>
+    </div>
+
+
+    <!--上傳圖片-->
+    <div class="input-group mb-1">
+        <div class="custom-file">
+            <input id="upload-img" type="file" class="custom-file-input" accept="image/*" multiple>
+            <label class="custom-file-label upload-img-label" for="upload-img">Choose File</label>
+        </div>
+        <div class="input-group-append">
+            <button id="upload-img-btn" type="button">上傳圖片</button>
+        </div>
+    </div>
+    <p class="remind-text">*最多上傳5張圖片</p>
+    <p class="remind-text">*每張圖片的檔案大小不可超過2MB</p>
+
+
+    <!--這區會動態載入card，讓user預覽圖片-->
+    <div id="previewImg" class="preview-img row border mt-4">
+        <img-box v-for="img in group" :img="img"></img-box><!--:upload="ReUpload(this)" :InputFileClick="InputFileClick(this)" :Delete1="Delete(this)"-->
+    </div>
+
+    <!--上傳時會跳出來遮住網頁，上傳完成就會消失-->
+    <div class="shadow-cover">
+        <div class="box">
+            <div class="uploading-box">
+                <div class="spinner-border adoga-purple mb-4 " role="status">
+                </div>
+                <p class="">圖片上傳中...</p>
+            </div>
+            <div class="finish-box">
+                <i class="fas fa-check d-block mb-3"></i>
+                <p>上傳完成！</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<template id="img-box">
+    <figure class="img-figure card col-3">
+        <div>
+            <div class="img-wrap">
+                <img :src="img.src" alt="" class="card-img-top">
+            </div>
+            <div class="figcap-wrap">
+                <p class="img-name"></p>
+                <p class="img-size">檔案大小：{{img.fileSize}}</p>
+            </div>
+        </div>
+        <div>
+            <input class="re-upload-input " type="file" hidden :data-index="img.dataIndex" @@change="ReUpload(img.dataIndex)">
+            <button class="re-upload-btn mb-2" :data-index="img.dataIndex" @@click="InputFileClick(img.dataIndex)"><i class="fas fa-upload"></i></button>
+            <button class="upload-cancel-btn" :data-index="img.dataIndex" @@click="Delete(img.dataIndex)"><i class="fas fa-trash-alt"></i></button>
+        </div>
+    </figure>
+</template>
+
+@section endJS{
+    <script src="~/Scripts/vue.min.js"></script>
+    <script src="~/Scripts/axios.min.js"></script>
+    <script>
+        var OptionArea = new Vue({
+            el: "#OptionArea",
+            data: {
+                roomOptions: [],
+                selectedHotel: "none",
+                selectedRoom: "none",
+            },
+            watch: {
+                selectedHotel() {
+                    if (this.selectedHotel == "none") {
+                        this.roomOptions = [];
+                    }
+                    else {
+                        axios.get("../api/Function/GetRoomOptionByID", {
+                            params: {
+                                hotelID: this.selectedHotel
+                            }
+                        }).then(function (response) {
+                            //console.log(response.data)
+                            SetRoomOption(response.data)
+                        })
+                    }
+                }
+            }
+        })
+
+        function SetRoomOption(response) {
+            OptionArea.roomOptions = []; //先清空資料
+            var data = response;     //好像response進來就直接轉成js了，所以不需要用JSON.parse轉格式喔
+
+            (data).forEach((item, index) => {
+                //開始給Vue物件 的 屬性 塞資料&設定裡面的屬性
+                OptionArea.$set(OptionArea.roomOptions, index,
+                    {
+                        RoomID: item.RoomID,
+                        RoomName: item.RoomName
+                    }
+                );
+            })
+        }
+
+        //上傳的input和按鈕，飯店選項，房間選項
+        var maxFileLength = 5; //最多上傳幾張
+        var uploadImg = document.getElementById('upload-img');
+        var uploadImgBtn = document.getElementById('upload-img-btn');
+        var hotelSelect = document.getElementById('hotelOptionSelect');
+        var roomSelect = document.getElementById('roomOptionSelect');
+        //預覽圖片row - DOM
+        var previewContainer = document.querySelector('.preview-img');
+
+        //記錄單張重新上傳圖片的index
+        var reUpload_Index;
+
+        //傳給api的，裡面會存圖片的base64和檔名，真正要上傳去cloudinary時會用到
+        var formData = new FormData();
+
+        //點擊此按鈕，表示確定上傳圖片
+        uploadImgBtn.addEventListener('click', CloudinaryUpload);
+
+        //上傳4張的input被change
+        uploadImg.addEventListener('change', function () {
+            console.log(uploadImg.files);
+            if (hotelSelect.value == "none" || roomSelect.value == "none") {
+                alert("飯店或房間的選項不得為空，請您重新選擇。（該選項代表您要上傳的圖片是屬於哪個飯店的房間）")
+                return;
+            }
+            if (uploadImg.files.length > maxFileLength) {
+                alert("一間房最多上傳" + maxFileLength + "張圖片")
+                return;
+            }
+            if (uploadImg.files && uploadImg.files.length > 0) {
+
+                SetVueAndFormData(uploadImg);
+            }
+            else {
+                var uploadImgLabel = document.querySelector('.upload-img-label');
+                uploadImgLabel.innerText = '0個檔案'
+                previewContainer.innerHTML = '';
+            }
+        })
+
+        
+        //預覽圖片row - Vue
+        var previewImgRow = new Vue({
+            el: "#previewImg",
+            data: {
+                group: [],
+                reUploadIndex: 0
+            },
+        })
+
+        Vue.component('img-box', {
+            props: ['img'],
+            template: '#img-box',
+            methods: {
+                InputFileClick: function (reUpload_Index) {
+                    console.log(reUpload_Index)
+                    var reUpload_Img = document.querySelector(`.re-upload-input[data-index="${reUpload_Index}"]`);
+                    reUpload_Img.click();
+                },
+                ReUpload: function (index) {
+                    var img = document.querySelector(`.re-upload-input[data-index="${index}"]`);
+                    //更新FileList
+                    var newFileList = new DataTransfer();
+                    for (i = 0; i < maxFileLength; i++) {
+                        if (i == index) {
+
+                            newFileList.items.add(img.files[0])
+                        }
+                        else if (uploadImg.files[i] != null) {
+                            newFileList.items.add(uploadImg.files[i])
+                        }
+                    }
+                    uploadImg.files = newFileList.files;
+                    console.log(uploadImg.files)
+                    SetVueAndFormData(uploadImg)
+                },
+                Delete: function (deleteIndex) {
+                    //更新FileList
+                    var newFileList = new DataTransfer();
+                    for (i = 0; i < maxFileLength; i++) {
+                        if (i != deleteIndex && i < uploadImg.files.length) {
+                            newFileList.items.add(uploadImg.files[i])
+                        }
+                    }
+                    uploadImg.files = newFileList.files;
+                    console.log(uploadImg.files)
+                    SetVueAndFormData(uploadImg)
+                }
+            }
+        });
+
+        function SetVueAndFormData(uploadImage) {
+            var files = uploadImage.files
+
+            var uploadImgLabel = document.querySelector('.upload-img-label');
+            uploadImgLabel.innerText = files.length + '個檔案'
+
+            formData = new FormData()
+            formData.set('Length', files.length);
+
+            previewImgRow.group = []; //先清空Vue物件的某個屬性的資料
+
+            let promises = [];
+            for (let file of files) {
+                let filePromise = new Promise(resolve => {
+                    let reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => resolve(reader.result);
+                });
+                promises.push(filePromise);
+            }
+            Promise.all(promises).then(fileContents => {
+                for (index = 0; index < fileContents.length; index++) {
+                    var public_id = roomSelect.value.replace(/ /g, "") + '_img' + (index + 1).toString().padStart(2, '0');
+                    formData.set(`${'PublicId' + index}`, public_id.toString());
+                    
+                    var fileSize = files[index].size / 1024;
+                    var fileSizeStr = Math.round(fileSize * 100) / 100 + ' kb';
+                    if (fileSize >= 2000) {
+                        alert("圖片的檔案大小不可超過 2 MB ！");
+                    }
+                    else if (fileSize >= 1000) {
+                        fileSize = Math.round((fileSize / 1024) * 100,) / 100;
+                        fileSizeStr = fileSize + ' mb';
+                    }
+
+                    formData.set(`${'File' + index}`, fileContents[index].toString());
+                    console.log(index + "size:" + fileSizeStr)
+                    console.log(index + "name:" + files[index].name)
+                    console.log(index + "src:" + fileContents[index])
+                    previewImgRow.$set(previewImgRow.group, index,
+                    {
+                        src: fileContents[index],
+                        fileSize: fileSizeStr,
+                        dataIndex: index,
+                        display: "block",
+                    });
+                }
+            });
+        }
+
+
+        function CloudinaryUpload() {
+            //判斷是否符合條件
+            if (formData.get('File0') == null) {
+                alert("目前沒有可上傳的圖片")
+                return;
+            }
+            if (hotelSelect.value == "none" || roomSelect.value == "none") {
+                alert("飯店或房間的選項不得為空，請重新選擇。（該選項代表您要上傳的圖片是屬於哪個飯店的房間）")
+                return;
+            }
+
+            //事先宣告、設定uploading和finish的DOM物件，顯示出蓋住網頁的cover
+            var shadowCover = document.querySelector(".shadow-cover");
+            var uploadSpinner = document.querySelector(".uploading-box");
+            var finishCheck = document.querySelector(".finish-box");
+            shadowCover.style.display = 'block';
+            uploadSpinner.style.display = 'block';
+            finishCheck.style.display = 'none';
+
+            //把存有圖片名稱和base64的FORM DATA，Post給指定的api
+            axios({
+                method: 'POST',
+                url: "../api/Function/UploadImage",
+                params: {
+                    type: "room",
+                    folderPath: "/Adoga/Hotel/" + hotelSelect.value.replace(/ /g, "") + "/" + roomSelect.value.replace(/ /g, ""),
+                    userID: '@user_id',
+                    hotelID: hotelSelect.value,
+                    roomID: roomSelect.value
+                },
+                data: formData,
+                headers: { 'Content-Type': 'multipart/form-data' },
+            }).then((response) => {
+                //完成，將uploading的圖案改為finish圖案，1.5秒後將覆蓋網頁的cover給隱藏
+                uploadSpinner.style.display = 'none';
+                finishCheck.style.display = 'block';
+                window.setTimeout(function () {
+                    shadowCover.style.display = 'none'
+                }, 1500)
+                //alert(response.data);
+            }).catch((error) => {
+                console.log(error);
+            })
+        }
+    </script>
+}
+

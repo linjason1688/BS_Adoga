@@ -1,0 +1,249 @@
+﻿/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+        content: '';
+        content: none;
+    }
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* 以上都是reset，以下才是首頁的樣式*/
+.island {
+    background-image: url("https://cdn6.agoda.net/images/MVC/default/background_image/illustrations/bg-agoda-homepage.png");
+    -webkit-background-size: cover;
+    /* For WebKit*/
+    -moz-background-size: cover;
+    /* Mozilla*/
+    -o-background-size: cover;
+    /* Opera*/
+    background-repeat: no-repeat;
+    height: 300px;
+    width: 100%;
+    border-bottom-left-radius: 50px;
+}
+
+.dropdown-menuP {
+    width: 100%;
+    height: 300px;
+}
+
+#container {
+    width: 1124px;
+    height: 302px;
+    margin-top: -100px;
+    box-shadow: rgb(0 0 0 / 20%) 0px 2px 8px 3px;
+    background-color: rgb(248, 247, 249);
+}
+
+#container1 {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+    margin-top: -100px;
+}
+
+#inputGroupSelect02 {
+    width: 1028px;
+    height: 66px;
+    font-size: 25px;
+    margin-top: 50px;
+}
+
+#inputGroupSelect03 {
+    width: 403px;
+    height: 66px;
+    font-size: 25px;
+    margin-left: 85px;
+    margin-top: 110px;
+}
+
+#inputGroupSelect04 {
+    width: 65px;
+    font-size: 21px;
+}
+
+#row {
+    display: inline-block;
+    width: 500px;
+    flex-direction: row;
+}
+
+#datetimepicker7 {
+    display: flex;
+    width: 255px;
+    height: 66px;
+    margin-left: -25px;
+    margin-top: 110px;
+}
+
+#datetimepicker8 {
+    display: flex;
+    width: 255px;
+    height: 66px;
+    margin-left: 80px;
+    margin-top: 110px;
+}
+
+.form-check {
+    width: 514px;
+    height: 66px;
+    display: flex;
+    margin-left: -10px;
+    align-items: center;
+    margin-top: 5px;
+    background-color: white;
+}
+
+#flexCheckDefault {
+    width: 18px;
+    height: 18px;
+}
+
+#motal {
+    width: 1078.65px;
+}
+
+
+
+#search {
+    position: relative;
+    z-index: 2;
+    margin-left: 300px;
+    margin-top: 50px;
+}
+
+a {
+    text-decoration: none;
+}
+
+#sale-absolute {
+    position: absolute;
+    margin-top: 200px;
+}
+
+#sale {
+    width: 63.2px;
+    height: 20px;
+    font-size: 12px;
+    line-height: 12px;
+    font-weight: 400;
+    position: relative;
+    z-index: 2;
+    margin-top: -60px;
+    margin-left: -550px;
+}
+
+#datetime {
+    margin-top: 110px;
+    margin-left: -25px;
+}
+
+input[type="text"] {
+    font-family: FontAwesome;
+}
+
+.calendar-plus {
+    width: 400px;
+    height: 66px;
+    font-size: 21px;
+    line-height: 21px;
+}
+
+/*滑動時固定的nav-------------------------------*/
+.fix-nav {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 3;
+}
+
+.scroll-nav {
+    display: none;
+}
+
+.search-bar {
+    height: 80px;
+    background-color: rgb(18, 18, 61);
+}
+/*滑動時固定的nav-------------------------------*/
+
+.col-3 img {
+    width: 263.66px;
+    height: 150px;
+}
+
+#img {
+    width: 263.66px;
+    height: 150px;
+}
+
+li a {
+    color: black;
+    font-size: 10px;
+}
+
+#comment {
+    margin-left: 130px;
+}
+
+#comment-box {
+    position: relative;
+}
+
+#fraction {
+    position: absolute;
+    right: 8px;
+    bottom: 10px;
+}
+
+select {
+    font-family: FontAwesome;
+}

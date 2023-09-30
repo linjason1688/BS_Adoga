@@ -1,0 +1,94 @@
+﻿
+/* <!-- 最頂端的Agoda nav --> */
+
+.head-nav {
+    padding: 0px 20px;
+    /* border-bottom: 1px solid black; */
+}
+
+.head-nav-wrap {
+    /* padding: 8px 0px; */
+}
+
+    .head-nav-wrap h2 {
+        margin-right: 20px;
+        margin-bottom: 0;
+        font-size: 0;
+    }
+
+        .head-nav-wrap h2 img {
+            width: 89px;
+            height: 37px;
+            vertical-align: bottom;
+        }
+
+.head-nav-item {
+    display: inline-block;
+    margin-left: 30px;
+    padding: 18px 0;
+    color: rgb(56, 56, 56);
+    font-size: 13px;
+    font-family: "Noto Sans TC", "Microsoft JhengHei", "微軟正黑體", serif;
+    text-decoration: none;
+}
+
+    .head-nav-item:hover {
+        color: rgb(99, 155, 238);
+    }
+
+    .head-nav-item.currency:hover {
+        color: rgb(56, 56, 56);
+    }
+
+i.head-nav-item {
+    font-size: 20px;
+}
+
+.head-nav-item.red,
+.head-nav-item.blue {
+    padding: 10px 10px;
+    font-size: 14px;
+    /* height: fit-content; */
+    /*不設置fit-content的話，整個<a>的高度都超怪的 要嘛字底下一定有個空間，要嘛字上面有空間，超難弄成字是垂直置中的樣子*/
+    /* 後來才發現我對父層設定 align-items:center;就拯救了一切，但我還是先保留fit-content這個發現.. */
+    border-radius: 7px;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.head-nav-item.red {
+    color: rgb(255, 74, 113);
+    border: 1px solid rgb(255, 74, 113);
+}
+
+    .head-nav-item.red:hover {
+        color: rgb(255, 255, 255);
+        background-color: rgb(255, 74, 113);
+    }
+
+.head-nav-item.blue {
+    color: rgb(99, 155, 238);
+    border: 1px solid rgb(99, 155, 238);
+}
+
+    .head-nav-item.blue:hover {
+        color: rgb(255, 255, 255);
+        background-color: rgb(99, 155, 238);
+    }
+
+.flag-icon {
+    width: 30px;
+    height: 22.5px;
+    text-align: center;
+}
+
+/*footer區塊-------------------------------------------*/
+#Customer-Service {
+    background-color: rgb(230, 228, 228);
+    width: 100%;
+    height: 227.2px;
+}
+
+footer {
+    background-color: #333;
+}

@@ -1,0 +1,96 @@
+﻿@using BS_Adoga.Models.ViewModels.Search
+@*@model BS_Adoga.Models.ViewModels.Search.SearchCardViewModel*@
+@model  CardViewModels
+@*@foreach (var man in Model.My_city)*@
+@{
+    var man = Model.My_Rooms;
+
+    string HotelFullName;
+    if (man.RoomName != null)
+    {
+        HotelFullName = Model.HotelName + "(" + man.RoomName + ")";
+    }
+    else { HotelFullName = Model.HotelName; }
+
+
+
+
+
+
+<div class="card" style=" width: 860px;">
+    <div class="img">
+        <img src="@Model.ImageURL" alt="">
+    
+    </div>
+    <div class="detail">
+        <a href="#">@HotelFullName</a>
+        <div class="small-rank">
+            <div class="star">
+                @for (int i = 1; i <= Model.Star; i++)
+                {
+                    <i class="fas fa-star"></i>
+                }
+            </div>
+            <div class="address">
+                <i class="fas fa-map-marker-alt"></i>
+                <p>@Model.HotelAddress</p>
+            </div>
+        </div>
+        <div class="include-list">
+            @if (man.Breakfast)
+            {
+                <p class="Breakfast">早餐</p>
+            }
+            @if (man.NoSmoking)
+            {
+                <p class="NoSomking">禁煙</p>
+            }
+            @if (man.WiFi)
+            {
+                <p class="wifi">WiFi</p>
+            }
+        </div>
+        <div class="tag-list">
+            <i class="fas fa-money-bill-alt"></i>
+            <p>價格比同區域其他住宿低</p>
+        </div>
+        <div class="advantage">
+            <i class="far fa-credit-card"></i>
+            <p>免信用卡訂房</p>
+        </div>
+    </div>
+    <div class="rank">
+        <!-- 目前不用 <div class="point">
+        <div class="comment">
+            <p>很讚</p>
+            <p><span>10,237</span> 份評鑑</p>
+            <p>地點 <span>9.0</span></p>
+        </div>
+        <div class="icon">
+            <p>8.5</p>
+        </div>
+    </div> -->
+        @*@if (Model.I_RoomDetailVM.RoomDiscount == 0)
+        {
+            <div class="price">
+                <p>每晚含稅價</p>
+                <ins>NT$<span>@newPrice.ToString("N0")</span></ins>
+            </div>
+        }
+        else
+        {
+            <div class="offer">
+                <p>只剩<span>@leftroom</span>間房可享<span>@roomdiscount</span>％優惠</p>
+            </div>
+            <div class="price">
+                <p>每晚含稅價</p>
+                <del>@roomprice.ToString("N0")</del>
+                <ins>NT$<span>@newPrice.ToString("N0")</span></ins>
+            </div>
+        }*@
+
+        @* ActionLink沒辦法進去HotelDetail的Action *@
+        @*@Html.ActionLink("查看空房情況", "Detail", "HotelDetail", new { hotelId = Model.HotelID, startDate = "2021/06/20", endDate = "2021/06/22", orderRoom = 2, adult = 6 }, new { @class = "btn btn-primary", })*@
+    </div>
+</div>
+}

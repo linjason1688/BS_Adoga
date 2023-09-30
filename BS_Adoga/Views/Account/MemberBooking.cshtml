@@ -1,0 +1,285 @@
+﻿@model IEnumerable<BS_Adoga.Models.ViewModels.Account.MemberBookingViewModel>
+@{ 
+    ViewBag.Title = "管理訂單";
+    Layout = "~/Views/Account/_LayoutMember.cshtml"; 
+    }
+
+@section topCSS{
+    <link rel="stylesheet" href="~/Asset/CSS/MemberAccount/MemberBookings.css" />
+}
+
+
+<div id="booking-page" class="ps-5 pt-4">
+    <div id="filter-sort-wrap">
+        <div id="" class="filter-sort-wrap">
+            <nav class="filter-my-order">
+                <input checked v-model="filterOption" id="coming-soon" value="ComingSoon" type="radio" name="filter-order"
+                       class="radio-box d-none" />
+                <label class="filter-option current" for="coming-soon" id="abccd">即將入住</label>
+                <input v-model="filterOption" id="complete" value="Complete" type="radio" name="filter-order" class="radio-box d-none" />
+                <label class="filter-option " for="complete">已完成</label>
+                <input v-model="filterOption" id="cancelled" value="Cancelled" type="radio" name="filter-order"
+                       class="radio-box d-none" />
+                <label class="filter-option " for="cancelled">已取消</label>
+            </nav>
+
+            <div class="sort-btn-group">
+                <p class="sort-text mb-0">排序<i class="fas fa-sort-amount-up ms-2"></i></p>
+                <input v-model="sortOption" id="order-date-sort" value="OrderDate" type="radio" name="sort-order"
+                       class="radio-box d-none" />
+                <label class="sort-option" for="order-date-sort">預定日期</label>
+                <input checked v-model="sortOption" id="check-in-date-sort" value="CheckInDate" type="radio" name="sort-order"
+                       class="radio-box d-none" />
+                <label class="sort-option current" for="check-in-date-sort">入住日期</label>
+            </div>
+
+        </div>
+
+        <div class="search-order-wrap my-4">
+            <label for="input_order-id">訂單編號</label>
+            <div class="search-order">
+                <input v-model="searchOrderId" id="input_order-id" placeholder="訂單編號" name="UserInputOrderId">
+                <button v-on:click="Search" id="search" type="button" class="btn btn-secondary">搜尋</button>
+                <button v-on:click="ClearSearch" id="clear-button" type="button" class="btn btn-light">清除</button>
+            </div>
+        </div>
+    </div>
+    <div id="BookingList">
+        <booking-card v-bind:order="order" v-for="order in paginatedData"></booking-card>
+        <button class="btn"
+                :disabled="pageNumber === 0"
+                @@click="prevPage">
+            上一頁
+        </button>
+        <button class="btn"
+                :disabled="pageNumber >= pageCount -1"
+                @@click="nextPage">
+            下一頁
+        </button>
+        <div v-if="group.length==0" class="no-booking-panel mt-5">
+            <img id="no-booking_img" src="https://cdn6.agoda.net/images/MMB-3149/illustration-empty.png">
+
+            <div class="no-booking-content">
+                <p class="big-text">您目前沒有即將到來的預訂。</p>
+                <p>
+                    想要查看
+                    <a href="" id="checked_out">已完成</a>
+                    或
+                    <a href="" id="cancelled">已取消</a>
+                    的訂單嗎?
+                </p>
+            </div>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("Evaluation", "Account", FormMethod.Post, htmlAttributes: new { Id = "myform" }))
+    {
+        <div class="modal fade text-left" id="large" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">住宿評鑑</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" id="modalID" name="orderID" v-model="orderID" hidden>
+                        <!--評分Bar-->
+                        <div class="row form-group p-3">
+                            <span class="mb-1">評分:</span>
+                            <div>
+                                <span id="score">0</span>/<span>10</span>
+                            </div>
+                            <div>
+                                <input type="range" class="w-75" min="0" max="10" step="0.1" id="scoreRange" name="ScoreRange">
+                            </div>
+                        </div>
+                        <!--標題-->
+                        <div class="form-group p-3">
+                            <label for="exampleInputEmail1" class="form-label">標題:</label>
+                            <input type="text" class="form-control" aria-describedby="title" name="Title">
+                        </div>
+                        <!--輸入空間-->
+                        <div class="form-group form-label-group p-3">
+                            <span>寫下您的評論:</span>
+                            <textarea class="form-control mt-2" id="text_txt1" rows="7" placeholder="Suggestion"
+                                      maxlength="100" , name="MessageText"></textarea>
+                            <span id="num_txt1" class="d-flex justify-content-end"><br />100 / 100</span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-primary ml-1">送出</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+        var message = @Html.Raw(Json.Encode(TempData["message"]));
+        alert(message);
+        </script>
+    }
+
+    @*@foreach (var item in Model)
+        {
+            @Html.Partial("~/Views/Account/_BookingPartial.cshtml", item);
+            //Html.RenderPartial("~/Views/Search/_optionCity.cshtml", item);
+        }*@
+
+    @*@Html.Partial("~/Views/Account/_BookingPartial.cshtml")*@
+
+</div>
+
+
+<style>
+    .errors {
+        color: red
+    }
+</style>
+
+@section endJS{
+    <!-- axios 的引用 -->
+    <script src="~/Scripts/axios.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <!--Vue在Layout已有引用-->
+    <!--評價留言-->
+    <script>
+        /*評分Bar*/
+        var scoreBar = document.getElementById("scoreRange");
+        var score = document.getElementById("score");
+        score.innerHTML = scoreBar.value;
+
+        scoreBar.oninput = function () {
+            score.innerHTML = this.value;
+        }
+
+        /*限制字數*/
+        $(function () {
+            $('#text_txt1').on('keyup', function () {
+                var txtval = $('#text_txt1').val().length;
+                // console.log(txtval);
+                var str = parseInt(100 - txtval);
+                // console.log(str);
+                if (str > 0) {
+                    $('#num_txt1').html(str + ' / 100');
+                } else {
+                    $('#num_txt1').html('0 / 100');
+                    $('#text_txt1').val($('#text_txt1').val().substring(0,
+                        100)); //這裡意思是當裡面的文字小於等於0的時候，那麼字數不能再增加，只能是600個字
+                }
+            });
+        })
+
+        $(document).ready(function () {
+            $('#myform').validate({
+                errorClass: 'errors',
+                rules: {
+                    Title: {
+                        required: true
+                    },
+                    MessageText: {
+                        required: true
+                    }
+                },
+                messages: {
+                    Title: {
+                        required: "請輸入標題"
+                    },
+                    MessageText: {
+                        required: "請輸入評論"
+                    }
+                }
+            });
+        })
+    </script>
+
+    <!--Vue在Layout已有引用-->
+    <!--Mine-->
+    <script type="module" src="~/Asset/js/MemberAccount/BookingOrderFilterSort.js"></script>
+    @*<script  src="~/Asset/js/MemberAccount/BookingOrderComponent.js"></script>*@
+    @*<script type="module">
+            import BookingCard from '../../Asset/JS/MemberAccount/BookingComponent.js'
+
+            //一開始載入頁面時要帶入Room的全部資料
+            axios.get('https://localhost:44352/Account/GetMemberBookingList')
+                .then(function (response) {
+                    console.log(response.data)
+                    appendBookingList(response.data);
+                })
+                .catch(
+                    (error) => console.log(error))
+
+            var BookingList = new Vue({
+                el: '#BookingList',
+                data: {
+                    group: []
+                },
+                components: {
+                    'booking-card': BookingCard
+                }
+            })
+
+            function appendBookingList(response) {
+
+                BookingList.group = []; //先清空資料
+
+                var data = response;     //好像response進來就直接轉成js了，所以不需要用JSON.parse轉格式喔
+
+                (data).forEach((item, index) => {
+
+                    //產生床型的字串
+                    var bedTypeStr = '';
+                    (item.RoomBed).forEach((bed, index) => {
+                        if (index != item.RoomBed.length - 1)
+                            bedTypeStr += bed.Name + "x" + bed.Amount + " , "
+                        else
+                            bedTypeStr += bed.Name
+                    })
+                    console.log(item.OrderID)
+                    //開始給BookingList（Vue物件）的group塞資料&設定裡面的屬性
+                    BookingList.$set(BookingList.group, index,
+                        {
+                            CustomerID: item.CustomerID,
+                            OrderID: item.OrderID,
+                            HotelID: item.HotelID,
+                            HotelName: item.HotelName,
+                            HotelEngName: item.HotelEngName,
+                            BedStr: bedTypeStr,
+                            RoomPriceTotal: Math.ceil(item.RoomPriceTotal).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","),
+
+                            OrderDate: item.OrderDate,
+                            CheckInDate: item.CheckInDate,
+                            CheckOutDate: item.CheckOutDate,
+
+                            FewDaysAgo: item.FewDaysAgo,
+
+                            OrderDateStr : item.OrderDateStr,
+
+                            CheckInDay :item.CheckInDay,
+                            CheckInWeek :item.CheckInWeek ,
+                            CheckInMonth :item.CheckInMonth,
+
+                            CheckOutDay :item.CheckOutDay,
+                            CheckOutWeek :item.CheckOutWeek ,
+                            CheckOutMonth :item.CheckOutMonth,
+
+                            CheckCheckOut: item.CheckCheckOut,
+                            City: item.City,
+                            Breakfast: item.Breakfast,
+
+                            GoToDetail: function () {
+                                    window.location.href = 'https://localhost:44352/BookingDetail/' + item.OrderID;
+                            }
+                        }
+                    );
+                })
+            }
+
+        </script>*@
+}
+
+

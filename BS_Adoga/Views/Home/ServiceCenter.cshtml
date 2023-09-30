@@ -1,0 +1,825 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_AdogaLayout.cshtml";
+
+}
+@section topCSS{
+    <link rel="stylesheet" href="~/Asset/CSS/ServiceCenter.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+
+}
+<div class="align-items-center justify-content-center box">
+    <div class="row"id="bgbox">
+        <div class="col-4 title"id="menu">
+            <div class="d-flex justify-content-center">
+                <div class="Options d-flex align-items-center">
+                    <i class="far fa-check-circle img"></i>
+                    <a class="text"href="#one">預定詳情</a>
+                </div>
+
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="Options d-flex align-items-center">
+                    <i class="fas fa-compress-arrows-alt img"></i>
+                    <a class="text" href="#two">取消預定</a>
+                </div>
+
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="Options d-flex align-items-center">
+                    <i class="fas fa-book  img"></i>
+                    <a class="text"href="#three">更改預定</a>
+                </div>
+
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="Options d-flex align-items-center">
+                    <i class="fas fa-comment-medical  img"></i>
+                    <a class="text"href="#four">特殊需求</a>
+                </div>
+
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="Options d-flex align-items-center">
+                    <i class="fas fa-hotel  img"></i>
+                    <a class="text"href="#five">新冠病毒</a>
+                </div>
+
+            </div>
+            <div style="height:262.237px;">
+
+            </div>
+        </div>
+
+        <section class="bg col-8">
+            <h3 style=" margin: 50px 0 0 0;"id="one">預定詳情</h3>
+            <div class="answer">
+
+                <div class="flip"><span class="content" style="">我要如何找到房間或住宿的設施資訊？</span><i class="fas fa-angle-down" style="cursor: pointer; float: right;margin-top:30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">您可以在住宿確認信或是住宿頁面上找到設施資訊。若有其他需求，您也可以直接連絡住宿方。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                            </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">我何時會收到預訂確認信？</span><i class="fas fa-angle-down" style="        cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">一般來說，您會在預訂後30分鐘內收到內含入住憑證（PDF檔）的確認信。如果在這個期間內您仍未收到信，請檢查您的垃圾郵件匣，您也可以在網站上下載或重新傳送入住憑證。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">我要去哪裡查看訂單明細和狀態？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">您可以在網站上檢視您的訂單明細和狀態，登入後，只要在「我的帳戶」選單中選擇「管理訂單」即可看到。若您不確定登入資訊，也可以從預訂確認信中點選「我的預訂」連結。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">可以再傳一次入住憑證給我嗎？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">現在Agoda提供自助服務，只要在預訂確認信裡點選自助服務選項，就能重新發送入住憑證。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">我可以在房間裡加床或嬰兒床嗎？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">是否能加床/嬰兒床依住宿方情況而定。關於兒童額外加價（包含加床），除非另有註記，否則不包含在預訂價格中。請直接向住宿方聯絡取得詳細資訊。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">住宿有提供機場接送嗎？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">當您搜尋住宿時，可以在篩選條件中選擇「機場接送」，幫助您找到提供這項服務的住宿。住宿頁面的實用入住資訊欄也會顯示相關資訊。有些房型提供免費機場接送服務，這項資訊會顯示在房型簡介裡或是註記於預訂頁面的總金額項目中。機場接送通常需要收費，如果您想安排機場接送，請直接聯絡住宿方。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">早餐包含在房價裡嗎？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">若房價包含早餐，在房型下方會顯示「包含早餐」。若沒有顯示，則代表此方案不含早餐。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">我可以選擇床型嗎？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">您可以用自助服務選項向住宿方提出床型需求。請注意，所有特殊需求都視住宿方狀況而定，Agoda無法保證。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">我還沒收到訂單確認信且無法在線上看到我的訂單。</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">大部分的情況下，您會在預訂完成後30分鐘內收到訂單確認信（PDF檔），若您在30分鐘後仍未收到確認信，請檢查您的垃圾信件匣；您也可以登入會員，從右上方的帳戶選單中點選「管理訂單」，線上查看您的訂單詳情和狀態。若您仍無法找到訂單且在24小時後都沒有收到訂單確認信，歡迎和我們聯絡。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">我想申請「Agoda價格保證」補償。</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">
+                        Agoda提供「價格保證」計畫如下：若您在Agoda上預訂了一間房，而之後證明您能在其他網站上找到更低價格（住宿日期和房型需相同，且該房型為公開顯示、開放預訂），我們就會提供您相同價格。
+
+                        申請補償
+
+                        申請「價格保證」補償之前，請準備好以下資料。
+
+                        您的Agoda訂單編號
+                        提供更優惠價格的網站網址
+                        住宿名稱、所在國家及城市
+                        您可以附上對方網站的螢幕截圖，清楚顯示該客房的空房狀況、房型、促銷類型及住宿日期之房價。
+                        請注意：您不需要在對方網站上預訂住宿，只需向我們提供對方的價格資訊即可
+
+                        條款與規定
+
+                        「Agoda價格保證」僅適用於已確認的訂單。您必須提供您的Agoda訂單編號才能申請補償。
+
+                        申請補償必須滿足以下條件：
+
+                        住宿相同
+                        住宿日期相同
+                        房型/床型相同
+                        提前預訂規定、提前付款規定、押金規定相同（若有）
+                        訂單取消及修改規定相同
+                        當我們檢查網站時，該客房必須開放預訂，且能立即確認。
+                        「價格保證」計畫不適用於第三方回饋方案（如：PointsMAX）或非公開價格的預訂，例如：
+                        非公開價格方案
+
+                        套裝或促銷方案
+                        旅遊套裝方案內的客房預訂
+                        非一般大眾能預訂的價格，包含：
+                        公司折扣價格
+
+                        團體或會議價格
+                        會員價格（如：AAA或AARP會員價）
+                        回饋專案
+                        任何組織僅向特定群體提供而不向大眾提供的價格
+                        Agoda有權酌情決定補償申請的效力，包含但不限於：決定補償申請是否針對同一間住宿、房型、住宿日期，以及此申請是否符合條款與規定，並且滿足補償申請條件。
+
+                        「Agoda價格保證」不得與其他優惠或促銷方案合併。
+
+                        Agoda保留隨時修訂、修改、增補、暫停、中止「價格保證」的權利。
+
+                        有關補償申請的任何問題應向客服中心提出。
+                    </p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <h3 style=" margin: 50px 0 0 0;"id="two">取消預訂</h3>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">我要如何取消預訂？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">您可以在Agoda網站或app上取消預訂。取消費用根據住宿方而定，並列在取消政策上。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">若我取消預訂，會被收費嗎？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">如果您訂的是免費取消方案，就不需支付取消費用。如果您的預訂已經過了免費取消的時限或不可退款，就可能需要支付取消費用，所有訂單的取消費用皆由住宿方決定。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">我要如何確定預訂已經取消成功？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">您向我們取消預訂後，應該會收到一封確認取消的電子郵件。若沒有看到，您可以檢查看看垃圾郵件匣。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">哪裡可以看到取消政策？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">查看房型時，您可以在房型摘要旁邊看到優惠內容和取消規定，您也可以在入住憑證上找到取消政策。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">我要多久才能收到退款？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">退款（若有）會立即交由我們的銀行處理。從提交/退款日起，銀行可能需要最多30個工作天或至下一個帳單週期才能將款項退至您的帳戶。退款應會被您的信用卡公司轉成當地貨幣。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <h3 style=" margin: 50px 0 0 0;"id="three">更改預訂</h3>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">我要如何更改住宿日期？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">現在Agoda提供自助服務，點選您欲更改日期的訂單並選擇新的日期即可。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">我要如何更改代表登記旅客的名字？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">現在Agoda提供自助服務，點選您欲更改的訂單，更新旅客姓名即可。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">我要如何延長住宿時間？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">現在Agoda提供自助服務，只要點選您的訂單，選擇新的日期即可。但請注意：不是所有預訂都開放更改住宿時間。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">我要如何縮短住宿天數？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">現在Agoda提供自助服務，只要點選您的訂單，選擇新的日期即可。但請注意：不是所有預訂都開放更改住宿時間。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <h3 style=" margin: 50px 0 0 0;"id="four">特殊需求</h3>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">我要如何提出特殊需求？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">您可以用自助服務選項向住宿方提出特殊需求。請注意，所有特殊需求都視住宿方狀況而定，Agoda無法保證。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">怎樣才能確定特殊需求已經被確認？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">所有的特殊需求，都根據住宿情況而定，Agoda無法提供保證。Agoda會將您的需求發送給您預訂的住宿，您也可以在抵達前或抵達時向該住宿確認。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">我可以要求提前入住或延後退房嗎？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">您可以用自助服務選項向住宿方提出提早入住/延後退房需求。請注意，所有特殊需求都視住宿方狀況而定，Agoda無法保證。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">我可以選擇想要的床型、禁菸或吸菸房，或是要求連通房嗎？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">所有的特殊需求，都根據住宿情況而定，Agoda無法提供保證。Agoda會將您的需求發送給您預訂的住宿，您也可以在抵達前或抵達時向該住宿確認。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <h3 style=" margin: 50px 0 0 0;"id="five">新冠病毒</h3>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">因為新冠疫情的關係，我可以修改或取消訂單嗎？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">您訂單的修改需求都將受訂單政策規範。鑒於新冠病毒疫情影響，特定旅遊目的地也持續實施並修改旅遊限制，請留意相關旅遊公告，並在Agoda預訂前查看您的目的地是否有頒布新的命令。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">若我透過Agoda訂房，我該如何查看訂單的取消政策？</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">當您使用Agoda app時，請登入您的帳戶，點選頁面下方的訂單圖示並選取訂單，該訂單的取消政策會顯示於「預訂政策」下方；當您使用Agoda網站時，請登入您的帳戶，從選單中選取「管理訂單」並點擊「修改訂單」，您就可以在「取消預訂條款」欄位中看到取消政策。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+            <div class="clearFloat"></div>
+            <div class="answer">
+
+                <div class="flip"><span class="content">若我透過Agoda預訂機加酒方案，我該如何查看訂單的取消政策？
+</span><i class="fas fa-angle-down" style="cursor: pointer;float: right;margin-top: 30px;"></i></div>
+                <div class="panel">
+                    <p class="content" style="line-height:20px;">若您預訂機加酒方案，您會收到另一封關於住宿的電子郵件。請注意，住宿方的免費取消政策可能和航空公司的政策有所不同。</p>
+                    <div class="sign d-flex justify-content-between">
+                        <div class="d-flex align-items-center justify-content-center content">
+                            <p style="line-height: 30px;color: rgb(83, 146, 249);">您已經預訂住宿了嗎？<br />  登入即可查看現有訂單內容並快速取得幫助。</p>
+
+                        </div>
+                        <div>
+                            @using (Html.BeginForm("MemberLogin", "MemberLogin"))
+                            {
+                                <button class="immediately">
+                                    @Html.ActionLink("馬上登入", "MemberLogin", "MemberLogin", null, new { @class = "white" })
+                                </button>
+                            }
+                        </div>
+
+                    </div>
+                    <p class="problem">  這則說明有助於您解決問題嗎？</p>
+                </div>
+
+
+            </div>
+        </section>
+    </div>
+</div>
+@section endJS{
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+   
+    <script>
+       
+        var choose = document.querySelectorAll('.answer');
+
+         
+        choose.forEach(item => item.addEventListener('click', function () {
+         
+                [].forEach.call(choose, function (e) {
+                    e.classList.remove("onUse");
+                })
+                on_Use(item);
+            var x = $('.onUse > .panel');
+                if (x.css("display") == "none") {
+                    x.slideDown("fast");
+                } else {
+                    x.slideUp("fast");
+                };
+            
+         
+          
+        }))
+        function on_Use(el) {
+            el.classList.add("onUse");
+           
+        }
+        var text1 = document.getElementsByName("text");
+        $("text1").click(function () {
+           
+        });
+        $(function () {
+            $("#menu").find("div").click(function (e) {
+                $("#menu a").removeClass("on");
+                $("#menu i").removeClass("on");
+                $(this).children("div").children("i").addClass("on");
+                $(this).children("div").children("a").addClass("on");
+            });
+        })
+      
+    </script>
+}

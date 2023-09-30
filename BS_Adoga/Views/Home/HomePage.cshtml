@@ -1,0 +1,1106 @@
+﻿@model demoshopViewModels
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_AdogaLayout.cshtml";
+
+}
+
+@section topCSS{
+    <link rel="stylesheet" href="~/Asset/CDN/CSS/index.css">
+    <link rel="stylesheet" type="text/css"
+          href="~/Asset/CDN/CSS/daterangepicker.min.css" />
+
+
+
+
+
+    <link href="~/Asset/CDN/CSS/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Asset/CSS/HomePage.css" />
+    <!-- bear：0610 新增-->
+    <style>
+
+        .head-nav-item.red, .head-nav-item.login-btn, .head-nav-item.register-btn {
+            padding: 14px 10px;
+        }
+    </style>
+}
+@*@using (Html.BeginForm("Searchtwo", "Home"))
+    {
+
+        <input type="submit" name="cardlocal" value="" id="btn1" style="display: none;" />
+
+    }*@
+
+@using (Html.BeginForm("HomePage", "Home"))
+{
+
+    <input class="none" type="text" name="cardlocal" v-model="projectForm.collectionName" value="" id="btn1" />
+
+}
+<input class="none" type="text" name="cba" value="" id="btn2" />
+<div class="bg"></div>
+
+@using (Html.BeginForm("Search", "Home"))
+{
+
+
+    <div class="island d-flex flex-column  align-items-center">
+        <h3 class="text-white fw-bold first-title ">
+            歡迎來到嘟卡、訂飯店
+        </h3>
+        <p class="text-white first-title2 ">
+            盡情尋找出優惠且優質的台灣飯店
+        </p>
+        <input class="none" type="text" name="data" value="" />
+
+    </div>
+
+    <div class="container" id="container">
+        <div class="input-group mb-3" style="padding-right:58px">
+            <div id="app" v-cloak class="col-xs-12 col-12">
+                <el-select class="col-12 col-xs-12" style="margin-left:10px; z-index: 3;" id="inputGroupSelect02" v-model="value" placeholder="&#xf002; 輸入城市、區域、景點或住宿名稱" filterable
+                           name="search" clearable default-first-option>
+                    <el-option-group v-for="group in options2"
+                                     :key="group.label"
+                                     :label="group.label">
+                        <el-option v-for="item in group.options"
+                                   :key="item.value"
+                                   :label="item.label "
+                                   :value="item.value" class="asd">
+                            <span style="float: left">{{ item.label }}</span>
+
+                            <span style="float: right; color: #8492a6; font-size: 13px"> {{ item.price }}</span>
+                        </el-option>
+                    </el-option-group>
+                </el-select>
+            </div>
+
+        </div>
+        @*<div class="container-fluid">*@
+
+
+        <div class="bd-content container row " id="container1 datetime">
+
+            @*<div id="datetime"class="row">*@
+            <div class="" style="     width:1296px;   display: flex;justify-content: space-between;flex-wrap: wrap;">
+                <div class="col-12 col-md-12 col-xl-6">
+                    <div class="timebox col-6 col-md-9 d-flex col-xl-4" style="display: flex;justify-content: space-around;align-items: center;border-right:none">
+                        <div class="col-6 col-md-4 d-flex col-xl-6">
+                            <i class="far fa-calendar fa-2x time-box-1"></i>
+                            <div>
+
+                                <input type="text" id="range_start" name="start" value="" />
+
+                                <input type="text" id="week_start" value="" />
+                            </div>
+
+                        </div>
+                        <div class="line">
+
+                        </div>
+                        <div class="col-6 col-md-4 d-flex col-xl-5" style="">
+                            <i class="fas fa-calendar fa-2x time-box-2"></i>
+                            <div>
+                                <input type="text" id="range_end" name="end" value="" />
+                                <input type="text" id="week_end" value="" style=" " />
+                            </div>
+                        </div>
+
+                    </div>
+                    <input type="text" class="calendar-minus col-xl-11 col-md-12	calendar-plus from-control" id="demo" name="date_range" style="margin-left:-10px;" />
+                </div>
+
+                @Html.Partial("_nav")
+            </div>
+            @*</div>*@
+
+
+
+
+
+
+
+
+        </div>
+
+
+        @*</div>*@
+        @*<div class="form-check border d-flex " id="sale-absolute">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" id="saleprice" for="flexCheckDefault">
+                    享達25%的訂房折扣
+                </label>
+                <div id="sale" class="d-flex justify-content-center bg-danger align-items-center">
+                    <h4 class="text-white ">住宿</h4>
+                </div>
+            </div>*@
+
+
+
+        <button type="submit" class="btn btn-danger" id="search">搜尋</button>
+    </div>
+
+}
+<div id="carouselExampleControls" class="carousel slide" data-interval="false">
+    <div class=" d-flex justify-content-center" style="margin-bottom: 50px;">
+        <h1 class="fs-4">台灣熱門城市</h1>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="container">
+                <div class="container row ">
+                    <div class="d-flex   align-items-center">
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/4951/1_4951_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-1" style="">
+                                台北市
+                            </h2>                          
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/12080/1_12080_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line" style="">
+                                台中市
+                            </h2>
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/756/1_756_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">
+                                高雄市
+                            </h2>
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/18347/1_18347_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">
+                                台南市
+                            </h2>
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/88773/1_88773_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">
+                                宜蘭縣
+                            </h2>
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/23127/1_23127_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">
+                                花蓮縣
+                           </h2>                   
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item ">
+            <div class="container">
+                <div class="container row">
+                    <div class="d-flex   align-items-center">
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/4740/1_4740_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">
+                                台東縣
+                            </h2>               
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/18343/1_18343_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">墾丁</h2>
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/11977/1_11977_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">
+                                嘉義縣
+                            </h2>
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/18346/1_18346_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line" ">
+                                南投縣
+                            </h2>
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/8453/1_8453_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">
+                                桃園市
+                            </h2>
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/23127/1_23127_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">
+                                新竹縣
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <a class="carousel-control-prev carousel-dark" href="#carouselExampleControls" role="button"
+       data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true" style=""></span>
+        <span class="visually-hidden">Previous</span>
+    </a>
+    <a class="carousel-control-next carousel-dark" href="#carouselExampleControls" role="button"
+       data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </a>
+</div>
+<div class=" d-flex justify-content-center align-items-center flex-column col-12 col-xl-12 col-md-12 col-lg-12" style="margin-top: 50px;">
+    <h1 id="travel">推薦您下一趟旅行去處！</h1>
+    <div class="d-flex col-xl-12 col-md-12 col-12 container justify-content-center " id="box">
+
+
+
+
+        @*@model IEnumerable<Card>*@
+
+
+
+        @Html.Partial("_SimpleCardPartial")
+
+    </div>
+</div>
+
+<div id="carouselExampleControls2" class="carousel slide" data-interval="false"
+     style="">
+    <div class=" d-flex justify-content-center" style="margin-bottom: 50px;">
+        <h1 class="fs-4">台灣境外的熱門城市</h1>
+    </div>
+
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="container">
+                <div class="container row ">
+                    <div class="d-flex   align-items-center">
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/16808/1_16808_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">香港</h2>
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/13170/1_13170_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">
+                                河北
+                            </h2>
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/21397/1_21397_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">澳門</h2>
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/2758/1_2758_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">河內</h2>
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/14524/1_14524_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">
+                                吉隆坡
+                            </h2>
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/9395/1_9395_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">
+                                曼谷
+                            </h2>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="carousel-item ">
+            <div class="container">
+                <div class="container row">
+                    <div class="d-flex   align-items-center">
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/5085/1_5085_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">
+                                東京
+                            </h2>
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/115678/1_115678_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">平陽</h2>
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/10372/1_10372_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">
+                                墨爾本
+                            </h2>
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/4064/1_4064_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">
+                                新加坡
+                            </h2>
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/17190/1_17190_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">頭頓</h2>
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <img class="rounded-circle"
+                                 src="https://pix6.agoda.net/geo/city/1808/1_1808_02.jpg?s=124x124&ar=1x1">
+                            <h2 class="fw-bold" id="tw-line">新山</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <a class="carousel-control-prev carousel-dark" href="#carouselExampleControls2" role="button"
+       data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </a>
+    <a class="carousel-control-next carousel-dark" href="#carouselExampleControls2" role="button"
+       data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </a>
+</div>
+
+@*@section HomePageCountryArea{*@
+
+
+    @*<div class="container" style="width:1132px; margin-top: 50px; margin-bottom: 50px;">
+        <div class="d-flex">
+            <div id="Citybox" style=" ">
+                <span class="fw-normal purpose" style="">
+                    目的地城市
+                </span>
+                <li id="Asia">
+                    <span>
+                        亞洲
+                    </span>
+
+                </li>
+                <ul>
+
+                    <li><a href="">峇里島飯店 </a></li>
+                    <li>
+                        <a href="">
+                            萬隆飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            曼谷飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            長灘島飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            釜山飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            宿霧飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            清邁飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            峴港飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            福岡飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            河內飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            合艾飯店
+                        </a>
+                    </li>
+                    <li><a href="">胡志明市飯店</a></li>
+                    <li>
+                        <a href="">
+                            會安飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            香港飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            華欣飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            花蓮飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            怡保飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            雅加達飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            濟州島飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            新山飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            高雄飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            亞庇飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            喀比飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            吉隆坡飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            關丹飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            京都飯店
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="Citybox">
+
+                <ul>
+                    <li> <a href="">澳門飯店 </a></li>
+                    <li> <a href="">馬六甲飯店</a></li>
+                    <li> <a href="">馬尼拉飯店</a></li>
+                    <li> <a href="">名古屋飯店</a></li>
+                    <li>
+                        <a href="">
+                            芽莊飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            沖繩飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            大阪飯店
+                        </a>
+                    </li>
+                    <li> <a href="">芭達雅飯店</a></li>
+                    <li>
+                        <a href="">
+                            檳城飯店
+                        </a>
+                    </li>
+                    <li> <a href="">普吉島飯店</a></li>
+                    <li>
+                        <a href="">
+                            札幌飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            首爾飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            上海飯店
+                        </a>
+                    </li>
+                    <li> <a href="">新加坡飯店</a></li>
+                    <li>
+                        <a href="">
+                            泗水飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            台中飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            台南飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            台北飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            東京飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            宜蘭飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            日惹飯店
+                        </a>
+                    </li>
+                </ul>
+                <ul>
+                    <li id="smaillbox" style="">
+                        <span>歐洲</span>
+                    </li>
+                    <li>
+                        <a href="">
+                            倫敦飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            巴黎飯店
+                        </a>
+                    </li>
+                </ul>
+                <ul>
+                    <li id="smaillbox">
+                        <span>中東</span>
+                    </li>
+                    <li>
+                        <a href="">
+                            杜拜飯店
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="Citybox">
+                <ul>
+                    <li id="country " style="">
+                        <span>
+                            國家和地區
+                        </span>
+                    </li>
+
+                </ul>
+                <ul>
+                    <li id="smaillbox">
+                        <span>非洲</span>
+                    </li>
+                    <li>
+                        <a href="">
+                            摩洛哥飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            南非飯店
+                        </a>
+                    </li>
+
+                </ul>
+                <ul>
+                    <li id="smaillbox">
+                        <span>美洲</span>
+                    </li>
+                    <li>
+                        <a href="">
+                            阿根廷飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            巴西飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            加拿大飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            墨西哥飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            美國飯店
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            委內瑞拉飯店
+                        </a>
+                    </li>
+                </ul>
+                <ul>
+                    <li id="smaillbox">
+                        <span>亞洲</span>
+                    </li>
+                    <li><a href="">柬埔寨飯店</a></li>
+                    <li><a href="">中國飯店</a></li>
+                    <li><a href="">印度飯店</a></li>
+                    <li><a href="">印尼飯店</a></li>
+                    <li><a href="">日本飯店</a></li>
+                    <li><a href="">寮國飯店</a></li>
+                    <li><a href="">馬來西亞飯店</a></li>
+                    <li><a href="">緬甸飯店</a></li>
+                    <li><a href="">尼泊爾飯店</a></li>
+                    <li><a href="">菲律賓飯店</a></li>
+                    <li><a href="">南韓飯店</a></li>
+                    <li><a href="">斯里蘭卡飯店</a></li>
+                    <li><a href="">台灣飯店</a></li>
+                    <li><a href="">泰國飯店</a></li>
+                    <li><a href="">越南飯店</a></li>
+
+                </ul>
+            </div>
+
+
+
+            <div id="Citybox">
+
+                <ul>
+                    <li id="smaillbox">
+                        <span>歐洲</span>
+                    </li>
+
+                    <li><a href="">奧地利飯店</a></li>
+                    <li><a href="">捷克飯店</a></li>
+                    <li><a href="">丹麥飯店</a></li>
+                    <li><a href="">芬蘭飯店</a></li>
+                    <li><a href="">法國飯店</a></li>
+                    <li><a href="">德國飯店</a></li>
+                    <li><a href="">希臘飯店</a></li>
+                    <li><a href="">匈牙利飯店</a></li>
+                    <li><a href="">愛爾蘭飯店</a></li>
+                    <li><a href="">義大利飯店</a></li>
+                    <li><a href="">荷蘭飯店</a></li>
+                    <li><a href="">俄羅斯飯店</a></li>
+                    <li><a href="">西班牙飯店</a></li>
+                    <li><a href="">瑞典飯店</a></li>
+                    <li><a href="">瑞士飯店</a></li>
+                    <li><a href="">英國飯店</a></li>
+                </ul>
+
+
+                <ul>
+                    <li id="smaillbox">
+                        <span>中東</span>
+                    </li>
+                    <li><a href="">巴林飯店</a></li>
+                    <li><a href="">埃及飯店</a></li>
+                    <li><a href="">以色列飯店</a></li>
+                    <li><a href="">阿拉伯聯合大公國飯店</a></li>
+                </ul>
+                <ul>
+                    <li id="smaillbox">
+                        <span>太平洋</span>
+                    </li>
+                    <li><a href="">澳洲飯店</a></li>
+                    <li><a href="">紐西蘭飯店</a></li>
+                </ul>
+
+
+            </div>
+
+
+            <div id="Citybox">
+                <li id="smaillbox">
+                    <span>目的地指南</span>
+                </li>
+                <li><a href="">目的地指南首頁</a></li>
+                <ul>
+                    <li id="smaillbox">
+                        <span>亞洲</span>
+                    </li>
+                    <li><a href="">峇里島指南</a></li>
+                    <li><a href="">曼谷指南</a></li>
+                    <li><a href="">香港指南</a></li>
+                    <li><a href="">雅加達指南</a></li>
+                    <li><a href="">濟州島指南</a></li>
+                    <li><a href="">吉隆坡指南</a></li>
+                    <li><a href="">京都指南</a></li>
+                    <li><a href="">九州指南</a></li>
+                    <li><a href="">馬六甲指南</a></li>
+                    <li><a href="">馬尼拉指南</a></li>
+                    <li><a href="">奈良指南</a></li>
+                    <li><a href="">大阪指南</a></li>
+                    <li><a href="">普吉島指南</a></li>
+                    <li><a href="">札幌指南</a></li>
+                    <li><a href="">首爾指南</a></li>
+                    <li><a href="">新加坡指南</a></li>
+                    <li><a href="">台中指南</a></li>
+                    <li><a href="">台北指南</a></li>
+                    <li><a href="">東京指南</a></li>
+                </ul>
+                <ul>
+                    <li id="smaillbox">
+                        <span>歐洲</span>
+                    </li>
+                    <li><a href="">巴黎指南</a></li>
+                </ul>
+                <ul>
+                    <li id="smaillbox">
+                        <span>中東</span>
+                    </li>
+                    <li><a href="">杜拜指南</a></li>
+                    <li><a href="">吉達指南</a></li>
+                    <li><a href="">沙烏地阿拉伯指南</a></li>
+                </ul>
+                <ul>
+                    <li id="smaillbox">
+                        <span>太平洋洲</span>
+                    </li>
+                    <li><a href="">布里斯本指南</a></li>
+                    <li><a href="">墨爾本指南</a></li>
+                    <li><a href="">雪梨指南</a></li>
+                </ul>
+            </div>
+            <div id="Citybox">
+                <li id="smaillbox">
+                    <span>Agoda Homes</span>
+                </li>
+                <ul>
+
+                    <li id="smaillbox">
+                        <span>亞洲公寓</span>
+                    </li>
+                    <li><a href="">曼谷公寓</a></li>
+                    <li><a href="">吉隆坡公寓</a></li>
+                    <li><a href="">馬尼拉公寓</a></li>
+                    <li><a href="">大阪公寓</a></li>
+                    <li><a href="">芭達雅公寓</a></li>
+                    <li><a href="">東京公寓</a></li>
+
+                </ul>
+                <ul>
+                    <li id="smaillbox">
+                        <span>亞洲小屋</span>
+                    </li>
+                    <li><a href="">峇里島小屋</a></li>
+                    <li><a href="">庫德島小屋</a></li>
+                    <li><a href="">蘭塔島小屋</a></li>
+                    <li><a href="">帕岸島小屋</a></li>
+                    <li><a href="">沙美島小屋</a></li>
+                    <li><a href="">富國島小屋</a></li>
+                </ul>
+                <ul>
+                    <li id="smaillbox">
+                        <span>亞洲別墅</span>
+                    </li>
+                    <li><a href="">峇里島別墅</a></li>
+                    <li><a href="">普吉島別墅</a></li>
+                    <li><a href="">芭達雅別墅</a></li>
+                    <li><a href="">華欣/七岩別墅</a></li>
+                    <li><a href="">首爾別墅</a></li>
+                    <li><a href="">波德申別墅</a></li>
+                </ul>
+                <ul>
+                    <li id="smaillbox">
+                        <span>亞洲度假住宿</span>
+                    </li>
+                    <li><a href="">濟州島度假住宿</a></li>
+                    <li><a href="">沖繩本島度假住宿</a></li>
+                    <li><a href="">東京度假住宿</a></li>
+                    <li><a href="">曼谷度假住宿</a></li>
+                    <li><a href="">吉隆坡度假住宿</a></li>
+                    <li><a href="">馬六甲度假住宿</a></li>
+
+                </ul>
+            </div>
+            <div id="Citybox">
+                <li id="smaillbox">
+                    <span>探索</span>
+                </li>
+                <li><a href="">長住方案</a></li>
+            </div>
+        </div>
+
+
+    </div>*@
+@*}*@
+
+@section endJS{
+    <script type="text/javascript" src="~/Asset/CDN/JS/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Asset/CDN/JS/moment.min.js"></script>
+
+    <script type="text/javascript" src="~/Asset/CDN/JS/daterangepicker.min.js"></script>
+    <script src="~/Asset/CDN/JS/vue.js"></script>
+    <script src="~/Asset/CDN/JS/index.js"></script>
+    <script src="~/Asset/js/home.js"></script>
+    <script src="~/Asset/CDN/JS/moment-with-locales.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            document.getElementsByName("cardlocal")[0].value = localStorage.getItem("key");
+            if (document.getElementsByName("cardlocal")[0].value == "") {
+            }
+           else if (document.getElementsByName("cardlocal")[0].value != sessionStorage.getItem("online")) {
+                hand2(document.getElementsByName("cardlocal")[0].value);
+                getSavedValue2(document.getElementsByName("cardlocal")[0].value);
+                function hand2(e) {
+                    var name = "online";
+                    var val = e;
+                    sessionStorage.setItem(name, val);
+                }
+                function getSavedValue2(v) {
+                    if (!sessionStorage.getItem(v)) {
+                        return "";
+                    }
+                    return sessionStorage.getItem(v);
+                }
+                var lol = $("#btn1").val();
+                //button.form.submit();
+                $.ajax({
+                    url: "/Home/HomePage",
+                    //传给服务器的数据(即后台AddUsers()方法的参数,参数类型要一致才可以)
+                    type: 'POST',
+                    cache: false,
+                    data: { cardlocal: lol },
+                    //数据类型必须有
+                    async: true,//异步
+                    error: function () {
+                        alert("An error occurred.");
+                    },
+                    success: function (data) {
+                        $("#box").html(data);
+
+
+                    }
+                });
+
+            }
+
+            if (window.history.replaceState) {
+                window.history.replaceState(null, null, window.location.href);
+                var name = "key";
+                var val = "";
+                console.log(val);
+                localStorage.setItem(name, val);
+                var name = "online";
+                var val = "";
+                sessionStorage.setItem(name, val);
+            }
+
+
+        });
+
+    </script>
+    <script>
+
+
+              moment().format();
+        $('#demo').daterangepicker({
+            "autoApply": true,
+            "locale": {
+                "format": "MM/DD/YYYY",
+                "separator": " - ",
+                "applyLabel": "確認",
+                "cancelLabel": "取消",
+                "fromLabel": "從",
+                "toLabel": "到",
+                "customRangeLabel": "Custom Range",
+                "weekLabel": "W",
+                "daysOfWeek": [
+                    "日", "一", "二", "三", "四", "五", "六"
+                ],
+                "monthNames": [
+                    "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"
+                ],
+                "firstDay": 1
+            },
+
+
+            "startDate": moment(),
+            "endDate": moment().add('days', 1)
+        }).on('change', function () {
+            var date_range = $('#demo').val();
+            var dates = date_range.split(" - ");
+
+            var start1 = moment(dates[0]).format('YYYY年MM月DD日');
+            var end1 = moment(dates[1]).format('YYYY年MM月DD日');
+
+            $('#range_start').val(start1);
+            $('#range_end').val(end1);
+            moment.locale('zh-tw');
+            var start1 = moment(dates[0]).format('dddd');
+
+            $('#week_start').val(start1);
+
+            var end1 = moment(dates[1]).format('dddd');
+
+            $('#week_end').val(end1);
+            $('#person-info').trigger("click");
+
+            var date_range2 = $('#demo').val();
+            var dates2 = date_range2.split(" - ");
+            var start12 = moment(dates[0]);
+            var end12 = moment(dates[1]);
+            var date03 = (new Date(end12).getTime() - new Date(start12).getTime()) / 86400000;
+            document.getElementsByName("data")[0].value = date03;
+
+
+        });
+
+        var date_range = $('#demo').val();
+        var dates = date_range.split(" - ");
+
+        var start = moment(dates[0]).format('YYYY年MM月DD日');
+        var end = moment(dates[1]).format('YYYY年MM月DD日');
+        $('#range_start').val(start);
+        $('#range_end').val(end);
+        moment.locale('zh-tw');
+        var start = moment(dates[0]).format('dddd');
+
+        $('#week_start').val(start);
+        var end = moment(dates[1]).format('dddd');
+
+        $('#week_end').val(end);
+        var start = moment(dates[0], 'YYYY MM DD');
+        var end = moment(dates[1], 'YYYY MM DD');
+        function dedup(arr) {
+            var hashTable = {};
+            return arr.filter(function (el) {
+                var key = JSON.stringify(el);
+                var match = Boolean(hashTable[key]);
+                return (match ? false : hashTable[key] = true);
+            });
+        }
+        var deduped = dedup([   @foreach (var item in Model.My_MyHotels)
+                            {
+                    @Html.Partial("_option2", item);
+                            }]);
+        var Main = {
+            data() {
+                return {
+                    options3: [{
+                        label: '熱門城市',
+                        options: deduped
+                    }, {
+                        label: '飯店名',
+                        options: [    @foreach (var item in Model.My_MyHotels)
+                            {
+                    @Html.Partial("_option", item);
+                            }]
+                    }],
+                    options2: [
+                    ],
+                    value: ''
+                };
+
+            },
+            methods: {
+                handleFilter(letter) {
+                    if (!letter) {
+                        this.options2 = this.options3
+                        return
+                    }
+                    this.options2 = this.options.filter(function (el, i, arr) {
+                        return arr.indexOf(el) === i;
+                    });
+                }
+            },
+            mounted() {
+                this.options2 = this.options3
+            }
+        };
+            var Ctor = Vue.extend(Main)
+            new Ctor().$mount('#app')
+    </script>
+    <script>
+        $(".asd").click(function () {
+            $('#demo').trigger("click");
+        });
+        document.getElementById("search").addEventListener('click', function () {
+            hand(document.getElementsByName("search")[0].value);
+        });
+        getSavedValue(document.getElementsByName("search")[0].value);
+
+        function hand(e) {
+            var name = "key";
+            var val = e;
+            console.log(val);
+            localStorage.setItem(name, val);
+        }
+        function getSavedValue(v) {
+            if (!localStorage.getItem(v)) {
+                return "";
+            }
+            return localStorage.getItem(v);
+
+        }
+    </script>
+
+
+
+}
+
+
+
+
+

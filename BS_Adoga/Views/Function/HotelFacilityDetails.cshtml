@@ -1,0 +1,163 @@
+﻿@model BS_Adoga.Models.DBContext.Facility
+
+@{
+    ViewBag.Title = "HotelFacilityDetails";
+    Layout = "~/Views/Shared/_FunctionPage.cshtml";
+}
+
+<h2>HotelFacilityDetails</h2>
+
+<div>
+    <h4>Facility</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Hotel.HotelName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hotel.HotelName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SwimmingPool)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SwimmingPool)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AirportTransfer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AirportTransfer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FamilyChildFriendly)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FamilyChildFriendly)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Restaurants)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Restaurants)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nightclub)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nightclub)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GolfCourse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GolfCourse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Internet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Internet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gym)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gym)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NoSmoking)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoSmoking)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SmokingArea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SmokingArea)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FacilitiesFordisabledGuests)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FacilitiesFordisabledGuests)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CarPark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CarPark)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FrontDesk)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FrontDesk)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpaSauna)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpaSauna)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PetsAllowed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PetsAllowed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BusinessFacilities)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BusinessFacilities)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Logging)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Logging)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("編輯", "HotelFacilityEdit", new { id = Model.FacilitieID }, htmlAttributes: new { @class = "btn btn-success" }) |
+    @Html.ActionLink("返回列表", "HotelFacilityIndex", null, htmlAttributes: new { @class = "btn btn-warning" })
+</p>

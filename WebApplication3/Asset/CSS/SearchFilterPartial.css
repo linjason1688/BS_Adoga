@@ -1,0 +1,151 @@
+﻿.search-filter-nav {
+    background-color: #1F264C;
+    color: grey;
+    font-size: 16px;
+}
+
+.search-filter-nav p {
+    margin: auto;
+}
+
+.search-filter-nav i {
+    font-size: 20px;
+    margin: auto 10px;
+}
+
+.search-filter-nav img {
+    vertical-align: bottom;
+}
+
+.search-filter-nav .search-bar,
+.main-body,
+.nav-item,
+.filter-container {
+    /* 控制整体维持60vw在中间 */
+    width: 70vw;
+    margin: auto;
+}
+
+.search-bar,
+.main-body,
+.nav-item,
+.search-bar button {
+    margin: 10px auto;
+}
+
+    .search-filter-nav .search-bar,
+    .main-body,
+    .nav-item,
+    .nav-item .search-date,
+    .filter-container,
+    .filter-container .array-list,
+    .filter-container .array-list .array-item,
+    .main-body .infomation .card {
+        display: flex;
+        justify-content: space-between;
+    }
+
+        .nav-item .choose-info,
+        .nav-item .search-date,
+        .main-body .infomation {
+            flex-grow: 1;
+        }
+
+.search-bar .nav-item {
+    border-radius: 5px;
+    background-color: #fff;
+    width: 30%;
+}
+
+.search-filter-nav .nav-item:nth-child(2) div.line {
+    width: 1px;
+    height: 100%;
+    background-color: grey;
+}
+
+div#person-info {
+    width: 100%;
+    display: flex;
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+    background-color: transparent;
+}
+
+    .dropdown-item:focus, .dropdown-item:hover button > p {
+        color: #5392F9;
+    }
+
+
+.search-bar div:nth-child(3) ul {
+    width: 300px;
+    background-color: #F8F7F9;
+}
+
+.search-bar div:nth-child(3) li button {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid grey;
+    width: 98%;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-bar .nav-item:nth-child(3) li button p {
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+.search-bar .nav-item:nth-child(3) li ul {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    height: 338px;
+    background-color: white;
+    box-shadow: 5px 5px 10px rgba(59, 59, 59, 0.1);
+    padding-left: 0;
+}
+
+li.dropdown-item:hover {
+    background-color: white;
+    box-shadow: 5px 5px 10px rgba(59, 59, 59, 0.1);
+}
+
+li.dropdown-item.input-request:hover > ul {
+    display: block;
+}
+
+li.dropdown-item.input-request ul {
+    padding: .5rem 0;
+}
+
+    li.dropdown-item.input-request ul li {
+        display: flex;
+        justify-content: space-around;
+        border-bottom: 1px solid grey;
+        width: 90%;
+        padding-top: 10px;
+        margin: 10px auto;
+    }
+
+        li.dropdown-item.input-request ul li i {
+            color: #B4D0FC;
+            font-size: 18px;
+        }
+
+        li.dropdown-item.input-request ul li span {
+            color: #5392F9;
+            font-size: 22px;
+        }
+/* .dropright-box{
+    position: absolute;
+    top: 0;
+    left: 298px;
+    visibility: hidden;
+    background-color: red;
+    width: 300px;
+    height: 300px;
+} */

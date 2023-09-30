@@ -1,0 +1,99 @@
+﻿@model BS_Adoga.Models.DBContext.Hotel
+
+@{
+    ViewBag.Title = "HotelLDetail";
+    Layout = "~/Views/Shared/_FunctionPage.cshtml";
+}
+
+<h2>HotelLDetail</h2>
+
+<div>
+    <h4>Hotel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HotelName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HotelName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HotelEngName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HotelEngName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HotelCity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HotelCity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HotelDistrict)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HotelDistrict)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HotelAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HotelAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HotelAbout)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HotelAbout)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Longitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Longitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Latitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Latitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Star)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Star)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Logging)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Logging)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("編輯", "HotelEdit", new { hotelid = Model.HotelID }, htmlAttributes: new { @class = "btn btn-success" }) |
+    @Html.ActionLink("返回列表", "HotelIndex", null, htmlAttributes: new { @class = "btn btn-warning" })
+</p>

@@ -1,0 +1,239 @@
+﻿@model BS_Adoga.Models.ViewModels.HotelLogin.MixHotelLoginViewModel
+@{
+    ViewBag.Title = "HotelLogin";
+    Layout = "~/Views/Shared/_AdogaLayout.cshtml";
+}
+
+@section topCSS{
+    <link href="~/Asset/CSS/HotelLogin.css" rel="stylesheet" />
+}
+
+<!-- Bear加：，頁面中間用來登入的區塊-->
+<!-- Bear：這個區塊是複製signinModal的區塊，然後把裡面所有id有關的名稱後面加上 “-card”，避免跟SigninModal裡面的id重複，導致出錯。 -->
+<div class="card sigin-card w-500 mx-auto my-5">
+    <div class="card-body">
+        <div>
+            <h5 class="modal-title fw-bold fz-24" id="exampleModalLabel-card">
+                飯店登入
+            </h5>
+            <p id="emailHelp-card" class="form-text fw-normal fz-16">
+                為了保障你的個資安全，請先登入才能查看個人資訊
+            </p>
+        </div>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            <form>
+                <div>
+                    @*原始登入HTML*@
+                    @*<div class="mb-3">
+                            <label for="LoginEmail" class="form-label">電子信箱</label>
+                            <input type="email" class="form-control" id="LoginEmail-card" name="email" aria-describedby="emailHelp-card"
+                                   placeholder="電子信箱" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="LoginPassword" class="form-label">密碼</label>
+                            <input type="password" class="form-control" id="LoginPassword-card" name="password" placeholder="密碼" />
+                        </div>*@
+                </div>
+                <div class="mb-3 form-group">
+                    @Html.LabelFor(model => model.HotelLoginView.Email)
+                    @Html.EditorFor(model => model.HotelLoginView.Email, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control" }, { "id", "RegisterEmail" }, { "aria-describedby", "emailHelp" }, { "placeholder", "電子信箱" } } })
+                    @Html.ValidationMessageFor(model => model.HotelLoginView.Email, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3 form-group">
+                    @Html.LabelFor(model => model.HotelLoginView.Password)
+                    @Html.EditorFor(model => model.HotelLoginView.Password, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control" }, { "id", "RegisterEmailPassword" }, { "aria-describedby", "emailHelp" }, { "placeholder", "密碼" } } })
+                    @Html.ValidationMessageFor(model => model.HotelLoginView.Password, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3 form-group">
+                    @Html.EditorFor(model => model.HotelLoginView.Remember)
+                    @Html.LabelFor(model => model.HotelLoginView.Remember)
+                    @Html.ValidationMessageFor(model => model.HotelLoginView.Remember, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="register">
+                    <a href="#modal" data-bs-toggle="modal" data-bs-target="#ForgetPasswordModal"
+                       id="EmailLogintoForgetPassword-card"><i class="fas fa-lock"></i>忘記密碼？別慌，點此找幫手！</a>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-danger my-2 py-2 hotellogin-btn" name="login">登入</button>
+                    <!--bear : 0610新增-->
+                    @*@Html.ActionLink("登入", "HomePage", "Home", null, new { @type = "submit", @class = "btn btn-danger my-2 py-2 hotellogin-btn" })*@
+                    @*<button type="submit" class="btn btn-primary my-2 py-2 login-btn">
+                            登入
+                        </button>*@
+                </div>
+                <div class="youshouldknow">
+                    <p>
+                        點擊登錄即代表我同意Agoda的 <a href="">服務條款</a> 和 <a href="">隱私權政策</a>
+                    </p>
+                </div>
+
+            </form>
+        }
+
+        <div class="otherlogin">
+            <p>歡迎註冊</p>
+        </div>
+
+        <div class="youshouldknow">
+            <p>
+                還未有帳戶嗎? <button type="button" class="btn btn-danger hotellogin-btn" data-bs-toggle="modal" data-bs-target="#RegisterModal">註冊帳戶</button>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+<!-- 第一個Modal -->
+<!-- 忘記密碼 -->
+<div class="modal fade" id="ForgetPasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <!-- 忘記密碼內容 -->
+                <div class="mb-3" id="aaa">
+                    <label for="ForgetPassword" class="form-label">電子信箱</label>
+                    <input type="email" class="form-control" id="ForgetPassword" aria-describedby="emailHelp"
+                           placeholder="電子信箱">
+                    <p>請於上方欄位輸入您的電子信箱 協助您找回密碼的操作說明將會寄至您的電子信箱。</p>
+                </div>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary" type="button">
+                        重設密碼
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+<!-- 第三個Modal2 -->
+<!-- 註冊 -->
+<div class="modal fade" id="RegisterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="border:0; ">
+                <h5 class="modal-title fw-bold fz-24" id="exampleModalLabel">註冊帳戶</h5>
+
+            </div>
+            <!-- modal內部控制 -->
+            <div class="modal-body signin_modal">
+                <div class="social_login"></div>
+                <div>
+                    @*方法一(未驗證欄位)*@
+                    <div>
+                        @*方法一(未驗證欄位)*@
+                        @*@using (Html.BeginForm())
+                            {
+                                //註冊電子信箱內部
+                               <form>
+                                   <div class="mb-3 form-group">
+                                       <label for="EnglishFirstNameLastName">英文姓名</label>
+                                       <input type="text" class="form-control" id="EnglishFirstNameLastName" name="Name" placeholder="例如:Tom Hsu">
+                                   </div>
+                                   <div class="mb-3 form-group">
+                                       <label for="RegisterEmail">電子信箱</label>
+                                       <input type="email" class="form-control" id="RegisterEmail" name="Email" aria-describedby="emailHelp"
+                                              placeholder="電子信箱">
+                                   </div>
+                                   <div class="mb-3 form-group">
+                                       <label for="RegisterEmailPassword">密碼</label>
+                                       <input type="password" class="form-control" id="RegisterEmailPassword" name="Password1" aria-describedby="emailHelp"
+                                              placeholder="密碼">
+                                   </div>
+                                   <div class="mb-3 form-group">
+                                       <label for="DoubleCheck">確認密碼</label>
+                                       <input type="password" class="form-control" id="DoubleCheck" name="Password2" aria-describedby="emailHelp"
+                                              placeholder="確認密碼">
+                                   </div>
+                                   <div class="robot">
+
+                                           <div class="g-recaptcha"
+                                                data-sitekey="6LfoWhYbAAAAAI1Uq4RYT2eeVwdT_6QQKE0EcaSV"></div>
+                                       </div>
+                                   <div class="checkcodeline">
+                                       <div class="d-grid gap-2">
+                                           <button type="submit" class="btn btn-danger hotellogin-btn">註冊</button>
+                                       </div>
+                                   </div>
+
+                               </form>
+                            }*@
+                    </div>
+
+                    @*方法二(有驗證欄位)*@
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        //註冊電子信箱內部
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        <form>
+                            <div class="mb-3 form-group">
+                                @Html.LabelFor(model => model.RegisterViewModel.Name)
+                                @Html.EditorFor(model => model.RegisterViewModel.Name, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control" }, { "id", "EnglishFirstNameLastName" }, { "placeholder", "例如:Tom Hsu" } } })
+                                @Html.ValidationMessageFor(model => model.RegisterViewModel.Name, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="mb-3 form-group">
+                                @Html.LabelFor(model => model.RegisterViewModel.Email)
+                                @Html.EditorFor(model => model.RegisterViewModel.Email, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control" }, { "id", "RegisterEmail" }, { "aria-describedby", "emailHelp" }, { "placeholder", "電子信箱" } } })
+                                @Html.ValidationMessageFor(model => model.RegisterViewModel.Email, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="mb-3 form-group">
+                                @Html.LabelFor(model => model.RegisterViewModel.Password)
+                                @Html.EditorFor(model => model.RegisterViewModel.Password, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control" }, { "id", "RegisterEmailPassword" }, { "aria-describedby", "emailHelp" }, { "placeholder", "密碼" } } })
+                                @Html.ValidationMessageFor(model => model.RegisterViewModel.Password, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="mb-3 form-group">
+                                @Html.LabelFor(model => model.RegisterViewModel.ConfirmPassword)
+                                @Html.EditorFor(model => model.RegisterViewModel.ConfirmPassword, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control" }, { "id", "DoubleCheck" }, { "aria-describedby", "emailHelp" }, { "placeholder", "確認密碼" } } })
+                                @Html.ValidationMessageFor(model => model.RegisterViewModel.ConfirmPassword, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="checkcodeline">
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-danger hotellogin-btn" name="register">註冊</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+
+
+@section endJS{
+    <!-- //google我不是機器人 -->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <!--bear新增的主畫面大登入表單 -->
+    <script>
+        let EmailLogintoForgetPasswordcard = document.getElementById('EmailLogintoForgetPassword-card')
+        EmailLogintoForgetPasswordcard.addEventListener('click', function () {
+            $('#SigninModal').modal('hide');
+
+        })
+    </script>
+
+    <!--電子郵件登入到忘記密碼 -->
+    <script>
+        let EmailLogintoForgetPassword = document.getElementById('EmailLogintoForgetPassword')
+        EmailLogintoForgetPassword.addEventListener('click', function () {
+            $('#SigninModal').modal('hide');
+
+        })
+    </script>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

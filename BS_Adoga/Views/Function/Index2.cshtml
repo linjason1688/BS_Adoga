@@ -1,0 +1,14 @@
+﻿@using Newtonsoft.Json;
+@using BS_Adoga.Models.ViewModels.MemberLogin;
+@{
+    ViewBag.Title = "Index";
+    //取得存在Ticket的UserData JSON資料
+    string UserCookiedataJS = ((FormsIdentity)(HttpContext.Current.User.Identity)).Ticket.UserData;
+    //反序列化為UserCookieViewModel物件，其名為UserCookie
+    UserCookieViewModel UserCookie = JsonConvert.DeserializeObject<UserCookieViewModel>(UserCookiedataJS);
+}
+
+<h2>這是功能首頁</h2>
+
+<h5>@UserCookie.Id</h5>
+<h5>@UserCookie.PictureUrl</h5>

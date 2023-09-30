@@ -1,0 +1,1278 @@
+﻿
+
+/* ~~~~~~~~~~~~~~~~~~~共用的樣式~~~~~~~~~~~~~~~~~~~  */
+
+/* 灰色下框線 border-bottom */
+.choose-room .title,
+.comment-area .title,
+.border-b-gray {
+    border-bottom: 1px solid rgb(216, 216, 216);
+}
+
+/* 灰色上框線 border-top */
+/*.comment-item,*/
+.border-t-gray {
+    border-top: 1px solid rgb(216, 216, 216);
+}
+
+/* 淺灰色右框線 */
+.border-e-light-gray {
+    border-right: 2px solid rgb(238, 237, 237);
+}
+
+.choose-room .title h3,
+.comment-area .title h3 {
+    margin-bottom: 12px;
+    font-size: 24px;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+/* <!-- hotel-nav 關於酒店詳細資訊的分類 --> */
+/* <!-- 滑動時，浮動式nav會固定在top --> */
+
+.fix-nav {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 3;
+}
+
+.hotel-nav {
+    display: none;
+    padding: 13px 0;
+    text-align: center;
+    box-shadow: 0px 1px 5px rgba(199, 199, 199, 0.719);
+}
+
+.hotel-nav-item {
+    display: inline-block;
+    margin-right: 30px;
+    color: rgb(112, 111, 111);
+    font-size: 14px;
+    font-family: "Noto Sans TC", "Microsoft JhengHei", "微軟正黑體", serif;
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+
+    .hotel-nav-item:hover {
+        color: rgb(99, 155, 238);
+    }
+
+    .hotel-nav-item i {
+        display: inline-block;
+        padding: 0 7px;
+        font-size: 14px;
+    }
+
+
+/* <!-- search-bar 和 麵包屑 --> */
+
+/*.search-bar {
+    height: 80px;
+    background-color: rgb(18, 18, 61);
+}*/
+
+nav[aria-label='breadcrumb'] {
+    margin: 15px 0 35px 0;
+}
+
+.breadcrumb-item {
+    font-size: 12px;
+}
+
+    .breadcrumb-item a,
+    .breadcrumb-item span {
+        color: #6c757d;
+    }
+
+    .breadcrumb-item.active {
+        color: #101213;
+    }
+
+    .breadcrumb-item + .breadcrumb-item::before {
+        float: left;
+        padding-right: .5rem;
+        color: #6c757d;
+        content: var(--bs-breadcrumb-divider, ">");
+    }
+
+
+/* <!-- ~~~~~~~~~~~~main-content中間介紹區~~~~~~~~~~~~~~~~~~~ --> */
+/* <!-- 圖片群 --> */
+
+.media-group {
+    /* margin-right: 20px; */
+    margin: 0 auto 20px auto;
+}
+
+.media-group img {
+    width: 100%;
+}
+
+.hotel-video .img-wrap {
+    /*width: 460px;*/
+    /*height: 355px;*/
+    width:600px;
+    height:400px;
+    margin-right:4px;
+    overflow: hidden;
+    background-color:#000;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.hotel-video img {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.medium-pic .img-wrap {
+    /*width: 333px;*/
+    /*height: 220px;*/
+    width:396px;
+    height:260px;
+    overflow: hidden;
+    border-top-right-radius: 5px;
+}
+
+.hotel-video img,
+.medium-pic img {
+    height: 100%;
+    width: 100%;
+    /*max-height: 100%;
+    max-width: 100%;*/
+    margin: auto;
+    display: block;
+}
+
+
+.medium-pic img {
+    border-top-right-radius: 5px;
+}
+
+.two-pic{
+    margin-top:4px;
+}
+
+.two-pic .img-wrap:first-child{
+    margin-right:4px;
+}
+
+.two-pic img {
+    /*width: 165px;
+    height: 132px;*/
+    width:196px;
+    height:136px;
+}
+
+.two-pic .img-wrap:last-child {
+     border-bottom-right-radius: 5px;
+}
+
+.pic-group .img-wrap,
+.hotel-video .img-wrap {
+    position: relative;
+    overflow:hidden;
+}
+
+.img-wrap .show-shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: 0.3s;
+}
+
+.two-pic .img-wrap:last-child .show-shadow {
+    text-align: center;
+    line-height: 128px;
+    /*background-color: rgba(0, 0, 0, 0.356);*/
+}
+
+.img-wrap .show-shadow:hover,
+.two-pic .img-wrap:last-child .show-shadow:hover,
+.hotel-video .show-shadow:hover {
+    background-color: rgba(0, 0, 0, 0.493);
+}
+
+.add-fav-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: block;
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    color: rgb(202, 202, 202);
+    background-color: rgb(248, 248, 248);
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+    .add-fav-button:hover {
+        color: rgb(221, 59, 59);
+    }
+
+.album-link {
+    display: inline;
+    font-family: 'Noto Sans TC', serif;
+    text-decoration: none;
+    color: #fff;
+}
+
+.show-shadow:hover .album-link {
+    color: rgb(88, 150, 243);
+}
+
+/* <!-- 酒店標題 --> */
+
+.hotel-title span:first-child {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    background-color: rgb(3, 170, 31);
+    border-radius: 3px;
+}
+
+.hotel-title h2 {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.hotel-title .fa-star {
+    margin-right: 2px;
+    color: rgb(255, 174, 0);
+    font-size: 14px;
+}
+
+
+/* <!-- 今日多少人訂 --> */
+
+.today-order-count {
+    border-color: transparent;
+}
+
+    .today-order-count .card-body {
+        background-color: rgb(247, 229, 218);
+    }
+
+    .today-order-count .icon-wrap-circle {
+        display: inline-block;
+        padding: 10px 12px;
+        background-color: rgb(219, 17, 67);
+        border-radius: 50%;
+    }
+
+        .today-order-count .icon-wrap-circle i {
+            font-size: 26px;
+            color: #fff;
+        }
+
+    .today-order-count .content {
+        font-size: 16px;
+    }
+
+    .today-order-count .title {
+        color: rgb(219, 17, 67);
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+
+
+/* <!-- ~~~~~~~~~~~~right-side-bar右側欄區域~~~~~~~~~~~~~~~~~~~ --> */
+/* <!-- 概略的評分box --> */
+
+.rate-box {
+    /* height: fit-content; */
+    /*margin: 0 auto 15px auto;*/
+    height:100%;
+}
+
+    .rate-box hr {
+        height: 0.5px;
+        color: rgb(128, 128, 128);
+    }
+    .rate-box .rate-num {
+        font-family: system-ui;
+    }
+.rate-num {
+    margin: 3px 10px 10px 0;
+    padding: 7px 12px;
+    color: #fff;
+    background-color: rgb(53, 129, 243);
+    font-size: 30px;
+    font-weight: bold;
+    font-family: Montserrat, serif;
+    border-radius: 5px;
+}
+
+.rate-content {
+    font-size: 12px;
+}
+
+    .rate-content .rate-category {
+        font-size: 18px;
+    }
+
+    .rate-content .comment-count {
+        font-weight: bold;
+    }
+
+    .rate-content + p {
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+.month-rate-change {
+    color: rgb(89, 177, 2);
+}
+
+    .month-rate-change i {
+        font-size: 16px;
+    }
+
+.rate-tag-group p {
+    margin: 0 10px 5px 0;
+    padding: 5px 10px;
+    font-size: 15px;
+    border: 1px solid rgba(128, 128, 128, 0.37);
+}
+
+    .rate-tag-group p span,
+    .rate-tag-group p i {
+        color: rgb(3, 170, 31);
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .rate-tag-group p i {
+        font-size: 12px;
+    }
+
+
+/* <!-- 概略的地圖box --> */
+
+.map-box hr {
+    height: 0.5px;
+    color: rgb(128, 128, 128);
+}
+
+.map-box .wrap + p {
+    font-family: bold;
+    font-size: 14px;
+}
+
+.map-wrap {
+    position: relative;
+}
+
+.map-img-wrap {
+    overflow: hidden;
+}
+
+    .map-img-wrap img {
+        width: 100%;
+        height: 100px;
+        transition: 0.3s;
+    }
+
+        .map-img-wrap img:hover {
+            transform: scale(1.2);
+        }
+
+    .map-img-wrap + span {
+        position: absolute;
+        left: 36%;
+        bottom: 10px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+.rate-num.map {
+    margin: 3px 10px 13px 0;
+    padding: 4px 8px;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(99, 155, 238);
+    background-color: transparent;
+    border: 3px solid rgb(99, 155, 238);
+}
+
+.rate-category.map {
+    font-size: 16px;
+}
+
+.car-park-service p:last-child {
+    color: rgb(89, 177, 2);
+    ;
+}
+
+
+
+/* <!-- 5個綠icon區域 --> */
+
+.green-icon-group .wrap {
+    /* margin: 15px 40px; */
+    text-align: center;
+}
+
+.green-icon-group i {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 26px;
+    color: rgb(137, 199, 75);
+}
+
+/* .green-icon-group i {
+            margin: 0 15px 0 0;
+            font-size: 26px;
+            color: rgb(137, 199, 75);
+        } */
+
+.green-icon-group span {
+    font-size: 14px;
+}
+
+
+/* <!--~~~~~~~~~~~~~~1100px大區塊~~~~~~~~~~~~~~~--> */
+/* <!--------- 客房選擇 --------------> */
+
+/* <!-- 標題 --> */
+
+/* .choose-room .title {
+            border-bottom: 1px solid rgb(216, 216, 216);
+        }
+
+        .choose-room .title h3 {
+            margin-bottom: 12px;
+            font-size: 24px;
+        } */
+
+.choose-room .title i {
+    color: rgb(150, 206, 94);
+}
+
+.choose-room .title span {
+    font-size: 14px;
+    color: rgb(53, 129, 243);
+}
+
+
+/* <!-- 人氣設備與服務 --> */
+
+/* 人氣設施與服務 簡略 */
+.popular-service h4 {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.popular-service .wrap {
+    flex-grow: 1;
+}
+
+.popular-service i,
+.popular-service span {
+    font-size: 14px;
+    color: rgb(88, 150, 243);
+}
+
+.popular-other {
+    text-align: right;
+    border-left: 1px solid rgb(216, 216, 216);
+}
+
+    .popular-other i,
+    .popular-other span {
+        font-size: 14px;
+        color: rgb(3, 170, 31);
+    }
+
+    .popular-other .rate-content a,
+    .rate-category.service {
+        font-size: 14px;
+    }
+
+    .popular-other .rate-content a {
+        color: rgb(99, 155, 238);
+    }
+
+.rate-num.service {
+    margin: 0 0 13px 10px;
+    padding: 4px 8px;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(99, 155, 238);
+    background-color: transparent;
+    border: 2px solid rgb(99, 155, 238);
+}
+
+
+/* <!-- 篩選房間 --> */
+
+/* 顯示特定房型 條件篩選 */
+.filter-room .small-title h4 {
+    font-size: 16px;
+}
+
+.filter-room .small-title span {
+    font-size: 14px;
+    color: rgb(99, 155, 238);
+}
+
+.filter-room .small-title span:hover {
+    text-decoration: underline;
+    cursor:pointer;
+}
+
+.filter-room .tag-group label {
+    margin: 0 10px 5px 0;
+    padding: 5px 15px;
+    font-size: 15px;
+    border: 1px solid rgba(128, 128, 128, 0.37);
+    transition: 0.1s;
+}
+
+    .filter-room .tag-group label:hover {
+        box-shadow: 1px 1px 5px rgba(178, 174, 201, 0.719);
+    }
+
+        .filter-room .tag-group label:hover,
+        .filter-room .tag-group label:hover i {
+            color: rgb(58, 129, 236);
+            border-color: rgb(58, 129, 236);
+        }
+
+.filter-room .tag-group i {
+    margin-right: 8px;
+    font-size: 16px;
+    color: rgb(80, 80, 80);
+}
+
+.filter-room .tag-group span {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+.filter-room .chk-box:checked + label {
+    border-color: rgb(58, 129, 236);
+    background-color: rgb(58, 129, 236);
+}
+
+    .filter-room .chk-box:checked + label,
+    .filter-room .chk-box:checked + label i {
+        color: #fff;
+    }
+
+
+/* <!-- check-in時再付錢 --> */
+
+/* check-in-pay 列 */
+.check-in-pay {
+    padding: 15px;
+    background-color: rgba(240, 240, 240, 0.438);
+    border: 1px solid rgba(201, 201, 201, 0.671);
+}
+
+    .check-in-pay .wrap:first-child p {
+        font-weight: bold;
+    }
+
+    .check-in-pay .wrap:first-child span {
+        font-size: 12px;
+        color: red;
+    }
+
+    .check-in-pay .chk-box-wrap {
+        position: relative;
+    }
+
+    .check-in-pay .chk-box {
+        position: absolute;
+        top: 35%;
+        left: 10%;
+        width: 18px;
+        height: 18px;
+        appearance: unset;
+        background-color: #fff;
+        border: 1px solid rgba(201, 201, 201, 0.671);
+    }
+
+        .check-in-pay .chk-box:hover,
+        .check-in-pay .box-label:hover {
+            color: rgb(99, 155, 238);
+            border-color: rgb(99, 155, 238);
+        }
+
+        .check-in-pay .chk-box:checked::after {
+            content: "✓";
+            position: absolute;
+            top: -7px;
+            left: 0;
+            color: rgb(99, 155, 238);
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .check-in-pay .chk-box:checked + label {
+            color: #fff;
+            border-color: rgb(58, 129, 236);
+            background-color: rgb(58, 129, 236);
+        }
+
+        .check-in-pay .chk-box:checked label[for="check-in-pay"] {
+            color: #fff;
+            border-color: rgb(58, 129, 236);
+            background-color: rgb(58, 129, 236);
+        }
+
+    .check-in-pay .box-label {
+        padding: 15px 15px 15px 50px;
+        background-color: #fff;
+        border: 1px solid rgba(201, 201, 201, 0.671);
+    }
+
+    .check-in-pay .box-label {
+        font-size: 14px;
+    }
+
+        .check-in-pay .box-label span {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+
+/* <!-- 訂房專案 room-type --> */
+
+.room-type-group .small-title span {
+    font-size: 12px;
+    color: rgb(141, 141, 141);
+}
+.no-room-type {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid rgb(211, 211, 211);
+    /* background-color: rgb(70, 70, 70); */
+    border-radius: 5px;
+}
+
+    .no-room-type p {
+        text-align: center;
+        font-size: 30px;
+        color: rgb(194, 193, 193);
+    }
+
+    .no-room-type i.fa-home {
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 60px;
+        color: rgb(194, 193, 193);
+        animation-name: shake-icon;
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-in;
+    }
+
+@keyframes shake-icon {
+    0% {
+        transform: rotate(10deg);
+    }
+
+    25% {
+        transform: rotate(-10deg);
+    }
+
+    50% {
+        transform: rotate(10deg);
+    }
+
+    75% {
+        transform: rotate(-10deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+        color: rgba(0, 0, 0, 0);
+    }
+}
+.room-type {
+    border: 1px solid rgba(201, 201, 201, 0.671);
+}
+
+.room-type-title {
+    padding: 15px 10px;
+    /* margin-bottom: 10px; */
+}
+
+    .room-type-title h5 {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+.room-type .container {
+    padding: 10px 10px;
+    background-color: rgba(240, 240, 240, 0.568);
+}
+
+.room-type .col-3:first-child > p,
+.field p {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#hover-equim-serv {
+    position: relative;
+}
+
+    #hover-equim-serv .equim-serv {
+        /* display: none; */
+        position: absolute;
+        bottom: 100%;
+        left: 100%;
+        z-index: 1;
+        background-color: rgb(204, 68, 68);
+        height: 200px;
+        width: 200px;
+        box-shadow: 3px 4px 3px rgba(156, 156, 156, 0.575);
+    }
+
+.room-case div[class^="col"] {
+    background-color: #fff;
+    border-right: 1px solid rgb(216, 216, 216);
+    box-shadow: 0px 2px 1px rgba(207, 207, 207, 0.315);
+}
+.room-type .col-9 {
+    position: relative;
+}
+
+.room-type a.link{
+    cursor:pointer;
+}
+
+.row.room-case.one-case.pe-3.mb-3 {
+    position: absolute;
+    left: 1.5rem;
+    right: 1rem;
+    bottom: 0;
+    top: 30px;
+}
+
+.room-case select {
+    padding: 8px;
+    border: 1px solid rgb(216, 216, 216);
+}
+
+    .room-case select:hover {
+        border: 1px solid rgb(99, 155, 238);
+    }
+
+p.room-case-price {
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(236, 79, 79);
+}
+
+/*0618新增 打折多少的小標籤*/
+.room-case-discount {
+    display: inline-block;
+    padding: 1px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    background-color: rgb(221, 31, 31);
+}
+
+/* p.room-case-price span {
+            padding-right: 3px;
+        } */
+
+.keep-btn,
+.cart-btn {
+    width: 100%;
+    font-weight: bold;
+    border: 1px solid rgb(99, 155, 238);
+}
+
+.keep-btn {
+    color: #fff;
+    background-color: rgb(99, 155, 238);
+}
+
+    .keep-btn:hover {
+        color: #fff;
+        background-color: rgb(61, 202, 245);
+        border: 1px solid rgb(61, 202, 245);
+    }
+
+.cart-btn {
+    color: rgb(99, 155, 238);
+}
+
+    .cart-btn:hover {
+        color: #fff;
+        background-color: rgb(169, 199, 245);
+        border: 1px solid rgb(169, 199, 245);
+    }
+
+
+/* <!-- 詳細介紹 --> */
+
+.introduce-area .img-wrap {
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+}
+
+.introduce-area img {
+    width: 718px;
+    height: 420px;
+}
+
+.introduce-area .title {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.671);
+}
+
+.introduce-area h3 {
+    margin: 15px 0 15px 30px;
+    color: #fff;
+    font-size: 24px;
+}
+
+    .introduce-area h3 span {
+        font-size: 30px;
+    }
+
+.introduce-area a {
+    position: absolute;
+    top: 5%;
+    right: 2%;
+    display: inline-block;
+    padding: 10px 10px;
+    color: rgb(99, 155, 238);
+    font-size: 14px;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid rgb(99, 155, 238);
+    border-radius: 5px;
+}
+
+    .introduce-area a:hover {
+        color: #fff;
+        background-color: rgb(99, 155, 238);
+    }
+
+.introduce-area p {
+    text-indent: 15px;
+    letter-spacing: 0.5px;
+}
+
+
+/* <!-- 設施服務 --> */
+
+.equim-serv-area .serv-group .serv-row {
+    width: 100%;
+}
+
+.serv-group > i {
+    width: 60px;
+}
+
+.serv-row i {
+    width: 15px;
+}
+
+.stay-rule .row div[class^='col'] > p {
+    background-color: rgba(226, 226, 226, 0.514);
+}
+
+.stay-rule .row i {
+    width: 60px;
+    font-size: 25px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.stay-rule .ask-btn {
+    display: inline-block;
+    padding: 10px 30px;
+    color: #fff;
+    background-color: rgb(70, 139, 241);
+    border: 1px solid rgb(70, 139, 241);
+    border-radius: 3px;
+    text-decoration: none;
+    text-align: center;
+    vertical-align: center;
+}
+
+    .stay-rule .ask-btn i {
+        padding-right: 5px;
+    }
+
+
+.useful-infm i,
+.collapse-control i {
+    width: 24px;
+}
+
+.collapse-control {
+    text-decoration: none;
+}
+
+    .collapse-control[aria-expanded="false"]::after {
+        content: '全部展開';
+    }
+
+    .collapse-control[aria-expanded="true"]::after {
+        content: '收起';
+    }
+
+
+/* <!--~~~~~~~~~~~~~~ 評鑒區塊~~~~~~~~~~~~~~ --> */
+/* <!-- 分123頁按鈕的部分....bs設定我改了很多ORZ --> */
+
+.comment-area .circle-border {
+    border: 1px solid rgb(189, 189, 189);
+    border-radius: 50%;
+}
+
+.comment-area .pagination {
+    width: fit-content;
+    margin: 20px auto;
+    align-items: center;
+}
+
+.page-link {
+    padding: 0 .75rem;
+    color: rgb(87, 87, 87);
+    font-weight: bold;
+    border: none;
+}
+
+    .page-link:hover {
+        z-index: 2;
+        color: #2079ff;
+        text-decoration: underline;
+        background-color: #fff;
+        border-color: #fff;
+    }
+
+.page-item.disabled .page-link {
+    color: #dee2e6;
+}
+
+.page-item.active .page-link {
+    z-index: 2;
+    color: #0d6efd;
+    background-color: #fff;
+    border-color: none;
+}
+
+.page-item:first-child {
+    margin-right: 40px;
+}
+
+.page-item:last-child {
+    margin-left: 40px;
+}
+
+    .page-item:last-child .page-link,
+    .page-item:first-child .page-link {
+        padding: .375rem .75rem;
+        border-top-left-radius: 50%;
+        border-bottom-left-radius: 50%;
+        border-top-right-radius: 50%;
+        border-bottom-right-radius: 50%;
+    }
+
+.page-item:not(:first-child) .page-link {
+    margin-left: 0px;
+}
+
+.page-item + .page-item:not(:nth-child(2), :last-child) {
+    border-left: 1px solid rgb(129, 129, 129);
+}
+
+/* <!-- filter 篩選列的部分 --> */
+
+.filter-comment .people-filter,
+.filter-comment .room-type-filter,
+.filter-comment .rate-filter {
+    flex-grow: 1;
+    border: 1px solid rgb(216, 216, 216);
+}
+
+.people-filter i,
+.room-type-filter i,
+.rate-filter i {
+    font-size: 24px;
+}
+
+.people-filter select,
+.room-type-filter select,
+.rate-filter select {
+    flex-grow: 1;
+    border: 0px;
+    outline: none;
+}
+
+
+/* <!-- 單個評鑑的模板 --> */
+
+/*rate-num在288行左右已有樣式，所以註解掉這個了，comment-item的rate-num直接採用208行的那個就好*/
+/*.comment-item .rate-num {
+    margin: 0;
+    padding: 0;
+    font-size: 34px;
+    font-family: Montserrat, serif;
+    background-color: #fff;
+    border-radius: 0;
+}*/
+
+.rate-item i {
+    width: 28px;
+    text-align: center;
+}
+
+.rate-item div span {
+    color: rgb(80, 79, 79);
+}
+
+.comment-content {
+    padding: 30px 60px;
+    background-color: rgb(243, 243, 243);
+    border-radius: 15px;
+}
+
+/*-------相簿-------------*/
+
+.album-back {
+    display: none;
+}
+
+.album-back {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 4;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(32, 36, 35, 0.445);
+}
+
+.album.container {
+    /* position: fixed;
+            top: 0;
+            left: 100%;
+            z-index: 2; */
+    width: 80%;
+}
+
+    .album.container .col-9 {
+        background-color: rgb(0, 0, 0);
+    }
+
+    .album.container .col-3 {
+        background-color: rgb(0, 0, 0);
+    }
+
+    .album.container .side-info-wrap {
+        height: 350px;
+        overflow: auto;
+    }
+
+.side-info-wrap::-webkit-scrollbar {
+    width: 6px;
+    /*設定 y軸scrollbar的寬度*/
+    height: 6px;
+    /*設定 x軸scrollbar的高度*/
+    /*background-color: rgb(255, 255, 255);*/
+    /*設定scrollbar的背景色（刀鞘？）*/
+}
+
+.side-info-wrap::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: #808080;
+    /*設定scrollbar本身的填滿顏色（刀片本身）*/
+}
+
+    .side-info-wrap::-webkit-scrollbar-thumb:hover {
+        background-color: #548dd8;
+    }
+
+.img-figure .img-wrap::-webkit-scrollbar-track {
+    padding: 3px 0;
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+    /*background-color: #ffffff;*/
+}
+
+
+#close-icon,#room-album-close-icon {
+    font-size: 40px;
+    color: #fff;
+}
+
+.album .title {
+    font-size: 22px;
+}
+
+.album .service-group span {
+    font-size: 16px;
+}
+
+.album .discount {
+    width: 220px;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 25px;
+    line-height: 1.1;
+    background-color: rgb(214, 39, 39);
+    border-radius: 5px;
+}
+
+    .album .discount span {
+        font-family: 'Montserrat', serif;
+    }
+
+.album .price-wrap {
+    font-size: 24px;
+    font-family: 'Montserrat', serif;
+}
+
+    .album .price-wrap .price {
+        font-size: 45px;
+    }
+
+    .album .price-wrap span:last-child {
+        font-size: 14px;
+    }
+
+.album .anchor-room-type {
+    display: inline-block;
+    width: 94%;
+    margin: auto;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    background-color: rgb(51, 163, 255);
+    border-radius: 5px;
+}
+
+.img-pages {
+    width: 100%;
+    background-color: #000;
+}
+
+    .img-pages .wrap {
+        border-bottom: 2px solid gray;
+    }
+
+    .img-pages label {
+        padding: 0 20px 10px 20px;
+        padding-bottom: 10px;
+        color: gray;
+        border-bottom: 2px solid rgba(148, 148, 148, 0);
+    }
+
+        .img-pages label:hover {
+            color: rgb(179, 179, 179);
+            border-bottom: 2px solid rgb(177, 177, 177);
+        }
+
+    .img-pages input {
+        display: none;
+    }
+
+        .img-pages input:checked + label {
+            color: #fff;
+            border-bottom: 2px solid rgb(255, 255, 255);
+        }
+
+/*-------相簿的Carousel的部分-------------*/
+
+.carousel-inner {
+    /* width: 650px; */
+    width: 70%;
+    margin: auto;
+}
+
+.carousel-control-prev {
+    left: -20px;
+}
+
+.carousel-control-next {
+    right: -20px;
+}
+
+.carousel-indicators {
+    position: unset;
+    margin-bottom: 0;
+    justify-content: start;
+}
+
+.carousel-indicators [data-bs-target] {
+    margin: 10px 3px;
+    width: 92px;
+    height: 60px;
+}
+
+.carousel-indicators [data-bs-target]:hover {
+    border: 2px solid white;
+}
+
+/*.carousel-item {
+    max-width: 100%;
+    max-height: 474px;
+    overflow: hidden;
+}*/
+
+.carousel-item {
+    position: relative;
+    margin-top: 40px;
+    max-width: 100%;
+    /* max-height: 500px; */
+    height: 400px;
+    overflow: hidden;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    margin: auto;
+}
+
+.carousel-caption {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-image: linear-gradient(0deg, #000, rgba(226, 226, 226, 0));
+}
+
+    .carousel-caption p {
+        font-weight: bold;
+        font-family: 'Montserrat', serif;
+    }
+
+
+    

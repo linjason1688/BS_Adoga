@@ -1,0 +1,129 @@
+﻿@model IEnumerable<BS_Adoga.Models.ViewModels.HotelLogin.HotelListViewModel>
+@{
+    ViewBag.Title = "HotelIndex";
+    Layout = "~/Views/Shared/_FunctionPage.cshtml";
+
+    List<Facility> facilities = ViewBag.facilities;
+
+}
+
+@section topCSS
+{
+    <link href="~/Asset/StartbootstrapAdminPages/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+}
+
+@section endJS
+{
+    <!-- Page level plugins -->
+    <script src="~/Asset/StartbootstrapAdminPages/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Asset/StartbootstrapAdminPages/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/Asset/StartbootstrapAdminPages/js/demo/datatables-demo.js"></script>
+}
+
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800">飯店清單</h1>
+            <p class="mb-4">
+                新增飯店基本資料
+            </p>
+
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">@Html.ActionLink("建立飯店", "HotelCreate",null, htmlAttributes: new { @class = "btn btn-primary" })</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    @*<th>Name</th>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                    <th>Age</th>
+                                    <th>Start date</th>
+                                    <th>Salary</th>*@
+                                    <th>@Html.DisplayNameFor(model => model.HotelID)</th>
+                                    <th>@Html.DisplayNameFor(model => model.HotelName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.HotelEngName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.HotelCity)</th>
+                                    <th>@Html.DisplayNameFor(model => model.HotelDistrict)</th>
+                                    <th>@Html.DisplayNameFor(model => model.HotelAddress)</th>
+                                    <th>設施</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(model => model.HotelID)</th>
+                                    <th>@Html.DisplayNameFor(model => model.HotelName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.HotelEngName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.HotelCity)</th>
+                                    <th>@Html.DisplayNameFor(model => model.HotelDistrict)</th>
+                                    <th>@Html.DisplayNameFor(model => model.HotelAddress)</th>
+                                    <th>設施</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr onclick="location.href = '/Hotel/Edit/@item.HotelID'">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.HotelID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.HotelName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.HotelEngName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.HotelCity)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.HotelDistrict)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.HotelAddress)
+                                    </td>
+                                    @*<td>
+                                        @Html.ActionLink("編輯", "Edit", new { hotelid = item.HotelID }, htmlAttributes: new { @class = "btn btn-secondary" }) |
+                                        @Html.ActionLink("詳細資料", "HotelLDetails", new { hotelid = item.HotelID }, htmlAttributes: new { @class = "btn btn-info" }) |
+                                        @Html.ActionLink("刪除", "Delete", new { hotelid = item.HotelID }, htmlAttributes: new { @class = "btn btn-danger" })
+                                    </td>*@
+                                <td>
+                                    @if (@facilities.Where(x => x.HotelID == item.HotelID).FirstOrDefault() != null)
+                                    {
+                                        @Html.ActionLink("Edit Facilities", "HotelFacilityEdit", new { id = @facilities.Where(x => x.HotelID == item.HotelID).FirstOrDefault().FacilitieID }, htmlAttributes: new { @class = "btn btn-success" })
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Add Facilities", "HotelFacilityCreate", new { hotelids = item.HotelID }, htmlAttributes: new { @class = "btn btn-danger" })
+                                    }
+                                </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+</div>
+<!-- End of Content Wrapper -->

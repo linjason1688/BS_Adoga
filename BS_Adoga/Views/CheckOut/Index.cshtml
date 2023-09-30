@@ -1,0 +1,342 @@
+﻿@*@model BS_Adoga.Models.ViewModels.CheckOut.CheckOutListViewModel*@
+@model BS_Adoga.Models.ViewModels.CheckOut.OrderVM
+
+@{
+    ViewBag.Title = "付款前基本資料填寫";
+    Layout = "~/Views/Shared/_AdogaLayout.cshtml";
+
+    TempData.Peek("orderData");
+
+    var hotelAndRoom = Model.roomCheckOutViewModel;
+    var checkOut = Model.checkOutListViewModel;
+}
+
+@section topCSS{
+    <link rel="stylesheet" href="~/Asset/CSS/Reset.css" />
+    <link rel="stylesheet" href="~/Asset/CSS/StepBar.css" />
+    <style>
+        .line {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #999;
+        }
+
+            .line::before,
+            .line::after {
+                content: '';
+                flex: 1;
+                height: 1px;
+                background: #ccc;
+            }
+
+        #form fieldset:not(:first-of-type) {
+            display: none
+        }
+    </style>
+}
+
+<!--填寫會員資料-->
+<div class="container my-5">
+    <div class="row">
+        <!--左側表單-->
+        <div class="col-lg-8 order-1 order-lg-1" id="form">
+            <!--個人資料-->
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <form class="row g-3">
+                    <div class="border border-3 bg-white p-3 m-1 row">
+                        <p class="fw-bold h5">請填寫以下資訊</p>
+                        <!--FirstName-->
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.checkOutListViewModel.FirstName)
+                            @Html.EditorFor(model => model.checkOutListViewModel.FirstName, new { htmlAttributes = new { @class = "form-control mb-2", @placeholder = "FirstName" } })
+                            @Html.ValidationMessageFor(model => model.checkOutListViewModel.FirstName, "", new { @class = "text-danger" })
+                            @*<label for="firstName" class="form-label">英文名（同護照）</label>
+                                <input type="text" class="form-control" id="firstName">*@
+                        </div>
+                        <!--LastName-->
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.checkOutListViewModel.LastName)
+                            @Html.EditorFor(model => model.checkOutListViewModel.LastName, new { htmlAttributes = new { @class = "form-control mb-2", @placeholder = "LastName" } })
+                            @Html.ValidationMessageFor(model => model.checkOutListViewModel.LastName, "", new { @class = "text-danger" })
+                            @*<label for="lastName" class="form-label">英文姓（同護照）</label>
+                                <input type="text" class="form-control" id="lastName">*@
+                        </div>
+                        <!--Email-->
+                        <div class="col-12">
+                            @Html.LabelFor(model => model.checkOutListViewModel.Email)
+                            @Html.EditorFor(model => model.checkOutListViewModel.Email, new { htmlAttributes = new { @class = "form-control mb-2", @placeholder = "請確認電子信箱填寫無誤" } })
+                            @Html.ValidationMessageFor(model => model.checkOutListViewModel.Email, "", new { @class = "text-danger" })
+                            @*<label for="email" class="form-label">電子信箱</label>
+                                <input type="email" class="form-control" id="email" placeholder="請確認電子信箱填寫無誤">*@
+                        </div>
+                        <!--checkEmail-->
+                        <div class="col-12">
+                            @Html.LabelFor(model => model.checkOutListViewModel.ConfirmEmail)
+                            @Html.EditorFor(model => model.checkOutListViewModel.ConfirmEmail, new { htmlAttributes = new { @class = "form-control mb-2", @placeholder = "請確認電子信箱填寫無誤" } })
+                            @Html.ValidationMessageFor(model => model.checkOutListViewModel.ConfirmEmail, "", new { @class = "text-danger" })
+                            @*<label for="checkemail" class="form-label">請再次輸入電子信箱</label>
+                                <input type="email" class="form-control" id="checkemail">*@
+                        </div>
+                        <!--PhoneNumber-->
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.checkOutListViewModel.PhoneNumber)
+                            @Html.EditorFor(model => model.checkOutListViewModel.PhoneNumber, new { htmlAttributes = new { @class = "form-control mb-2", @placeholder = "Ex: 09xx123456" } })
+                            @Html.ValidationMessageFor(model => model.checkOutListViewModel.PhoneNumber, "", new { @class = "text-danger" })
+                            @*<label for="phone" class="form-label">手機號碼</label>
+                                <input type="text" class="form-control" id="phone">*@
+                        </div>
+                        <!--Country-->
+                        <div class="col-md-6">
+                            <label for="country">居住地</label>
+                            @*<select id="country" class="form-select">
+                                    <option selected>台灣</option>
+                                    <option>日本</option>
+                                    <option>韓國</option>
+                                    <option>美國</option>
+                                    <option>中國</option>
+                                    <option>澳洲</option>
+                                </select>*@
+                            @{
+                                List<SelectListItem> country = new List<SelectListItem>
+                                                                                                                        {
+                                        new SelectListItem { Text = "台灣", Value = "台灣", Selected = true},
+                                        new SelectListItem { Text = "日本", Value = "日本" },
+                                        new SelectListItem { Text = "韓國", Value = "韓國" },
+                                        new SelectListItem { Text = "美國", Value = "美國" },
+                                        new SelectListItem { Text = "澳洲", Value = "澳洲" }
+                                    };
+                            }
+                            @Html.DropDownListFor(x => x.checkOutListViewModel.countries, country, new { @class = "form-select" })
+                        </div>
+                        <!--
+                        <div class="col-12">
+                            <p>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="helpCheck"
+                                           data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false"
+                                           aria-controls="collapseExample">
+                                    <label class="form-check-label" for="helpCheck">
+                                        若僅幫忙訂房，不會同行，請打勾！並於下方欄位輸入實際住客姓名與居住地。
+                                    </label>
+                                </div>
+                            </p>
+                            <div class="collapse" id="collapseExample">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label for="helpFirstName" class="form-label">英文名（同護照）</label>
+                                        <input type="text" class="form-control" id="helpFirstName">
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="helpLastName" class="form-label">英文姓（同護照）</label>
+                                        <input type="text" class="form-control" id="helpLastName">
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="helpCountry" class="form-label">居住地</label>
+                                        <select id="helpCountry" class="form-select">
+                                            <option selected>台灣</option>
+                                            <option>日本</option>
+                                            <option>韓國</option>
+                                            <option>美國</option>
+                                            <option>中國</option>
+                                            <option>澳洲</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        -->
+                        <div class="col-12">
+                            <p class="fw-bold">需要加註特殊需求嗎？</p>
+                            <p>我們會在預訂完成後將你的需求發送給住宿。</p>
+                            <div class="border border-3 bg-light p-3">
+                                <div class="row m-auto g-2">
+                                    <span class="p-2">吸菸需求（需視現場狀況安排）</span>
+                                    <div class="form-check col-md-6">
+                                        @Html.RadioButtonFor(model => model.checkOutListViewModel.SmokingPreference, "禁菸房", new { @id = "non-smok", @class = "form-check-input", @checked = true }) 禁菸房
+                                    </div>
+                                    <div class="form-check col-md-6">
+                                        @Html.RadioButtonFor(model => model.checkOutListViewModel.SmokingPreference, "吸菸房", new { @id = "smok", @class = "form-check-input" }) 吸菸房
+                                    </div>
+                                </div>
+                                <div class="row m-auto g-2">
+                                    <span class="p-2">床型需求（需視現場狀況安排）</span>
+                                    <div class="form-check col-md-6">
+                                        @Html.RadioButtonFor(model => model.checkOutListViewModel.BedPreference, "大床", new { @id = "bidbed", @class = "form-check-input", @checked = true }) 大床
+                                    </div>
+                                    <div class="form-check col-md-6">
+                                        @Html.RadioButtonFor(model => model.checkOutListViewModel.BedPreference, "兩床", new { @id = "twobed", @class = "form-check-input" }) 兩床
+                                    </div>
+                                </div>
+                            </div>
+                            @*<p>
+                                    <a data-bs-toggle="collapse" href="#collapse2" role="button" aria-expanded="false"
+                                       aria-controls="collapseExample">
+                                        新增其他特殊需求
+                                    </a>
+                                </p>
+                                <div class="collapse" id="collapse2">
+                                    <div class="border border-1 p-3">
+                                        <div class="row m-auto">
+                                            <p>【請注意】所有特殊需求必須視住宿現場狀況而定，我們無法預先向您保證是否能夠提供相關服務。</p>
+                                            <div class="form-check col-md-6">
+                                                <input class="form-check-input" type="checkbox" id="highFloor">
+                                                <label class="form-check-label" for="highFloor">高樓層房</label>
+                                            </div>
+                                            <div class="form-check col-md-6">
+                                                <input class="form-check-input" type="checkbox" id="babyCot">
+                                                <label class="form-check-label" for="babyCot">嬰兒床(可能需額外付費)</label>
+                                            </div>
+                                            <div class="form-check col-12">
+                                                <input class="form-check-input" type="checkbox" id="quietRoom">
+                                                <label class="form-check-label" for="quietRoom">安靜客房</label>
+                                            </div>
+                                            <div class="line"></div>
+                                            <div class="form-check col-12">
+                                                <input class="form-check-input" type="checkbox" id="airportTransfer">
+                                                <label class="form-check-label" for="airportTransfer">機場接送</label>
+                                            </div>
+                                            <div class="line"></div>
+                                            <span>請使用英文或中文填寫特殊需求：</span>
+                                        </div>
+                                    </div>
+                                </div>*@
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <p class="fw-bold">預計何時能抵達住宿？</p>
+                            <span>請選擇預計抵達的時間，我們會幫你通知住宿或房東。</span>
+                            @*<select class="form-select" aria-label="Default select example">
+                                    <option selected>還不確定</option>
+                                    <option value="1">00:00 - 01:00</option>
+                                    <option value="2">01:00 - 02:00</option>
+                                    <option value="3">02:00 - 03:00</option>
+                                    <option value="3">03:00 - 04:00</option>
+                                    <option value="3">04:00 - 05:00</option>
+                                    <option value="3">05:00 - 06:00</option>
+                                    <option value="3">06:00 - 07:00</option>
+                                    <option value="3">07:00 - 08:00</option>
+                                    <option value="3">08:00 - 09:00</option>
+                                    <option value="3">09:00 - 10:00</option>
+                                    <option value="3">10:00 - 11:00</option>
+                                    <option value="3">11:00 - 12:00</option>
+                                    <option value="3">12:00 - 13:00</option>
+                                    <option value="3">13:00 - 14:00</option>
+                                    <option value="3">14:00 - 15:00</option>
+                                    <option value="3">15:00 - 16:00</option>
+                                    <option value="3">16:00 - 17:00</option>
+                                    <option value="3">17:00 - 18:00</option>
+                                    <option value="3">18:00 - 19:00</option>
+                                    <option value="3">19:00 - 20:00</option>
+                                    <option value="3">20:00 - 21:00</option>
+                                    <option value="3">21:00 - 22:00</option>
+                                    <option value="3">22:00 - 23:00</option>
+                                    <option value="3">23:00 - 24:00</option>
+                                    <option value="3">00:00 - 01:00(隔天)</option>
+                                    <option value="3">01:00 - 02:00(隔天)</option>
+                                </select>*@
+                            @{
+                                List<SelectListItem> arrivingTime = new List<SelectListItem>
+                                                                                                                        {
+                                        new SelectListItem { Text = "還不確定", Value = "還不確定", Selected = true},
+                                        new SelectListItem { Text = "00:00 - 01:00", Value = "00:00 - 01:00" },
+                                        new SelectListItem { Text = "01:00 - 02:00", Value = "01:00 - 02:00" }
+                                    };
+                            }
+                            @Html.DropDownListFor(m => m.checkOutListViewModel.ArrivingTime, arrivingTime, new { @class = "form-select" })
+                        </div>
+                    </div>
+                    <div class="border border-3 bg-white p-3 m-1">
+                        <p>
+                            繼續使用代表你同意Agoda的
+                            <a href="#" class="text-decoration-none">服務條款</a>
+                            與
+                            <a href="#" class="text-decoration-none">隱私權政策</a>
+                            。
+                        </p>
+                        <div class="d-grid gap-2 text-end d-md-block mt-3">
+                            <button type="submit" class="btn btn-primary me-md-2">繼續</button>
+                            @*<button class="btn btn-primary me-md-2">繼續</button>*@
+                        </div>
+                    </div>
+                </form>
+                <!--
+                <div class="border border-3 bg-white p-3 m-1">
+                    <p class="fw-bold">客房加值服務</p>
+                    <p>以優惠價加購額外服務</p>
+                    <div class="border border-3 bg-light p-3">
+                        <div class="fw-bold">
+                            早餐
+                        </div>
+                        <div>
+                            您的客房專案已包含免費早餐。
+                        </div>
+                    </div>
+                </div>
+                -->
+                @*@Html.Raw(ViewBag.CreditPay)*@
+            }
+        </div>
+
+        <!--右側資訊欄-->
+        <div class="col-lg-4 order-0 order-lg-1 mt-0">
+            <div class="card mb-3 border border-3 bg-white p-1 m-1">
+                <div class="row g-0">
+                    <div class="col-md-6 m-auto p-1">
+                        <img class="w-100" src="@hotelAndRoom.HotelImageUrl">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body mt-1 p-2">
+                            <h5 class="card-title">@hotelAndRoom.HotelFullName</h5>
+                            <p class="card-text">
+                                @for (int i = 1; i <= hotelAndRoom.Star; i++)
+                                {
+                                    <i style="color: rgb(245, 188, 2);" class="fas fa-star"></i>
+                                }
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    @hotelAndRoom.Address
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--房型資訊-->
+            <div class="col mx-1 border border-2 bg-white mb-3">
+                <div class="m-2 d-flex justify-content-between">
+                    <div>@hotelAndRoom.CheckInDate ~ @hotelAndRoom.CheckOutDate</div>
+                    <div>@hotelAndRoom.CountNight 晚</div>
+                </div>
+                <div class="line"></div>
+                <div class="m-2">
+                    @hotelAndRoom.RoomOrder 間房，@hotelAndRoom.Adult 位大人
+                    <div class="col-12">@hotelAndRoom.Adult 位大人， @hotelAndRoom.Child 位小孩</div>
+                </div>
+            </div>
+            <!--金額資訊-->
+            <div class="col mx-1 border border-2 mb-3">
+                <div class="m-2 d-flex justify-content-between">
+                    <div>總金額</div>
+                    <div>NT$@String.Format("{0:#,#}", @Math.Ceiling(@hotelAndRoom.TotalPrice))</div>
+                    @*<div>NT$@Math.Ceiling(@hotelAndRoom.TotalPrice).ToString("N0")</div>*@
+                </div>
+                @*<div class="line"></div>
+                    <div class="m-2 d-flex justify-content-between">
+                        <div>含稅總價</div>
+                        <div>NT$4,158.00</div>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+@section endJS{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Asset/js/navbar.js"></script>
+    <script type="text/javascript" src="~/Asset/js/formStep.js"></script>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

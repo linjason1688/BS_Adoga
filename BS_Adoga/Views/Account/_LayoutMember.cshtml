@@ -1,0 +1,221 @@
+﻿
+@using System.Web
+@using System.Web.Configuration
+@using Newtonsoft.Json;
+@using BS_Adoga.Models.ViewModels.MemberLogin;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - ADOGA</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Asset/CSS/Base_css")
+    <link href="~/Asset/CDN/fontawesome-free-5.15.2-web/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Asset/CSS/Layout.css" />
+    <link href="~/Asset/CSS/MemberAccount/MemberLeftMenu.css" rel="stylesheet" />
+    @RenderSection("topCSS", false)
+</head>
+<body>
+    <nav id="head-nav" class="head-nav bg-white d-flex justify-content-between">
+        <div class="head-nav-wrap d-flex align-items-center">
+            <h2>
+                Agoda-Navbar
+                <a href="/">
+                    <img src="~/Asset/images/Adoga_logo_color.png" alt="Adoga-Logo" title="Adoga-Logo-Homepage">
+                </a>
+            </h2>
+        </div>
+        @*0624新增使用者登入與登出介面*@
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="member-btn">
+                <label type="button" for="member-menu-chkbox">
+                    @{
+                        if (((FormsIdentity)(HttpContext.Current.User.Identity)).Ticket.UserData != null)
+                        {
+                            //取得存在Ticket的UserData JSON資料
+                            string UserCookiedataJS = ((FormsIdentity)(HttpContext.Current.User.Identity)).Ticket.UserData;
+                            //反序列化為UserCookieViewModel物件，其名為UserCookie
+                            UserCookieViewModel UserCookie = JsonConvert.DeserializeObject<UserCookieViewModel>(UserCookiedataJS);
+                            if (@UserCookie.PictureUrl != string.Empty)
+                            {
+                                <img style="width:30px; height:30px; vertical-align:middle;" src="@Html.Raw(@UserCookie.PictureUrl)">
+                            }
+                            else
+                            {
+                                <span class="member-img">@User.Identity.Name.Substring(0, 1)</span>
+                            }
+                        }
+                    }
+                    <span class="member-firstname ff-mont fz-12 fw-bold">@User.Identity.Name</span>
+                </label>
+                <input type="checkbox" id="member-menu-chkbox">
+                @*已登入時的顯示*@
+                <div class="member-menu">
+                    <h6>我的帳戶</h6>
+                    <ul>
+                        <li>
+                            <a href="/Account/MemberBooking" class="member-menu-link"><i class="far fa-calendar-check me-2"></i>管理訂單</a>
+                            @*@Html.ActionLink("管理訂單", "MemberBooking", "Account", null, new { @class = "member-menu-link" })*@
+                        </li>
+                        @*<li><i class="fas fa-inbox me-2"></i> 收件匣</li>*@
+                        @*<li><i class="fas fa-heart me-2"></i> 口袋清單</li>*@
+                        <li>
+                            <a href="/Account/MemberProfile" class="member-menu-link"><i class="far fa-star me-2"></i>住宿評鑒</a>
+                        </li>
+                        <li>
+                            <a href="/Account/MemberProfile" class="member-menu-link"><i class="far fa-user me-2"></i>個人資料</a>
+                            @*@Html.ActionLink("個人資料", "MemberProfile", "Account", null, new { @class = "member-menu-link" })*@
+                        </li>
+                        @Html.ActionLink("登出", "SignOut", "MemberLogin", null, new { @class = "logout-btn btn py-2", onclick = "FacebookLogout()", @id = "btnDisconnect" })
+                    </ul>
+                </div>
+            </div>
+
+        }
+        else
+        {
+            //未登入時的顯示
+            @*0717 Bear新增：RWD的login-menu*@
+            <div class="login-burger-btn">
+                <label class="login-burger" for="login-menu-chkbox"></label>
+                <input type="checkbox" name="" id="login-menu-chkbox">
+                <div class="login-menu">
+                    <h6>我要登入</h6>
+                    <div>
+                        @Html.ActionLink("A咖登入", "MemberLogin", "MemberLogin", null, new { @class = "head-nav-item login-btn" })
+                        @Html.ActionLink("我是新朋友", "MemberLogin", "MemberLogin", null, new { @class = "head-nav-item register-btn" })
+                        @*<a href="#" class="head-nav-item register-btn">我是新朋友</a>*@
+                    </div>
+                    <h6>在Adooka刊登飯店</h6>
+                    <div>
+                        @Html.ActionLink("刊登飯店空房", "HotelLogin", "HotelLogin", null, new { @class = "head-nav-item red" })
+                    </div>
+                </div>
+            </div>
+        }
+    </nav>
+    <div class="page-fullpage">
+        <aside class="left-menu-component pt-4">
+            <ul>
+                <li>
+
+                    <a id="booking" href="/Account/MemberBooking" class="booking "><i class="far fa-calendar-check"></i>管理訂單</a>
+                </li>
+                <li>
+                    <a id="evaluation" href="/Account/EvaluationPage" class="reviews"><i class="far fa-star"></i>住宿評鑑</a>
+                </li>
+                <li>
+                    <a id="profile" href="/Account/MemberProfile" class="profile">
+                        <i class="far fa-user"></i>個人資料
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        @RenderBody()
+    </div>
+    <!-- Bear加：我把首頁的footer區塊搬過來-------------------------------------------------------------------------------------------------------------- -->
+    <div id="Customer-Service">
+        <div class="info-group">
+            <div class="info-item">
+                <h6>
+                    常見問題
+                </h6>
+                @Html.ActionLink("服務中心", "ServiceCenter", "Home", null, new { @class = "text2" })
+            </div>
+            <div class="info-item">
+                <h6>
+                    關於我們
+                </h6>
+                @Html.ActionLink("成員介紹", "TeamMember", "Home", null, new { @class = "text2" })
+            </div>
+            <div class="info-item">
+                <h6>
+                    目的地
+                </h6>
+                @Html.ActionLink("城市", "CityCenter", "Home", null, new { @class = "text2" })
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-area">
+        <p class="mb-0">
+            本網站內容由© 2020-2021 Adoga Company Pte. Ltd.保留所有權利 <br>
+            Adoga.com隸屬於Build School 2021 春季班 第三組。
+        </p>
+        <div class="footer-logo py-4">
+            <img src="~/Asset/images/adoga-logo-v2.png" alt="adoga-logo-image">
+        </div>
+        <span>&copy; 2021 BuildSchoolTeam3.All Right Reserved.</span>
+    </footer>
+
+
+
+
+    <!--boostrap 5.0-->
+    <script src="~/Scripts/bootstrap.js"></script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+
+    <!-- vueJS 開發developer版 引用 -->
+    @*<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>*@
+    <script src="~/Scripts/vue.min.js"></script>
+
+    <!--FB登出使用-->
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '287554039737731',
+                cookie: true,
+                xfbml: true,
+                version: 'v11.0'
+            });
+
+            FB.AppEvents.logPageView();
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function FacebookLogout() {
+            FB.logout(function (response) {
+                statusChangeCallback(response);
+            });
+        }
+    </script>
+
+    <!--Google引用內容開始   Google登入使用的引用JS -->
+    <!-- 引用jQuery-->
+    @*<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>*@
+    <script src="~/Asset/CDN/JS/jquery-3.3.1.js"></script>
+
+
+    <!--從 Web.config檔 抓取Googl App Client ID-->
+    <script type="text/javascript">
+           let GoolgeApp_Cient_Id = "@WebConfigurationManager.AppSettings["373077817054-5hahnkio91en8pnqqqpaginugjt0f85v.apps.googleusercontent.com"]";
+           let id_token_to_userIDUrl = "@Url.Action("GoogleLoginAPI","MemberLogin")";
+    </script>
+    <!--引用Google Sign-in必須的.js，callback function(GoogleSigninInit)名稱自訂 -->
+    <script src="https://apis.google.com/js/platform.js?onload=GoogleSigninInit" async defer></script>
+
+    <!--以下請放置到*.js檔-->
+    <script src="~/Asset/js/GoogleLogin.js"></script>
+    <!--Google引用內容結束   Google登入使用的引用JS -->
+    <!-- mine -->
+    <script>
+        let linkCurrent = document.getElementById(`@ViewBag.MemberCurrentPage`)//不知道為什麼，明明viewBag裡面我只放字串，可是linkCurrent就是抓到id=字串的物件。
+        linkCurrent.classList.add("currentPage");
+    </script>
+    @RenderSection("endJS", false)
+
+</body>
+</html>

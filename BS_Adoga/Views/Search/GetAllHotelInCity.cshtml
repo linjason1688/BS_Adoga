@@ -1,0 +1,51 @@
+﻿
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "GetAllHotelInCity";
+    Layout = "~/Views/Shared/_AdogaLayout.cshtml";
+
+}
+
+@section topCSS{
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcdn.net/ajax/libs/bootstrap-daterangepicker/3.1/daterangepicker.min.css" />
+    <link href="~/Asset/CSS/Search.css" rel="stylesheet" />
+    <link href="~/Asset/CSS/SearchFilterPartial.css" rel="stylesheet" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+}
+
+@section endJS{
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+
+    <script>
+        
+    </script>
+}
+
+<div class="card">
+    <div class="img">
+        <img src="//pix6.agoda.net/hotelImages/1158270/-1/e11b2751b3be0ee28417b1b61904cf22.jpg?s=450x450" alt="">
+        <div class="small-img">
+            <img src="https://picsum.photos/id/685/50/33" alt="">
+            <img src="https://picsum.photos/id/685/50/33" alt="">
+            <img src="https://picsum.photos/id/685/50/33" alt="">
+            <img src="https://picsum.photos/id/685/50/33" alt="">
+            <div class="see-more">
+                <p>查看更多</p>
+            </div>
+        </div>
+    </div>
+    <div class="detail">
+        <a href="#"></a>
+        
+
+        @* ActionLink沒辦法進去HotelDetail的Action *@
+        @Html.ActionLink("查看空房情況", "Detail", "HotelDetail", new { hotelId = Model.HotelID, startDate = "2021/06/20", endDate = "2021/06/22", orderRoom = 2, adult = 6 }, new { @class = "btn btn-primary", })
+    </div>
+</div>
+
+
+
+
+

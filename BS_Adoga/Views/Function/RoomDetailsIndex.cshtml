@@ -1,0 +1,499 @@
+﻿@model List<BS_Adoga.Models.DBContext.RoomsDetail>
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "RoomDetailsIndex";
+    Layout = "~/Views/Shared/_FunctionPage.cshtml";
+    List<RoomsDetail> roomDetails = Model;
+}
+@section topCSS{
+
+    <link href="~/Asset/CSS/calendar.css" rel="stylesheet" />
+    <style>
+        #calendar {
+            margin: 0 50px;
+        }
+        .weekDay {
+            background-color: #4a4a4a;
+            color: #ffffff;
+        }
+        .purple-td {
+            background-color: #be97ee;
+            color: #fff;
+        }
+        .green-td {
+            background-color: #4bc05f;
+            color: #fff;
+        }
+    </style>
+}
+
+@section endJS{
+    @*Layout引用了  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>*@
+    <script type="module">
+        import { $g, $c } from "../Asset/js/helpers.js";
+
+        let expansionUrl = "@Url.Action("RoomDetailsIndex", "Function")";
+        var roomdetailJSON = @Html.Raw(@ViewBag.RoomDetailThisMonthJSON);
+        let roomid = "@Html.Raw(@ViewBag.roomid)";
+        let username = "@Html.Raw(@User.Identity.Name)";
+
+        let d = new Date();
+        let yyyy_m = get_yyyy_m(d);
+
+        let h2 = $c('h2');
+        h2.innerText = get_yyyy_mm(d);
+        let calendar = $g('#calendar');
+        calendar.append(h2);
+        create_table();
+
+        //點上一個月觸發換月
+        document.getElementById('prev').addEventListener("click", function () {
+            d.setDate(15);
+            d.setMonth(d.getMonth() - 1);
+            dataaxios();
+        });
+
+        //本月展開
+        if (roomdetailJSON.length == 0) {
+            document.getElementById('expansion').style = "";
+            document.getElementById('expansion').addEventListener("click", function () {
+                document.location.href = `/Hotel/Room/Detail/Expansion/${yyyy_m}-${roomid}`;
+            });
+        }
+
+        //點下一個月觸發換月
+        document.getElementById('next').addEventListener("click", function () {
+            d.setDate(15);
+            d.setMonth(d.getMonth() + 1);
+            dataaxios();
+        });
+
+        function clickbutton() {
+            let calendar = $g('#calendar');
+            calendar.innerText = "";
+            let h2 = $c('h2');
+            h2.innerText = get_yyyy_mm(d);
+            calendar.append(h2);
+            create_table();
+        }
+
+        function dataaxios() {
+            axios.get('../api/Function/RoomDetailMonth', {
+                //URL参數放在params屬性裏面
+                params: {
+                    year: d.getFullYear(),
+                    month: d.getMonth() + 1,
+                    roomid: roomid
+                }
+            })
+                .then(function (response) {
+                    console.log(response.data);
+                    if (response.request.readyState === 4 && response.status === 200) {
+                        setroomdetailJSON(response.data);
+                    }
+                    else { console.log("error"); }
+                }).catch((error) => console.log(error))
+        }
+
+        function setroomdetailJSON(detailJSON) {
+            roomdetailJSON = detailJSON;
+
+            //本月展開用格式 用來存yyyy-m  ex: 2021-7 傳回後端
+            yyyy_m = get_yyyy_m(d);
+            console.log(d);
+            console.log(roomdetailJSON.length);
+            if (roomdetailJSON.length == 0) {
+                document.getElementById('expansion').style = "";
+                document.getElementById('expansion').addEventListener("click", function () {
+                    document.location.href = `/Hotel/Room/Detail/Expansion/${yyyy_m}-${roomid}`;
+                });
+            }
+            else
+            {
+                document.getElementById('expansion').style = "display:none";
+            }
+
+            //執行顯示所有日曆表格
+            clickbutton();
+        }
+
+        //本月展開用格式  用來傳回後端格式
+        function get_yyyy_m(d) {
+            let yyyy = d.getFullYear();
+            let mm = d.getMonth() + 1;
+            return `${yyyy}-${mm}`;
+        }
+
+        //前端顯示的格式
+        function get_yyyy_mm(d) {
+            let yyyy = d.getFullYear();
+            let mm = d.getMonth() + 1;
+            return `${yyyy}年${mm}月`;
+        }
+
+        //建立日曆表格
+        function create_table() {
+            let calendar = $g('#calendar');
+            let table = $c('table');
+            table.setAttribute('class', 'table table-bordered');
+            create_thead(table);
+            create_tbody(table);
+
+            calendar.append(table);
+        }
+
+        //建立日曆星期標題
+        function create_thead(table) {
+            let thead = $c('thead');
+            create_tr_th(thead);
+            table.append(thead);
+        }
+
+        //建立日曆每日數字
+        function create_tbody(table) {
+            let tbody = $c('tbody');
+            create_tr_td(tbody);
+            table.append(tbody);
+        }
+
+        //建立星期一到星期日標題
+        function create_tr_th(thead) {
+            let tr = $c('tr');
+            for (let j = 1; j <= 7; j++) {
+                let th = document.createElement('th');
+                th.classList.add('weekDay')
+                if (j == 1) {
+                    th.bgColor = "yellow";
+                    th.innerText = "一";
+                }
+                else if (j == 2) {
+                    th.bgColor = "yellow";
+                    th.innerText = "二";
+                }
+                else if (j == 3) {
+                    th.bgColor = "yellow";
+                    th.innerText = "三";
+                }
+                else if (j == 4) {
+                    th.bgColor = "yellow";
+                    th.innerText = "四";
+                }
+                else if (j == 5) {
+                    th.bgColor = "yellow";
+                    th.innerText = "五";
+                }
+                else if (j == 6) {
+                    th.bgColor = "yellow";
+                    th.innerText = "六";
+                }
+                else {
+                    th.bgColor = "yellow";
+                    th.innerText = "日";
+                }
+                tr.append(th);
+            }
+            thead.append(tr);
+        }
+
+        //設定tbody內容  建立每日數字
+        function create_tr_td(tbody) {
+            for (let i = 0; i < 6; i++) {
+                let dayArray = setday(d);
+                let tr = document.createElement('tr');
+
+                for (let j = 0; j < 7; j++) {
+                    let td = document.createElement('td');
+                    let yyyy = dayArray[i * 7 + j][0];
+                    let mm = dayArray[i * 7 + j][1];
+                    let dd = dayArray[i * 7 + j][2];
+                    td.innerText = dd;
+                    //如果是上個月或是下個月的日就灰色不能點
+                    if (checkPreNext(yyyy, mm, dd, d) == true) {
+                        td.bgColor = "gray";
+                        tr.append(td);
+                    }
+                    //判斷如果日今天的日期並且有資料顯示成bg-info顏色(藍色) 可以點的Button
+                    else if (checkToday(yyyy, mm, dd) == true && roomdetailJSON.length != 0) {
+                        td.setAttribute("class", "button text-white bg-info");
+                        //設定button Modal
+                        RoomDetail(yyyy, mm, dd, td);
+                        tr.append(td);
+                    }
+                    //判斷如果日今天的日期並且有資料顯示成bg-info顏色(藍色) 不能點的Button
+                    else if (checkToday(yyyy, mm, dd) == true && roomdetailJSON.length == 0) {
+                        td.setAttribute("class", "text-white bg-info");
+                        tr.append(td);
+                    }
+                    //判斷如果有資料存在 並且是開房狀態 顯示成bg-danger顏色(紅色)
+                    else if (roomdetailJSON.length != 0 && roomdetailJSON[dd - 1].OpenRoom == true) {
+                        td.setAttribute("class", "button text-white bg-danger");
+                        //設定button Modal
+                        RoomDetail(yyyy, mm, dd, td);
+                        tr.append(td);
+                    }
+                    //判斷如果有資料存在 並且是關防狀態 顯示成bg(紫色)
+                    else if (roomdetailJSON.length != 0 && roomdetailJSON[dd - 1].OpenRoom == false) {
+                        td.setAttribute("bgcolor", "#B800B8");
+                        td.classList.add("purple-td")
+                        //設定button Modal
+                        RoomDetail(yyyy, mm, dd, td);
+                        tr.append(td);
+                    }
+                    //判斷這個月沒有資料時顯示綠色 不能點
+                    else {
+                        //td.setAttribute("class", "button");
+                        //設定button Modal
+                        td.bgColor = "green";
+                        td.classList.add("green-td")
+                        tr.append(td);
+                    }
+                }
+                tbody.append(tr);
+            }
+        }
+
+        ////設定新增button記事本內容
+        function Notebook(yyyy, mm, dd, td) {
+            //modal設定
+            td.addEventListener('click', function () {
+                this.setAttribute('data-toggle', 'modal');
+                this.setAttribute('data-target', '#exampleModal');
+                let modal = $g('#exampleModal');
+                modal.querySelector('h5').innerText = `${yyyy}年${mm}月${dd}日-記事本`;
+
+                let day = `${yyyy}${mm}${dd}`;
+                let note = localStorage.getItem(day);
+                modal.querySelector('#description').innerText = note;
+                modal.querySelector('#description').value = day;
+            });
+        }
+
+        //設定RoomDetail內容
+        function RoomDetail(yyyy, mm, dd, td) {
+            //modal設定
+            td.addEventListener('click', function () {
+                this.setAttribute('data-toggle', 'modal');
+                this.setAttribute('data-target', '#exampleModal');
+                let modal = $g('#exampleModal');
+
+                modal.querySelector('h5').innerText = `${yyyy}年${mm}月${dd}日-房間資訊`;
+                modal.querySelector('h5').value = `${dd}`;
+
+                modal.querySelector('#checkindate').innerText = roomdetailJSON[dd - 1].CheckInDate;
+                modal.querySelector('#checkoutdate').innerText = roomdetailJSON[dd - 1].CheckOutDate;
+                modal.querySelector('#roomcount').innerText = roomdetailJSON[dd - 1].RoomCount;
+                modal.querySelector('#roomorder').innerText = roomdetailJSON[dd - 1].RoomOrder;
+                modal.querySelector('#roomdiscount').value = roomdetailJSON[dd - 1].RoomDiscount;
+
+                if (roomdetailJSON[dd - 1].OpenRoom == true) modal.querySelector('#openroom').innerHTML = `<option id="openroomtrue" value="true" selected>開房</option>
+                    <option id="openroomfalse" value="false">關房</option>`;
+                else modal.querySelector('#openroom').innerHTML = `<option id="openroomtrue" value="true">開房</option>
+                    <option id="openroomfalse" value="false" selected>關房</option>`;
+
+            });
+        }
+
+        //上個月最後一天的[月,日,星期]
+        function LastDayPrevMonth(d) {
+            let yyyy = d.getFullYear();
+            let mm = d.getMonth();
+            let FirstDay = new Date(yyyy, mm, 1);
+            let LastDayMonth = new Date(yyyy, mm, 0);
+            return [LastDayMonth.getFullYear(), LastDayMonth.getMonth() + 1, LastDayMonth.getDate(), LastDayMonth.getDay()];
+        }
+
+        //下個月最後一天的[月,日,星期]
+        function FirstDayNextMonth(d) {
+            let yyyy = d.getFullYear();
+            let mm = d.getMonth() + 1;
+            let FirstDay = new Date(yyyy, mm, 1);
+            return [FirstDay.getFullYear(), FirstDay.getMonth() + 1, FirstDay.getDate(), FirstDay.getDay()];
+        }
+
+        //這個月最後一天的[月,日,星期]
+        function LastDayThisMonth(d) {
+            let yyyy = d.getFullYear();
+            let mm = d.getMonth() + 1;
+            let FirstDay = new Date(yyyy, mm, 1);
+            let LastDayMonth = new Date(yyyy, mm, 0);
+            return [LastDayMonth.getFullYear(), LastDayMonth.getMonth() + 1, LastDayMonth.getDate(), LastDayMonth.getDay()];
+        }
+
+        //這個月第一天的[月,日,星期]
+        function FirstDayThisMonth(d) {
+            let yyyy = d.getFullYear();
+            let mm = d.getMonth();
+            let FirstDay = new Date(yyyy, mm, 1);
+            return [FirstDay.getFullYear(), FirstDay.getMonth() + 1, FirstDay.getDate(), FirstDay.getDay()];
+        }
+
+        //設定日曆上面的日期
+        function setday(d) {
+            let dayArr = new Array();
+            let thisMonthFirstDay = FirstDayThisMonth(d);
+            let thisMonthLastDay = LastDayThisMonth(d);
+            let lastMonthLastDay = LastDayPrevMonth(d);
+            let nextMonthFirstDay = FirstDayNextMonth(d);
+
+            if (thisMonthFirstDay[3] == 1)  //這個月第一天為星期一時
+            {
+                let count = 0;
+                for (let i = 1; i <= thisMonthLastDay[2]; i++) {
+                    dayArr.push([thisMonthLastDay[0], thisMonthLastDay[1], i]);
+                    count++;
+                }
+
+                let count2 = count;
+                for (let j = 1; j <= (42 - count2); j++) {
+                    dayArr.push([nextMonthFirstDay[0], nextMonthFirstDay[1], j]);
+                    count++;
+                }
+            }
+            else  //這個月第一天不為星期一時
+            {
+                let count = 0;
+                for (let i = 1; i <= lastMonthLastDay[3]; i++) {
+                    dayArr.push([lastMonthLastDay[0], lastMonthLastDay[1], lastMonthLastDay[2] - lastMonthLastDay[3] + i]);
+                    count++;
+                    // console.log(count);
+                }
+                for (let j = 1; j <= thisMonthLastDay[2]; j++) {
+                    dayArr.push([thisMonthLastDay[0], thisMonthLastDay[1], j]);
+                    count++;
+                    // console.log(count);
+                }
+
+                let count2 = count;
+                for (let k = 1; k <= (42 - count2); k++) {
+                    dayArr.push([nextMonthFirstDay[0], nextMonthFirstDay[1], k]);
+                    count++;
+                    // console.log(count);
+                }
+            }
+
+            return dayArr;
+        }
+
+        //判斷是否為今天
+        function checkToday(yyyy, mm, dd) {
+            let d = new Date();
+            if (d.getFullYear() == yyyy && (d.getMonth() + 1) == mm && d.getDate() == dd) {
+                return true;
+            }
+
+            else return false;
+        }
+
+        //判斷上下月份
+        function checkPreNext(yyyy, mm, dd, d) {
+            let thisMon = new Date(d);
+            thisMon.setDate(15);
+            let nextMon = new Date(thisMon);
+            let preMon = new Date(thisMon);
+            nextMon.setMonth(nextMon.getMonth() + 1);
+            preMon.setMonth(preMon.getMonth() - 1);
+
+            //判斷要加1因為月份從0開始
+            if (preMon.getFullYear() == yyyy && preMon.getMonth() + 1 == mm) {
+                // console.log(true);
+                return true;
+            }
+            else if (nextMon.getFullYear() == yyyy && nextMon.getMonth() + 1 == mm) {
+                // console.log(true);
+                return true;
+            }
+            else {
+                // console.log(false);
+                return false;
+            }
+        }
+
+        //設定save後儲存資料
+        let save = $g('#save');
+        save.addEventListener('click', function () {
+
+            let modal = $g('#exampleModal');
+            let day = modal.querySelector('h5').value;
+            let discount = Number(modal.querySelector('input').value);
+            let RDID = roomdetailJSON[day - 1].RDID;
+
+            //設定discount跟房間狀態
+            roomdetailJSON[day - 1].RoomDiscount = discount;
+            if (modal.querySelector('select').value == "true") { roomdetailJSON[day - 1].OpenRoom = true; }
+            else { roomdetailJSON[day - 1].OpenRoom = false; }
+
+            //資料傳到後端修改資料庫
+            axios.get('../api/Function/EditRoomDetail', {
+                //URL参數放在params屬性裏面
+                params: {
+                    RDID: RDID,
+                    RoomDiscount: roomdetailJSON[day - 1].RoomDiscount,
+                    OpenRoom: roomdetailJSON[day - 1].OpenRoom,
+                    username: username
+                }
+             })
+                .then(function (response) {
+                    console.log(response.data);
+                    if (response.request.readyState === 4 && response.status === 200 && response.data === "OK") {
+                        //setroomdetailJSON(response.data);
+                        alert("修改成功");
+                    }
+                    else { alert("修改失敗"); }
+                }).catch((error) => console.log(error))
+
+            clickbutton();
+        });
+
+    </script>
+}
+
+<h2>@ViewBag.roomname</h2>
+
+<h1 class="d-flex justify-content-center">每日房間清單</h1>
+<div class="d-flex justify-content-around">
+    <button id="prev" type="button" class="btn btn-dark mr-30px">上個月</button>
+
+    <button id="expansion" type="button" class="btn btn-danger mr-30px" style="display:none">本月展開</button>
+
+    <button id="next" type="button" class="btn btn-dark mr-30px">下個月</button>
+</div>
+<div id="calendar">
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button id="x" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="roomid">房間名稱:@ViewBag.roomname</p>
+                <span>進房日期時間:</span><span id="checkindate"></span> <br />
+                <span>退房日期時間:</span><span id="checkoutdate"></span> <br />
+                <span>房間數:</span><span id="roomcount"></span> <br />
+                <span>訂房數:</span><span id="roomorder"></span> <br />
+                <span>折扣:</span>
+                <input id="roomdiscount"
+                       type="number"
+                       step="0.01"
+                       min="0"
+                       max="1">
+                <br />
+                <span>是否開房:</span>
+                <select id="openroom" name="openroom">
+
+                </select>
+                <br />
+            </div>
+            <div class="modal-footer">
+                <button id="save" type="button" class="btn btn-primary">儲存</button>
+                <button id="close" type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+            </div>
+        </div>
+    </div>
+</div>

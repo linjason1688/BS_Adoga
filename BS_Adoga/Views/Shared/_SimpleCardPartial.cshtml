@@ -1,0 +1,125 @@
+﻿
+@model  demoshopViewModels
+
+
+
+
+@foreach (var man in Model.My_CardViewModels)
+{
+
+
+    var rooms = man.My_Rooms;
+    var roomdetails = man.My_RoomsDetails;
+    var newPrice = (int)(rooms.RoomPrice * (1 - roomdetails.RoomDiscount));
+    decimal score = 0.0m;
+    var level = "";
+    score = man.ddd;
+
+    if (score <= 3)
+    {
+        level = "很差";
+    }
+    else if (score > 3 && score < 5)
+    {
+        level = "不好";
+    }
+    else if (score >= 5 && score <= 7)
+    {
+        level = "還行";
+    }
+    else if (score > 7 && score <= 8)
+    {
+        level = "還不錯";
+    }
+    else if (score > 8 && score <= 9.5m)
+    {
+        level = "很讚";
+    }
+    else if (score > 9.5m)
+    {
+        level = "超讚";
+    }
+
+
+
+
+<div class="col-xl-2 col-md-2 col-12 border   " style="margin:20px;padding-bottom:55px">
+    <div id="img" class="d-flex col-12 col-xl-12  align-items-start justify-content-end "
+         style="background:  no-repeat center/100% url(@man.ImageURL);">
+        <div id="comment" class="d-flex col-7"
+             style=" align-items: center; justify-content: flex-end; height: 49.2px; background-color: white; border-radius: 2px; ">
+            <div class="d-flex justify-content-center    align-items-end ">
+                <div class="" style=" display: flex;flex-direction: column;align-items: flex-end;margin-right: 5px;">
+                    <span class="fw-bold d-flex rwdtxt" style="text-align: end;"
+                          id="comment1">@level</span>
+                        <p class="d-flex rwdtxt2" style="text-align: end;" id="Quantity">
+
+                        </p>
+                    </div>
+
+
+                </div>
+                <div>
+                    <i class="fas fa-comment-alt fa-2x" id="comment-box" style="width: 34px; height: 44px;color: #5392f9;margin-top: 10px">
+                        <span class="text-white"
+                              style="font-weight: 600; line-height: 44px; font-size: 16px; "
+                              id="fraction">@man.ddd</span>
+                        </i>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            <!--
+            <img src="https://pix6.agoda.net/hotelImages/335/335043/335043_16121920250049783861.jpg"> -->
+            <div style="width:100%;">
+                <div style="margin: 10px;">
+                    <h3 class="fw-bold" id="Name">@man.HotelName</h3>
+                    <p style="font-size:12px; line-height: 20px;">@man.HotelCity</p>
+                    @for (int i = 0; i < man.Star; i++)
+                    {
+                        <i class="fas fa-star text-warning"></i>
+                    }
+
+
+                    @if (roomdetails.RoomDiscount == 0)
+                    {
+                        <div class="d-flex justify-content-end  flex-column  align-items-end" style="margin-top:74px;">
+                           
+                         
+                            <p class="text-danger"  
+                               style="font-size: 14px;font-weight: 300;line-height: 20px; font-family: Comic Sans MS;">
+                                NT$ @newPrice.ToString("N0")
+                            </p>
+                        </div>
+                    }
+                    else
+                    {<div class="d-flex justify-content-end  flex-column  align-items-end" style="margin-top:100px;">
+                            <div id="sale" class="d-flex justify-content-center bg-danger align-items-center">
+                                <h4 class="text-white ">@Math.Round((1 - roomdetails.RoomDiscount) * 10, 1) 折 </h4>
+                            </div>
+                            <span style="text-decoration:line-through; color: #90949c; font-family: Comic Sans MS;font-size: 14px;line-height: 20px;font-weight: 400;">
+                                NT$ @Math.Ceiling(rooms.RoomPrice).ToString("N0")
+                            </span>
+                            <p class="text-danger"
+                               style="font-size: 14px;font-weight: 300;line-height: 20px; font-family: Comic Sans MS;">
+                                NT$ @newPrice.ToString("N0")
+                            </p>
+                        </div>
+                    }
+
+
+
+
+
+                </div>
+
+            </div>
+      
+        </div>
+
+
+        }
+

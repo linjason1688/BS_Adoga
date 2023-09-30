@@ -1,0 +1,129 @@
+﻿@model IEnumerable<BS_Adoga.Models.ViewModels.Account.MemberBookingViewModel>
+@{ Layout = "~/Views/Account/_LayoutMember.cshtml"; }
+
+@section topCSS{
+    <link rel="stylesheet" href="~/Asset/CSS/MemberAccount/MemberBookings.css" />
+}
+    
+
+
+@section endJS{
+    <!-- axios 的引用 -->
+    <script src="~/Scripts/axios.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <!--Vue在Layout已有引用-->
+    <!--評價留言-->
+    <script>
+        /*評分Bar*/
+        var scoreBar = document.getElementById("scoreRange");
+        var score = document.getElementById("score");
+        score.innerHTML = scoreBar.value;
+
+        scoreBar.oninput = function () {
+            score.innerHTML = this.value;
+        }
+
+        /*限制字數*/
+        $(function () {
+            $('#text_txt1').on('keyup', function () {
+                var txtval = $('#text_txt1').val().length;
+                // console.log(txtval);
+                var str = parseInt(100 - txtval);
+                // console.log(str);
+                if (str > 0) {
+                    $('#num_txt1').html(str + ' / 100');
+                } else {
+                    $('#num_txt1').html('0 / 100');
+                    $('#text_txt1').val($('#text_txt1').val().substring(0,
+                        100)); //這裡意思是當裡面的文字小於等於0的時候，那麼字數不能再增加，只能是600個字
+                }
+            });
+        })
+    </script>
+
+    <!--Vue在Layout已有引用-->
+    <!--Mine-->
+    <script type="module" src="~/Asset/js/MemberAccount/BookingOrderFilterSort.js"></script>
+    @*<script  src="~/Asset/js/MemberAccount/BookingOrderComponent.js"></script>*@
+    @*<script type="module">
+            import BookingCard from '../../Asset/JS/MemberAccount/BookingComponent.js'
+
+            //一開始載入頁面時要帶入Room的全部資料
+            axios.get('https://localhost:44352/Account/GetMemberBookingList')
+                .then(function (response) {
+                    console.log(response.data)
+                    appendBookingList(response.data);
+                })
+                .catch(
+                    (error) => console.log(error))
+
+            var BookingList = new Vue({
+                el: '#BookingList',
+                data: {
+                    group: []
+                },
+                components: {
+                    'booking-card': BookingCard
+                }
+            })
+
+            function appendBookingList(response) {
+
+                BookingList.group = []; //先清空資料
+
+                var data = response;     //好像response進來就直接轉成js了，所以不需要用JSON.parse轉格式喔
+
+                (data).forEach((item, index) => {
+
+                    //產生床型的字串
+                    var bedTypeStr = '';
+                    (item.RoomBed).forEach((bed, index) => {
+                        if (index != item.RoomBed.length - 1)
+                            bedTypeStr += bed.Name + "x" + bed.Amount + " , "
+                        else
+                            bedTypeStr += bed.Name
+                    })
+                    console.log(item.OrderID)
+                    //開始給BookingList（Vue物件）的group塞資料&設定裡面的屬性
+                    BookingList.$set(BookingList.group, index,
+                        {
+                            CustomerID: item.CustomerID,
+                            OrderID: item.OrderID,
+                            HotelID: item.HotelID,
+                            HotelName: item.HotelName,
+                            HotelEngName: item.HotelEngName,
+                            BedStr: bedTypeStr,
+                            RoomPriceTotal: Math.ceil(item.RoomPriceTotal).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","),
+
+                            OrderDate: item.OrderDate,
+                            CheckInDate: item.CheckInDate,
+                            CheckOutDate: item.CheckOutDate,
+
+                            FewDaysAgo: item.FewDaysAgo,
+
+                            OrderDateStr : item.OrderDateStr,
+
+                            CheckInDay :item.CheckInDay,
+                            CheckInWeek :item.CheckInWeek ,
+                            CheckInMonth :item.CheckInMonth,
+
+                            CheckOutDay :item.CheckOutDay,
+                            CheckOutWeek :item.CheckOutWeek ,
+                            CheckOutMonth :item.CheckOutMonth,
+
+                            CheckCheckOut: item.CheckCheckOut,
+                            City: item.City,
+                            Breakfast: item.Breakfast,
+
+                            GoToDetail: function () {
+                                    window.location.href = 'https://localhost:44352/BookingDetail/' + item.OrderID;
+                            }
+                        }
+                    );
+                })
+            }
+
+        </script>*@
+}
+
+

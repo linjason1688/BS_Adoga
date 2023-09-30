@@ -1,0 +1,31 @@
+﻿
+@* 這個區塊用來設定這頁view用哪個layout *@
+@{
+    ViewBag.Title = "頁簽title";
+    Layout = "~/Views/Shared/_AdogaLayout.cshtml";
+}
+
+@* 這個section用來存你的css ，裡面放入css的link參考*@
+@* 請在~/Asset/CSS 裡面建立新的css檔案，然後把你的頁面的css放進去 *@
+@section topCSS{
+    <link rel="stylesheet" href="~/Asset/CSS/MemberLogin.css" />
+}
+
+
+
+
+
+@* 中間這個區塊用來放你的html *@
+@* （不是複製整份html文件喔，而是把<body>區塊裡面的html複製貼上到這邊。） *@
+
+
+
+
+
+@* 這個section用來存你的java script，裡面放入 js 的script參考 *@
+@* 請在~/Asset/JS 裡面建立新的JavaScript檔案，然後把你的頁面寫的script給放進去 *@
+@* （請不要放boostrap，font awesome的參考檔，這2個已經在layout有參考了。） *@
+@section endJS{
+    <script type="text/javascript" src="~/Asset/JS/你的js檔案名稱.js"></script>
+}
+

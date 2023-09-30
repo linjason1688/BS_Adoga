@@ -1,0 +1,364 @@
+﻿
+@{
+    ViewBag.Title = "我的評鑒";
+    Layout = "~/Views/Account/_LayoutMember.cshtml";
+}
+
+@section topCSS{
+    <style>
+        /* ~~~~~~~~~~~~~~~~~~~共用的樣式~~~~~~~~~~~~~~~~~~~  */
+
+        /* 灰色下框線 border-bottom */
+        .choose-room .title,
+        .comment-area .title,
+        .border-b-gray {
+            border-bottom: 1px solid rgb(216, 216, 216);
+        }
+
+        /* 灰色上框線 border-top */
+        .comment-item,
+        .border-t-gray {
+            border-top: 1px solid rgb(216, 216, 216);
+        }
+
+        /* 淺灰色右框線 */
+        .border-e-light-gray {
+            border-right: 2px solid rgb(238, 237, 237);
+        }
+
+        .choose-room .title h3,
+        .comment-area .title h3 {
+            margin-bottom: 12px;
+            font-size: 24px;
+        }
+
+        /* <!--~~~~~~~~~~~~~~ 評鑒區塊~~~~~~~~~~~~~~ --> */
+        /* <!-- 分123頁按鈕的部分....bs設定我改了很多ORZ --> */
+
+        .comment-area .circle-border {
+            border: 1px solid rgb(189, 189, 189);
+            border-radius: 50%;
+        }
+
+        .comment-area .pagination {
+            width: fit-content;
+            margin: 20px auto;
+            align-items: center;
+        }
+
+        .page-link {
+            padding: 0 .75rem;
+            color: rgb(87, 87, 87);
+            font-weight: bold;
+            border: none;
+        }
+
+            .page-link:hover {
+                z-index: 2;
+                color: #2079ff;
+                text-decoration: underline;
+                background-color: #fff;
+                border-color: #fff;
+            }
+
+        .page-item.disabled .page-link {
+            color: #dee2e6;
+        }
+
+        .page-item.active .page-link {
+            z-index: 2;
+            color: #0d6efd;
+            background-color: #fff;
+            border-color: none;
+        }
+
+        .page-item:first-child {
+            margin-right: 40px;
+        }
+
+        .page-item:last-child {
+            margin-left: 40px;
+        }
+
+            .page-item:last-child .page-link,
+            .page-item:first-child .page-link {
+                padding: .375rem .75rem;
+                border-top-left-radius: 50%;
+                border-bottom-left-radius: 50%;
+                border-top-right-radius: 50%;
+                border-bottom-right-radius: 50%;
+            }
+
+        .page-item:not(:first-child) .page-link {
+            margin-left: 0px;
+        }
+
+        .page-item + .page-item:not(:nth-child(2), :last-child) {
+            border-left: 1px solid rgb(129, 129, 129);
+        }
+
+        /* <!-- 單個評鑑的模板 --> */
+
+        .rate-num {
+            margin: 3px 10px 10px 0;
+            padding: 7px 12px;
+            color: #fff;
+            background-color: rgb(53, 129, 243);
+            font-size: 30px;
+            font-weight: bold;
+            font-family: Montserrat, serif;
+            border-radius: 5px;
+        }
+
+        .rate-item i {
+            width: 28px;
+            text-align: center;
+        }
+
+        .rate-item div span {
+            color: rgb(80, 79, 79);
+        }
+
+        .comment-content {
+            padding: 30px 60px;
+            background-color: rgb(243, 243, 243);
+            border-radius: 15px;
+        }
+
+        .wrap-1100 {
+            width: 1100px;
+            margin: auto;
+        }
+
+        .w-500 {
+            width: 500px;
+        }
+
+        .mb-4-5 {
+            margin-bottom: 35px;
+        }
+
+        .ff-mont {
+            font-family: Montserrat, serif;
+        }
+
+        .fz-12 {
+            font-size: 12px;
+        }
+
+        .fz-14 {
+            font-size: 14px;
+        }
+
+        .fz-16 {
+            font-size: 16px;
+        }
+
+        .fz-20 {
+            font-size: 20px;
+        }
+
+        .fz-24 {
+            font-size: 24px;
+        }
+
+        .fz-big-icon {
+            font-size: 32px;
+        }
+
+        .color-blue {
+            color: rgb(57, 130, 238);
+        }
+
+        .color-gray {
+            color: rgb(141, 141, 141);
+        }
+
+        .color-dark-gray {
+            color: rgb(99, 98, 98);
+        }
+
+        .color-green {
+            color: rgb(3, 170, 31);
+        }
+
+        .color-red {
+            color: rgb(233, 3, 3);
+        }
+
+        .red-del-line {
+            position: relative;
+        }
+
+            .red-del-line::before {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: -1px;
+                right: -1px;
+                margin: auto;
+                display: block;
+                height: 2px;
+                background-color: rgba(250, 44, 44, 0.712);
+                content: "";
+                font-size: 40px;
+            }
+
+        /* 灰色下框線 border-bottom */
+        .border-b-gray {
+            border-bottom: 1px solid rgb(216, 216, 216);
+        }
+
+        /* 灰色上框線 border-top */
+        .border-t-gray {
+            border-top: 1px solid rgb(216, 216, 216);
+        }
+
+        /* 淺灰色右框線 */
+        .border-e-light-gray {
+            border-right: 2px solid rgb(238, 237, 237);
+        }
+
+        /*header*/
+        .gray-header {
+            margin: 1rem 0;
+            font-size: 24px;
+            color: rgb(82, 82, 82);
+        }
+    </style>
+}
+<div id="app" class="ps-4 pt-4">
+    <h3 class="gray-header ms-5 lead">住宿評鑑</h3>
+    <div v-for="item in paginatedData" id="comment-area" class="comment-area wrap-1100 mt-3">
+        <div class="comment-group">
+            <div class="wrap-1100 row pt-3 pb-5 ms-5">
+                <div class="rate-item col-2 fz-14 pt-3">
+                    <span class="rate-num">{{item.Score}}</span>
+                    <div class="mb-1 mt-3">
+                        <i class="far fa-flag"></i><span class="fw-bold">{{ item.CustomerName }}</span>
+                    </div>
+                    <div class="mb-1"><i class="fas fa-luggage-cart"></i><span>{{ item.HotelName }}</span></div>
+                    <div class="mb-1"><i class="fas fa-bed"></i><span>{{ item.RoomName }}</span></div>
+                    <div class="mb-1"><i class="far fa-calendar"></i><span>入住{{ item.Stay }}晚</span></div>
+                </div>
+                <div class="comment-content col-8 ">
+                    <q class="d-block fz-20 fw-bold mb-4-5">{{ item.Title }}</q>
+                    <p class="content fz-14 color-gray ps-2 mb-4-5">
+                        @*房間寬敞，設備高級。 床、衛浴、馬桶皆乾淨舒適舒服。 雖不是特地為親子設計的房間，
+                        但是房間內大部分的設計皆是安全的，不會邊邊角角一堆或危險物品很多需要擔心，一歲多的孩子在大房間裡面跑來跑去玩得超開心的！ 床跟沙發都又大又舒服，睡覺放空都很美好！
+                        電視竟然有上網看YouTube
+                        的功能，真是令人驚喜！ 早餐種類多，菜色豐富且美味！ 服務人員積極且細心~~ 停車方便，地點也極佳。 好到不能再好了👍 一定一定會再來，
+                        是台中住宿首選，也是目前住過不需要萬元就能住到最舒服的飯店！*@
+                        {{ item.MessageText }}
+                    </p>
+                    <p class="fz-14 color-gray ps-2">評鑑日期：<span>{{ item.MessageDate }}</span></p>
+                </div>
+            </div>
+            @*<div class="border-b-gray comment-item wrap-1100 row pt-3 pb-5">
+                <div class="rate-item col-3 fz-14 pt-3">
+                    <div class="mb-1">
+                        <i class="far fa-flag"></i><span class="fw-bold">Chen</span> <span>(來自台灣)</span>
+                    </div>
+                    <div class="mb-1"><i class="fas fa-luggage-cart"></i><span>家庭 (未成年兒童隨行)</span></div>
+                    <div class="mb-1"><i class="fas fa-bed"></i><span>豪華四人房</span></div>
+                    <div class="mb-1"><i class="far fa-calendar"></i><span>入住1晚</span> <span>（2019年4月）</span></div>
+                </div>
+                <div class="comment-content col-9 ">
+                    <q class="d-block fz-20 fw-bold mb-4-5">CP值高</q>
+                    <p class="content fz-14 color-gray ps-2 mb-4-5">
+                        乾淨清潔
+                    </p>
+                    <p class="fz-14 color-gray ps-2">評鑑日期：<span>2019年4月9日 星期二</span></p>
+                </div>
+            </div>*@
+        </div>
+    </div>
+    <div class="d-flex">
+        <button class="btn"
+                :disabled="pageNumber === 0"
+                @@click="prevPage">
+            上一頁
+        </button>
+        <button class="btn"
+                :disabled="pageNumber >= pageCount -1"
+                @@click="nextPage">
+            下一頁
+        </button>
+    </div>
+</div>
+
+
+<script src="~/Asset/CDN/JS/vue.js"></script>
+
+@section endJS{
+    <!-- axios 的引用 -->
+    <script src="~/Scripts/axios.min.js"></script>
+    <script>
+        var vm = new Vue({
+            // options
+            el: '#app',
+            data() {
+                return {
+                    pageNumber: 0,
+                    info:[],
+                };
+            },
+            props: {
+                pagelist: {
+                    type: Array,
+                    required: true,
+                },
+                size: {
+                    type: Number,
+                    required: false,
+                    default: 5,
+                },
+            },
+            methods: {
+                nextPage() {
+                    this.pageNumber++;
+                },
+                prevPage() {
+                    this.pageNumber--;
+                }
+            },
+            computed: {
+                pageCount() {
+                    let l = this.info.length,
+                        s = this.size;
+                    return Math.ceil(l / s);
+                },
+                paginatedData() {
+                    const start = this.pageNumber * this.size,
+                        end = start + this.size;
+                    return this.info.slice(start, end);
+                },
+            },
+            mounted() {
+                axios
+                    .get('/Account/GetEvaluationPage')
+                    .then(response => {
+                        this.info = response.data
+                        console.log(response.data)
+                    })
+            }
+
+        })
+
+            //function GetData() {
+
+            //}
+
+            //axios.get('/Account/GetEvaluationPage', {
+            //})
+            //    .then(function (response) {
+            //        this.info = response.data.items
+            //        console.log(response.data);
+            //    })
+            //    /*.then(response => vm.info = response.data.items)*/
+
+            //    .catch(function (error) {
+            //        alert('留言失敗');
+            //    })
+    </script>
+}

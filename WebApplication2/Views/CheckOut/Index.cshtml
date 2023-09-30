@@ -1,0 +1,302 @@
+﻿
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_LayoutCheckout.cshtml";
+
+}
+
+@section topCSS{
+    <link rel="stylesheet" href="~/Asset/CSS/Reset.css" />
+    <link rel="stylesheet" href="~/Asset/CSS/StepBar.css" />
+    <style>
+        #Customer-Service {
+            background-color: rgb(230, 228, 228);
+            width: 100%;
+            height: 227.2px;
+        }
+
+        footer {
+            background-color: #333;
+        }
+    </style>
+}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 order-1 order-lg-1">
+            <div class="alert alert-light p-2 m-1" role="alert"
+                 style="border-left-width: 48px; border-color: #428bca;">
+                A simple light alert wit
+            </div>
+            <div class="alert alert-light p-2 m-1" role="alert"
+                 style="border-left-width: 5px; border-color: #5cb85c;">
+                高分住宿 - 評分高達8.2分！（綜合9307條住客評鑑）
+            </div>
+            <div class="border border-3 bg-white p-3 m-1">
+                <form class="row g-3">
+                    <p class="fw-bold h5">請填寫以下資訊</p>
+                    <div class="col-md-6">
+                        <label for="firstName" class="form-label">英文名（同護照）</label>
+                        <input type="text" class="form-control" id="firstName">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lastName" class="form-label">英文姓（同護照）</label>
+                        <input type="text" class="form-control" id="lastName">
+                    </div>
+                    <div class="col-12">
+                        <label for="email" class="form-label">電子信箱</label>
+                        <input type="email" class="form-control" id="email" placeholder="請確認電子信箱填寫無誤">
+                    </div>
+                    <div class="col-12">
+                        <label for="checkemail" class="form-label">請再次輸入電子信箱</label>
+                        <input type="email" class="form-control" id="checkemail">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="phone" class="form-label">聯絡電話（非必填）</label>
+                        <input type="text" class="form-control" id="phone">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="country" class="form-label">居住地</label>
+                        <select id="country" class="form-select">
+                            <option selected>台灣</option>
+                            <option>日本</option>
+                            <option>韓國</option>
+                            <option>美國</option>
+                            <option>中國</option>
+                            <option>澳洲</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="helpCheck"
+                                       data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false"
+                                       aria-controls="collapseExample">
+                                <label class="form-check-label" for="helpCheck">
+                                    若僅幫忙訂房，不會同行，請打勾！並於下方欄位輸入實際住客姓名與居住地。
+                                </label>
+                            </div>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="helpFirstName" class="form-label">英文名（同護照）</label>
+                                    <input type="text" class="form-control" id="helpFirstName">
+                                </div>
+                                <div class="col-6">
+                                    <label for="helpLastName" class="form-label">英文姓（同護照）</label>
+                                    <input type="text" class="form-control" id="helpLastName">
+                                </div>
+                                <div class="col-6">
+                                    <label for="helpCountry" class="form-label">居住地</label>
+                                    <select id="helpCountry" class="form-select">
+                                        <option selected>台灣</option>
+                                        <option>日本</option>
+                                        <option>韓國</option>
+                                        <option>美國</option>
+                                        <option>中國</option>
+                                        <option>澳洲</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <p class="fw-bold">需要加註特殊需求嗎？</p>
+                        <p>我們會在預訂完成後將你的需求發送給住宿。</p>
+                        <div class="border border-3 bg-light p-3">
+                            <div class="row m-auto g-2">
+                                <span class="p-2">吸菸需求（需視現場狀況安排）</span>
+                                <div class="form-check col-md-6">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                           id="nonSmoking">
+                                    <label class="form-check-label" for="nonSmoking">禁菸房</label>
+                                </div>
+                                <div class="form-check col-md-6">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                           id="smoking">
+                                    <label class="form-check-label" for="smoking">吸菸房</label>
+                                </div>
+                                <span class="p-2">床型需求（需視現場狀況安排）</span>
+                                <div class="form-check col-md-6">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                           id="BigBed">
+                                    <label class="form-check-label" for="BigBed">大床</label>
+                                </div>
+                                <div class="form-check col-md-6">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                           id="twoBeds">
+                                    <label class="form-check-label" for="twoBeds">兩床</label>
+                                </div>
+                            </div>
+                        </div>
+                        <p>
+                            <a data-bs-toggle="collapse" href="#collapse2" role="button" aria-expanded="false"
+                               aria-controls="collapseExample">
+                                新增其他特殊需求
+                            </a>
+                        </p>
+                        <div class="collapse" id="collapse2">
+                            <div class="border border-1 p-3">
+                                <div class="row m-auto">
+                                    <p>【請注意】所有特殊需求必須視住宿現場狀況而定，我們無法預先向您保證是否能夠提供相關服務。</p>
+                                    <div class="form-check col-md-6">
+                                        <input class="form-check-input" type="checkbox" id="highFloor">
+                                        <label class="form-check-label" for="highFloor">高樓層房</label>
+                                    </div>
+                                    <div class="form-check col-md-6">
+                                        <input class="form-check-input" type="checkbox" id="babyCot">
+                                        <label class="form-check-label" for="babyCot">嬰兒床(可能需額外付費)</label>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div class="form-check col-12">
+                                        <input class="form-check-input" type="checkbox" id="quietRoom">
+                                        <label class="form-check-label" for="quietRoom">安靜客房</label>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div class="form-check col-12">
+                                        <input class="form-check-input" type="checkbox" id="airportTransfer">
+                                        <label class="form-check-label" for="airportTransfer">機場接送</label>
+                                    </div>
+                                    <span>請使用英文或中文填寫特殊需求：</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <p class="fw-bold">預計何時能抵達住宿？</p>
+                        <span>請選擇預計抵達的時間，我們會幫你通知住宿或房東。</span>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>還不確定</option>
+                            <option value="1">00:00 - 01:00</option>
+                            <option value="2">01:00 - 02:00</option>
+                            <option value="3">02:00 - 03:00</option>
+                            <option value="3">03:00 - 04:00</option>
+                            <option value="3">04:00 - 05:00</option>
+                            <option value="3">05:00 - 06:00</option>
+                            <option value="3">06:00 - 07:00</option>
+                            <option value="3">07:00 - 08:00</option>
+                            <option value="3">08:00 - 09:00</option>
+                            <option value="3">09:00 - 10:00</option>
+                            <option value="3">10:00 - 11:00</option>
+                            <option value="3">11:00 - 12:00</option>
+                            <option value="3">12:00 - 13:00</option>
+                            <option value="3">13:00 - 14:00</option>
+                            <option value="3">14:00 - 15:00</option>
+                            <option value="3">15:00 - 16:00</option>
+                            <option value="3">16:00 - 17:00</option>
+                            <option value="3">17:00 - 18:00</option>
+                            <option value="3">18:00 - 19:00</option>
+                            <option value="3">19:00 - 20:00</option>
+                            <option value="3">20:00 - 21:00</option>
+                            <option value="3">21:00 - 22:00</option>
+                            <option value="3">22:00 - 23:00</option>
+                            <option value="3">23:00 - 24:00</option>
+                            <option value="3">00:00 - 01:00(隔天)</option>
+                            <option value="3">01:00 - 02:00(隔天)</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="border border-3 bg-white p-3 m-1">
+                <p class="fw-bold">客房加值服務</p>
+                <p>以優惠價加購額外服務</p>
+                <div class="border border-3 bg-light p-3">
+                    <div class="fw-bold">
+                        早餐
+                    </div>
+                    <div>
+                        您的客房專案已包含免費早餐。
+                    </div>
+                </div>
+            </div>
+            <div class="border border-3 bg-white p-3 m-1">
+                <p>
+                    繼續使用代表你同意Agoda的
+                    <a href="#" class="text-decoration-none">服務條款</a>
+                    與
+                    <a href="#" class="text-decoration-none">隱私權政策</a>
+                    。
+                </p>
+                <!-- <div id="next" class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-primary me-md-2" type="button">繼續</button>
+                </div> -->
+                <div id="next" class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-primary me-md-2" type="button"
+                            onclick="location.href='./Checkout-test0.2.html'">
+                        繼續
+                    </button>
+                </div>
+                <p class=" text-end text-success">今日付NT$0。房費將直接付款給住宿。</p>
+            </div>
+        </div>
+        <div class="col-lg-4 order-0 order-lg-1">
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-5 m-auto">
+                        <img class="mw-100" src="./images/linus-mimietz-sgIhwj4cSiU-unsplash.jpg">
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card-body">
+                            <h5 class="card-title">板橋凱撒大飯店 (Caesar Park Hotel Banqiao)</h5>
+                            <p class="card-text">⭐⭐⭐⭐⭐</p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    新北市板橋區縣民大道2段8號, 板橋區, 台北市, 台北市, 台灣,
+                                    22065
+                                </small>
+                            </p>
+                            <p> 地點超優 - 週邊景點</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col border border-2 bg-white mb-3">
+                <div class="row m-auto mt-3">
+                    <div class="col-10">YYYY-MM-DD ~ YYYY-MM-DD</div>
+                    <div class="col-2 text-end">N晚</div>
+                    <div class="line"></div>
+                    <div class="col-12">N間房，N位大人</div>
+                    <div class="col-12">N位大人</div>
+                </div>
+            </div>
+            <div class="col border border-2 mb-3">
+                <div class="m-2">總金額</div>
+                <div class="line"></div>
+                <div class="m-2">含稅總價</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 d-none d-xl-block">
+            <div class="card border-0 align-items-center">
+                <img src="https://cdn6.agoda.net/images/new-bf/15-mil-reviews-light.png" class="card-img-top w-25"
+                     alt="...">
+                <div class="card-body text-center">
+                    <div class="card-title fw-bold" style="color:#8660c7">超過1億3百萬篇已驗證評鑑</div>
+                    <div class="card-text" style="font-size: 10px;">訂房前先看住客真心話評鑑，絕對不踩雷！</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 d-none d-xl-block">
+            <div class="card border-0 align-items-center">
+                <img src="https://cdn6.agoda.net/images/new-bf/price-guarantee.png" class="card-img-top w-25"
+                     alt="...">
+                <div class="card-body text-center">
+                    <div class="card-title fw-bold" style="color:#8660c7">價格保證</div>
+                    <div class="card-text" style="font-size: 10px;">我們致力提供最好的價格，保證便宜，訂貴退差價！</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 d-none d-xl-block">
+            <div class="card border-0 align-items-center">
+                <img src="https://cdn6.agoda.net/images/new-bf/customer-support.png" class="card-img-top w-25"
+                     alt="...">
+                <div class="card-body text-center">
+                    <div class="card-title fw-bold" style="color:#8660c7">24小時客戶服務中心</div>
+                    <div class="card-text" style="font-size: 10px;">提供17種主要語言，全天候待命為您服務！</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

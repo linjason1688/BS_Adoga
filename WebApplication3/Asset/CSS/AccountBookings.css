@@ -1,0 +1,217 @@
+﻿* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+    color: #000;
+}
+
+.page-fullpage .container-agoda {
+    display: flex;
+    clear: both; /*不允許有浮動物件*/
+    margin: 0 auto 0 auto; /*順序: 上右下左*/
+}
+
+    .page-fullpage .container-agoda .left-pane {
+        display: table-cell; /*垂直置中*/
+        vertical-align: top;
+        width: 218px;
+        margin-left: 50px;
+        margin-right: 70px;
+        /* background-color: #777; */
+    }
+
+        .page-fullpage .container-agoda .left-pane section.menu-component {
+            /* min-width: 255px; */
+            /* margin-top: 21px; */
+            font-size: 20px;
+            font-weight: 700; /*字體的粗細程度*/
+            line-height: 4;
+        }
+
+section.menu-component ul {
+    /* background-color: #c00; */
+    padding-left: 0;
+}
+
+    section.menu-component ul li a {
+        text-decoration: none;
+    }
+
+    section.menu-component ul li:hover {
+        cursor: pointer;
+        display: block;
+        background-color: #5392f9;
+    }
+
+        section.menu-component ul li:hover a {
+            cursor: pointer;
+            /* background-color: transparent; 背景顏色為透明 */
+            color: white;
+        }
+
+/* section.menu-component ul .inbox:hover {
+    display: block;
+    background-color: #5392f9;
+}
+
+section.menu-component ul .inbox a:hover {
+    cursor: pointer;
+    background-color: transparent;
+    color: white;
+}
+
+section.menu-component ul .reviews {
+    display: block;
+}
+
+section.menu-component ul .reviews a {
+    cursor: pointer;
+    background-color: transparent;
+}
+
+section.menu-component ul .vip {
+    display: block;
+}
+
+section.menu-component ul .vip a {
+    cursor: pointer;
+    background-color: transparent;
+}
+
+section.menu-component ul .a_cash_back {
+    display: block;
+}
+
+section.menu-component ul .a_cash_back a {
+    cursor: pointer;
+    background-color: transparent;
+}
+
+section.menu-component ul .pointsmax {
+    display: block;
+}
+
+section.menu-component ul .pointsmax a {
+    cursor: pointer;
+    background-color: transparent;
+}
+
+section.menu-component ul .profile {
+    display: block;
+}
+
+section.menu-component ul .profile a {
+    cursor: pointer;
+    background-color: transparent;
+} */
+
+.filter-container_based-on-time_or_cancel {
+    /* background-color: #0f0; */
+    display: inline-flex;
+}
+
+    .filter-container_based-on-time_or_cancel span {
+        /* background-color: #7ff; */
+        font-size: 16px;
+        font-weight: 700;
+        padding: 10px;
+        display: inline-block;
+    }
+
+    .filter-container_based-on-time_or_cancel span {
+        color: #5392f9;
+        border-bottom: #dddfe2 2px solid;
+    }
+
+        .filter-container_based-on-time_or_cancel span.filter-option-Upcoming {
+            color: black;
+            border-bottom: #75a8f9 2px solid;
+        }
+
+/* .filter-container_based-on-time_or_cancel span.filter-option-Past {
+    color: #5392f9;
+    border-bottom: #dddfe2 2px solid;
+}
+
+.filter-container_based-on-time_or_cancel span.filter-option-Cancelled {
+    color: #5392f9;
+    border-bottom: #dddfe2 2px solid;
+} */
+
+.block-switch_based-on-self-definition_or_pre-order-date_or_check-in-date {
+    border: darkgray 1px solid;
+    /* background-color: #0f0; */
+    display: inline-flex;
+    position: relative;
+    left: 200px;
+    /* margin: auto; */
+}
+
+    .block-switch_based-on-self-definition_or_pre-order-date_or_check-in-date div {
+        /* background-color: deeppink; */
+        padding: 10px;
+    }
+
+        .block-switch_based-on-self-definition_or_pre-order-date_or_check-in-date div.check-in-date {
+            background-color: #e9ebee;
+        }
+
+.order-id-container {
+    display: flex;
+    margin-top: 20px;
+    /* background-color: darkgreen; */
+}
+
+    .order-id-container .order-id_left-pane {
+        display: flex;
+        flex-direction: column;
+        /* background-color: darkmagenta; */
+    }
+
+        .order-id-container .order-id_left-pane label {
+            line-height: 2;
+        }
+
+            .order-id-container .order-id_left-pane label span.order-id {
+                font-size: 14px;
+                font-weight: 600;
+            }
+
+    .order-id-container div input#input_order-id {
+        opacity: 0.5; /*opacity: 透明度*/
+        /* outline: #75a8f9 solid 2px; */
+        outline-color: #75a8f9;
+    }
+
+    .order-id-container .search-button_or_clear-button {
+        display: block;
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+
+.no-booking-panel {
+    display: flex;
+    margin-top: 20px;
+    /* background-color: darkturquoise; */
+    align-items: center;
+}
+
+    .no-booking-panel img {
+        display: flex;
+        /* background-color: greenyellow; */
+    }
+
+    .no-booking-panel .no-booking-content {
+        margin-left: 50px;
+    }
+
+    .no-booking-panel div.no-booking-content a {
+        text-decoration: none;
+    }
+
+/*bear:0610新增*/
+.page-fullpage {
+    padding: 40px 0;
+    background-color: #f8f8f8;
+}

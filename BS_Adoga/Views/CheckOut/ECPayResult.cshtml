@@ -1,0 +1,67 @@
+﻿@model BS_Adoga.Models.ViewModels.CheckOut.ECPayResultsViewModel
+
+@{
+    ViewBag.Title = "付款結果";
+    Layout = "~/Views/Shared/_AdogaLayout.cshtml";
+}
+
+<div class="container">
+    <div class="row g-2">
+        <div class="col-md-12">
+            <div class="fs-3 fw-bold text-center m-auto">付款成功</div>
+            <table class="table table-bordered border-secondary w-75 m-auto mb-2">
+                <tbody>
+                    <tr>
+                        <th scope="row" class="table-active w-25">訂單編號</th>
+                        <td>@Html.DisplayFor(model => model.OrderId)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="table-active">下單時間</th>
+                        <td>@Html.DisplayFor(model => model.TradeDate)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="table-active">付款時間</th>
+                        <td>@Html.DisplayFor(model => model.PaymentDate)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="table-active">付款方式</th>
+                        <td>@Html.DisplayFor(model => model.PaymentType)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-12">
+            <p class="text-end mt-2 mb-1" style="width: 87%;">單位 Unit：新台幣 NTD</p>
+            <table class="table table-borderless w-75 m-auto">
+                <tbody>
+                    <tr class="table-active">
+                        <td scope="col" class="text-start">商品明細 Merchandise detail</td>
+                        <td scope="col" class="text-end">小計 Subtotal</td>
+                    </tr>
+                    <tr>
+                        <td scope="col" class="text-start">Test</td>
+                        <td scope="col" class="text-end">NT$@Html.DisplayFor(model => model.TradePrice)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-12">
+            <table class="table table-borderless border-top border-dark w-75 m-auto mb-4">
+                <tbody>
+                    <tr>
+                        <th class="text-end w-75">應付金額 Payable amount</th>
+                        <td class="text-end">NT$@Html.DisplayFor(model => model.TradePrice)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-12 text-center">
+            <a href="http://adoga.azurewebsites.net/" role="button" class="btn btn-dark mt-5">
+                返回首頁
+            </a>
+        </div>
+    </div>
+</div>

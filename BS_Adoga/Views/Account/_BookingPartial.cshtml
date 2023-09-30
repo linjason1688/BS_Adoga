@@ -1,0 +1,190 @@
+﻿@model BS_Adoga.Models.ViewModels.Account.MemberBookingViewModel
+@{
+    //顯示所有床型名稱跟數量
+    string BedNameString = string.Empty;
+    foreach (var item in Model.RoomBed)
+    {
+        BedNameString = string.Join("", BedNameString + $"{item.Name}X{item.Amount}，");
+    }
+    BedNameString = BedNameString.Remove(BedNameString.LastIndexOf("，"), 1);
+
+    //確認是否退房 等於1代表未退房 0或-1代表退房
+    var CheckCheckOut = Model.CheckOutDate.CompareTo(DateTime.Now);
+
+    //幾天前訂的房間
+    var FewDaysAgo = new TimeSpan(DateTime.Now.Ticks - Model.OrderDate.Ticks).Days;
+
+}
+
+
+<div class="booking-item">
+    <div class="side-info">
+        <div class="time-place-item">
+            <span class="time me-2"><i class="far fa-circle me-2"></i> @FewDaysAgo 天前</span>
+            <span class="place"> | <i class="fas fa-map-marker-alt mx-2"></i> @Model.City</span>
+        </div>
+        <time>@Model.OrderDate.ToString("yyyy年MM月dd日")預訂</time>
+    </div>
+    <div class="booking-info-wrap py-5 ps-4">
+        <div class="booking-info">
+            <div class="main d-flex">
+                <img src="http://pix6.agoda.net/hotelImages/234/234438/234438_16042615400041817947.jpg?s=1024x768"
+                     alt="">
+                <div class="hotel-status mt-3 mx-4 ">
+                    <h4>@Model.HotelName @Model.HotelEngName</h4>
+                    <p class="order-title mb-1">訂單編號：@Model.OrderID</p>
+                    @if (CheckCheckOut < 0) {<p class="order-status"><i class="fas fa-check-circle me-2"></i>已退房</p>}
+
+                    @{
+                        if (Model.PayStatus == true)
+                        {
+
+                            if (CheckCheckOut < 1)
+                            {<p class="order-status-suc"><i class="fas fa-check-circle me-2"></i>已退房</p>}
+                            else
+                            {<p class="order-status-suc"><i class="fas fa-check-circle me-2"></i>已付款</p>}
+                        }
+                        else
+                        {
+                            {<p class="order-status-fail"><i class="fas fa-times-circle me-2"></i>未付款</p>}
+                        }
+                    }
+                    <p class="room-type fw-bold mt-5 mb-0">@BedNameString</p>
+
+
+                    @if (Model.Breakfast)
+                    {<p class="free-status"><span class="free-tag me-2">免費</span><span>早餐</span></p>}
+                </div>
+                <div class="time-price-status mt-3">
+                    <div class="time-info">
+                        <div class="start-date me-4">
+                            <span>入住日期</span>
+                            <div class="start-date-detail">
+                                <span class="day">@Model.CheckInDate.ToString("dd")</span>
+                                <div class="month-week">
+                                    <p>@Model.CheckInDate.ToString("MMM")</p>
+                                    <p>@Model.CheckInDate.ToString("ddd")</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="end-date me-4">
+                            <span>退房日期</span>
+                            <div class="end-date-detail">
+                                <span class="day">@Model.CheckOutDate.ToString("dd")</span>
+                                <div class="month-week">
+                                    <p>@Model.CheckOutDate.ToString("MMM")</p>
+                                    <p>@Model.CheckOutDate.ToString("ddd")</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="price-info mt-5">
+                        <span>TWD</span>
+                        @Math.Ceiling(@Model.RoomPriceTotal).ToString("N0")
+                    </p>
+                </div>
+
+            </div>
+            <div class="footer">
+                <div class="link-group">
+                    <a href="">留下住宿評鑑</a>
+                    <a href="">索取電子收據</a>
+                    <a href="">訂別間</a>
+                    @if (Model.PayStatus == false)
+                    {
+                        if (DateTime.Now.Subtract(Model.OrderDate) < TimeSpan.FromHours(24))
+                        {
+                            
+                            @Html.ActionLink("立即付款", "RePayOrder", new { orderID = Model.OrderID })
+
+                        }
+
+                    }
+
+                </div>
+                @Html.ActionLink("查看更多細節", "BookingDetail", new { orderID = Model.OrderID })
+                @*<a href="/Account/BookingDetail" type="button" class="detail-btn">查看更多細節</a>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+@*@section PartialJS{
+    <script>
+        $("#repost").click(function () {
+            $.ajax({
+            url: "/Account/RePayOrder",
+            type: "POST",
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: {
+                RoomPriceTotal: @Model.RoomPriceTotal,
+            }
+        }
+    </script>
+}*@
+
+
+@*原始碼*@
+@*<div class="booking-item">
+        <div class="side-info">
+            <div class="time-place-item">
+                <span class="time me-2"><i class="far fa-circle me-2"></i> 9天前</span>
+                <span class="place"> | <i class="fas fa-map-marker-alt mx-2"></i> 墾丁</span>
+            </div>
+            <time>2021年5月27日預訂</time>
+        </div>
+        <div class="booking-info-wrap py-5 ps-4">
+            <div class="booking-info">
+                <div class="main d-flex">
+                    <img src="http://pix6.agoda.net/hotelImages/234/234438/234438_16042615400041817947.jpg?s=1024x768"
+                         alt="">
+                    <div class="hotel-status mt-3 mx-4 ">
+                        <h4>美棧 - 大街旅店 (A.MAZ.INN Kending)</h4>
+                        <p class="order-title mb-1">訂單編號：342424241</p>
+                        <p class="order-status"><i class="fas fa-check-circle me-2"></i>已退房</p>
+                        <p class="room-type fw-bold mt-5 mb-0">高級房(兩床)</p>
+                        <p class="free-status"><span class="free-tag me-2">免費</span><span>早餐</span></p>
+                    </div>
+                    <div class="time-price-status mt-3">
+                        <div class="time-info">
+                            <div class="start-date me-4">
+                                <span>入住日期</span>
+                                <div class="start-date-detail">
+                                    <span class="day">23</span>
+                                    <div class="month-week">
+                                        <p>六月</p>
+                                        <p>週五</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="end-date me-4">
+                                <span>退房日期</span>
+                                <div class="end-date-detail">
+                                    <span class="day">24</span>
+                                    <div class="month-week">
+                                        <p>六月</p>
+                                        <p>週六</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="price-info mt-5">
+                            <span>TWD</span>
+                            1,516
+                        </p>
+                    </div>
+
+                </div>
+                <div class="footer">
+                    <div class="link-group">
+                        <a href="">留下住宿評鑑</a>
+                        <a href="">索取電子收據</a>
+                        <a href="">訂別間</a>
+                    </div>
+                    <a href="/Account/BookingDetail" type="button" class="detail-btn">查看更多細節</a>
+                </div>
+            </div>
+        </div>
+
+    </div>*@

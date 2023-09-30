@@ -1,0 +1,15 @@
+﻿@model IEnumerable<BS_Adoga.Models.DBContext.Hotel>
+
+
+@foreach (var item in Model)
+{
+<datalist id="browsers">
+
+    @Html.Partial("_option",item);
+    
+</datalist>
+       
+
+            }
+
+

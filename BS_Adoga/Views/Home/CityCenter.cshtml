@@ -1,0 +1,73 @@
+﻿@model demoshopViewModels
+@{
+    ViewBag.Title = "台灣城市";
+    Layout = "~/Views/Shared/_AdogaLayout.cshtml";
+
+}
+@section topCSS{
+    <link rel="stylesheet" href="~/Asset/CSS/CityCenter.css">
+}
+
+    <div class="container d-flex justify-content-center">
+        <div id="box">
+            <div class="col-12 mt-3">
+                <h3>全台住宿:</h3>
+            </div>
+            <div class="col-12 Attractions d-flex align-items-end">
+                <h4>台灣熱門景點：</h4>
+            </div>
+            <div class="col-12 d-flex flex-wrap bottom">
+             
+                <div class="zdinx1">
+                    @foreach (var item in Model.My_MyCitys)
+                    {
+                        using (Html.BeginForm("HotelDetail", "Home"))
+                        {<button type="submit" class="search" id="search">
+                                <div class="city" style="">
+                                    <div class="d-block">
+                                        <input class="title" id="aaa" type="text" value="@item.HotelCity" name="search" />
+
+                                    </div>
+                                </div>   
+                           </button> 
+                           }
+                         }
+                </div>
+
+
+                <div class="zdinx2">
+                    @foreach (var man in Model.Cards)
+                    {
+                        <div class="img" id="img" style="background-image: url(@man.ImageURL);">
+                        </div>
+                    }
+                </div>
+
+
+                <div class="zdinx3">
+                    @foreach (var man in Model.My_Mys)
+                    {
+                        <input class="nnn" type="text"/>
+                       
+                        <div class="textbox" id="textbox">
+                            <p class="text">@man.Star 間飯店選項</p>
+                        </div>
+                    }
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    @section endJS{
+        <script>
+        @*let count = document.getElementById('count');
+        var x =  @foreach(var man in Model.My_Mys)
+        {
+             @man.Star
+          }
+            count.innerHTML = x;*@
+
+        </script>
+    }

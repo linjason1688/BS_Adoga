@@ -1,0 +1,445 @@
+﻿@import url("https://fonts.googleapis.com/css?family=Noto+Sans+TC");
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+/* <!-- 最頂端的Agoda nav --> */
+
+
+.head-nav {
+    padding: 0px 20px;
+    border-bottom: 1px solid rgb(228, 228, 228);
+}
+
+    .head-nav-wrap h2 {
+        margin-right: 20px;
+        margin-bottom: 0;
+        font-size: 0;
+    }
+
+        .head-nav-wrap h2 img {
+           /* width: 89px;
+            height: 37px;*/
+            vertical-align: bottom;
+        }
+.head-nav-item {
+    display: inline-block;
+    /*margin-left: 30px;*/
+    padding: 18px 0;
+    color: rgb(56, 56, 56);
+    font-size: 14px;
+    font-family: "Noto Sans TC", "Microsoft JhengHei", "微軟正黑體", serif;
+    text-decoration: none;
+}
+
+    .head-nav-item:hover {
+        color: rgb(99, 155, 238);
+    }
+
+   /* .head-nav-item.currency:hover {
+        color: rgb(56, 56, 56);
+    }*/
+
+/*i.head-nav-item {
+    font-size: 20px;
+}*/
+
+/*.head-nav-item.red,
+.head-nav-item.blue {
+    padding: 10px 10px;
+    font-size: 14px;*/
+    /* height: fit-content; */
+    /*不設置fit-content的話，整個<a>的高度都超怪的 要嘛字底下一定有個空間，要嘛字上面有空間，超難弄成字是垂直置中的樣子*/
+    /* 後來才發現我對父層設定 align-items:center;就拯救了一切，但我還是先保留fit-content這個發現.. */
+    /*border-radius: 7px;
+    text-align: center;
+    transition: 0.2s;
+}*/
+.head-nav-item {
+    padding: 10px 10px;
+    /* height: fit-content; */
+    /*不設置fit-content的話，整個<a>的高度都超怪的 要嘛字底下一定有個空間，要嘛字上面有空間，超難弄成字是垂直置中的樣子*/
+    /* 後來才發現我對父層設定 align-items:center;就拯救了一切，但我還是先保留fit-content這個發現.. */
+    border-radius: 7px;
+    text-align: center;
+    transition: 0.2s;
+}
+    .head-nav-item.red, .head-nav-item.login-btn,.head-nav-item.register-btn {
+        padding: 12px 10px;
+    }
+.head-nav-item.red {
+    color: rgb(255, 74, 113);
+    border: 1px solid rgb(255, 74, 113);
+}
+
+    .head-nav-item.red:hover {
+        color: rgb(255, 255, 255);
+        background-color: rgb(255, 74, 113);
+    }
+
+/*.head-nav-item.blue {
+    color: rgb(99, 155, 238);
+    border: 1px solid rgb(99, 155, 238);
+}
+
+    .head-nav-item.blue:hover {
+        color: rgb(255, 255, 255);
+        background-color: rgb(99, 155, 238);
+    }*/
+
+    .head-nav-item.login-btn {
+        color: rgb(99, 155, 238);
+    }
+
+        .head-nav-item.login-btn:hover {
+            color: rgb(255, 255, 255);
+            background-color: rgb(110, 187, 250);
+            border: 1px solid rgb(110, 187, 250);
+        }
+
+    .head-nav-item.register-btn {
+        border: 1px solid rgb(99, 155, 238);
+    }
+
+        .head-nav-item.register-btn:hover {
+            color: rgb(255, 255, 255);
+            background-color: rgb(110, 187, 250);
+            border: 1px solid rgb(110, 187, 250);
+        }
+
+/*.flag-icon {
+    width: 30px;
+    height: 22.5px;
+    text-align: center;
+}*/
+
+/*0618 Bear新增：會員頭像-------------------------------------------*/
+.member-btn {
+    position: relative;
+    margin-left: 20px;
+    padding: 13px 10px;
+}
+
+.member-btn .member-img {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family:Montserrat,serif;
+    text-align: center;
+    line-height: 30px;
+    color: #fff;
+    background-color: rgb(182, 109, 241);
+    border-radius: 50%;
+}
+
+.member-firstname{
+    font-size:12px;
+    font-weight:bold;
+    font-family:Montserrat,serif;
+}
+
+/*0618 Bear新增：會員中心member-menu--------------------*/
+.member-menu {
+    display: none;
+    width: 200px;
+    background-color: #fff;
+    position: absolute;
+    top: 102%;
+    right: 0;
+    z-index: 4;
+    border: 1px solid rgb(218, 218, 218);
+    box-shadow: 0px 2px 3px 2px rgba(128, 128, 128, 0.253);
+}
+
+.member-menu::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    right: 50px;
+    /* border-top: 10px solid green; */
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid rgb(241, 241, 241);
+}
+
+    .member-menu h6 {
+        padding: 15px 30px;
+        font-size: 12px;
+        color: rgb(73, 73, 73);
+        background-color: rgb(245, 245, 245);
+        margin-bottom: 0;
+    }
+
+.member-menu ul {
+    padding: 10px 20px;
+    margin-bottom:0;
+}
+
+.member-menu li {
+    list-style: none;
+    /*padding: 10px;*/
+    font-size: 14px;
+}
+
+    .member-menu li a {
+        display:block;
+        padding: 12px 10px;
+    }
+
+    .member-menu li a i{
+        display: inline-block;
+        width:20px;
+        text-align:center;
+    }
+
+.member-menu li:hover {
+    background-color: rgb(248, 248, 248);
+    color: rgb(99, 155, 238);
+}
+
+.member-menu li:hover > .member-menu-link, .member-menu li:hover i {
+    color: rgb(99, 155, 238);
+}
+
+.member-menu-link {
+    font-size: 14px;
+    color: rgb(73, 73, 73);
+    text-decoration:none;
+}
+
+.logout-btn {
+    width: 100%;
+    margin-top: 15px;
+    color: rgb(99, 155, 238);
+    border: 1px solid rgb(99, 155, 238);
+}
+
+.member-menu .logout-btn:hover {
+    color: #fff;
+    background-color: rgb(99, 155, 238);
+}
+
+#member-menu-chkbox {
+    display: none;
+}
+
+#member-menu-chkbox:checked + .member-menu {
+    display: block;
+}
+
+
+/*footer區塊-------------------------------------------*/
+#Customer-Service {
+    background-color: rgb(230, 228, 228);
+    width: 100%;
+    padding:50px 0;
+}
+#Customer-Service .info-group{
+    display:flex;
+    justify-content: center;
+    margin:auto;
+}
+
+#Customer-Service .info-item{
+    margin-left: 3em;
+    margin-right: 3em;
+}
+
+#Customer-Service h6{
+    color: rgb(99, 99, 99);
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#Customer-Service a{
+    display: block;
+    text-decoration: none;
+    color: rgb(99, 99, 99);
+    font-family: Montserrat,sans-serif;
+    font-size: 14px;
+}
+
+#Customer-Service a:hover{
+    text-decoration: underline;
+}
+
+
+
+.footer-area {
+    padding: 50px 30px;
+    background-color: #333;
+    color: rgb(148, 148, 148);
+    font-size: 14px;
+    font-family: Montserrat,sans-serif;
+    text-align: center;
+}
+
+    .footer-area p {
+        line-height: 2;
+        color: rgb(148, 148, 148);
+    }
+.footer-area span {
+    display: block;
+    color: rgb(148, 148, 148);
+}
+
+/*0717 Bear新增：layout RWD的部分-----------------------------------*/
+#login-menu-chkbox {
+    display: none;
+}
+
+/*電腦*/
+@media screen and (min-width:769px) {
+    
+
+    .login-menu {
+        display: flex;
+        align-items: center;
+    }
+
+    .login-burger-btn {
+        position: relative;
+        margin-left: 20px;
+        padding: 10px;
+    }
+
+    .login-burger {
+        display: none;
+    }
+
+    .login-menu h6 {
+        display: none;
+    }
+
+    .head-nav-item.login-btn {
+        border: 1px solid rgba(145, 145, 145, 0);
+    }
+
+    .head-nav-item.register-btn {
+        color: rgb(99, 155, 238);
+    }
+
+    .head-nav-item.login-btn, .head-nav-item.register-btn, .head-nav-item.red {
+        margin-left: 20px;
+    }
+}
+
+/* 手機或小平板 */
+@media screen and (max-width:768px) {
+
+    #login-menu-chkbox:checked + .login-menu {
+        display: block;
+    }
+
+    .login-burger-btn {
+        position: relative;
+        margin-left: 20px;
+        padding-top: 10px;
+    }
+
+    .login-burger {
+        display: inline-block;
+        position: relative;
+        width: 40px;
+        height: 36px;
+    }
+
+        .login-burger::before {
+            position: absolute;
+            top: 8px;
+            left: 2px;
+            right: 2px;
+            margin: auto;
+            content: '';
+            width: 30px;
+            height: 4px;
+            background-color: rgb(61 169 244);
+            box-shadow: 0 8px 0 rgb(61 169 244), 0 16px 0 rgb(61 169 244);
+            border-radius: 3px;
+        }
+
+    .login-menu {
+        display: none;
+        width: 200px;
+        background-color: #fff;
+        position: absolute;
+        top: 102%;
+        right: 0;
+        z-index: 4;
+        border: 1px solid rgb(218, 218, 218);
+        box-shadow: 0px 2px 3px 2px rgba(128, 128, 128, 0.253);
+    }
+
+        .login-menu::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            /* border-top: 10px solid green; */
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid rgb(241, 241, 241);
+        }
+
+        .login-menu h6 {
+            padding: 15px 30px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            font-family: Montserrat,sans-serif;
+            color: rgb(73, 73, 73);
+            background-color: rgb(245, 245, 245);
+        }
+
+        .login-menu li {
+            list-style: none;
+            font-size: 14px;
+        }
+
+    .head-nav-item.login-btn {
+        border: 1px solid rgb(64, 139, 252);
+    }
+
+    .head-nav-item.register-btn {
+        color: rgb(255, 255, 255);
+        border: 1px solid rgba(99, 155, 238, 0);
+        background-color: rgb(64, 139, 252);
+        box-shadow: 0px 2px 4px rgb(102, 102, 102);
+    }
+
+        .head-nav-item.register-btn:hover {
+            background-color: rgb(110, 187, 250);
+        }
+
+    .head-nav-item.login-btn, .head-nav-item.register-btn, .head-nav-item.red {
+        display: block;
+        width: 150px;
+        margin: 0 auto 10px auto;
+    }
+
+    .login-menu .head-nav-item.register-btn, .login-menu .head-nav-item.red {
+        margin-bottom: 20px;
+    }
+
+    #Customer-Service {
+        padding: 30px 0 0 0;
+    }
+
+        #Customer-Service .info-group .info-item {
+            margin-bottom: 30px;
+        }
+
+    .info-item a {
+        display: block;
+        text-align: center;
+    }
+
+}
+
+/*更小的手機 比如iphone 5*/
+@media screen and (max-width:570px) {
+    #Customer-Service .info-group {
+        flex-direction: column;
+        align-items: center;
+    }
+}

@@ -1,0 +1,659 @@
+﻿@model Customer
+@{
+    ViewBag.Title = "個人資料";
+    Layout = "~/Views/Account/_LayoutMember.cshtml";
+}
+
+
+
+@section topCSS{
+    <link rel="stylesheet" href="~/Asset/CSS/MemberAccount/MemberProfile.css" />
+}
+<div class="page ps-5 pt-4" id="profile-page">
+    <section class="user_details mb-5">
+        <h3 class="gray-header ms-3 lead">用戶詳細資料</h3>
+
+        <section class="name-component m-3">
+            <div class="name-component component-wrap">
+                <div class="name-component-display-icon">
+                    <span class="member-fir st-letter">@Model.FirstName.Substring(0, 1).ToUpper()</span>
+                </div>
+
+                <div class="name-component-display-name">
+                    <h4 class="gray-bold-text">英文姓名</h4>
+                    <p class="display-name-value">@Model.FirstName @Model.LastName</p>
+                </div>
+
+                <div class="name-component-display-edit">
+                    <span class="display-edit gray-bold-text" data-bs-toggle="modal" data-bs-target="#aaa"
+                          id="name-edit">編輯</span>
+                </div>
+            </div>
+
+            <div class="name-edit-component component-wrap">
+                @using (Html.BeginForm("MemberProfileName", "Account"))
+                {
+                    <div class="mb-3">
+                        <input type="hidden" name="Email" value="@Model.Email" />
+                        <label for="passport-english-first_name" class="form-label">護照英文名</label>
+                        <input type="text" class="form-control" id="passport-english-first_name" placeholder="FirstName"
+                               value="@Model.FirstName" name="InputFirstName" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="passport-english-last_name" class="form-label">護照英文姓</label>
+                        <input type="text" class="form-control" id="passport-english-last_name" placeholder="LastName"
+                               value="@Model.LastName" name="InputLastName" />
+                    </div>
+
+                    <div>
+                        <button id="cancel-name-edit-btn" type="button" class="btn cancel-edit-btn" data-bs-dismiss="modal">
+                            取消
+                        </button>
+                        <button id="save-name-edit-btn" type="submit" class="btn save-edit-btn">
+                            儲存
+                        </button>
+                    </div>
+                }
+            </div>
+        </section>
+        <section class="email-component m-3">
+            <div class="email-component component-wrap">
+                <div class="email-component-display-email">
+                    <h4 class="gray-bold-text">電子郵件</h4>
+                    <div class="email-not-verify-component d-none">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>你的電子信箱尚未完成驗證。</span>
+                        <span id="verify-email">點此驗證電子信箱</span>
+                    </div>
+                    <p class="display-email-value">
+                    @Model.Email
+                    @if (Model.VerifyEmail == false)
+                    {
+                        <span class="email-verify-badge">未通過驗證</span>
+                    }
+                    else
+                    {
+                        <span class="email-verify-badge">已通過驗證</span>
+                    }
+                    </p>
+                </div>
+            </div>
+            <!-- <div class="email-component-verify">
+              <span class="badge bg-info text-dark">已通過驗證</span>
+            </div> -->
+            <div class="verify-email-component component-wrap">
+                <div class="robot-error mb-4">
+                    <p class="mb-0"> 請完成「我不是機器人」驗證程序</p>
+                    <i class="fas fa-times-circle"></i>
+                </div>
+                <div class="mb-4">
+                    <p class="verify-explain">我們會發送驗證郵件至<strong> @Model.Email </strong>，請依說明完成相關程序。</p>
+                </div>
+                <div class="robot mb-4">
+                    <div class="g-recaptcha" data-sitekey="6LfoWhYbAAAAAI1Uq4RYT2eeVwdT_6QQKE0EcaSV"></div>
+                </div>
+                <div>
+                    <button id="cancel-verify-email-btn" type="button" class="btn cancel-edit-btn" data-bs-dismiss="modal">
+                        取消
+                    </button>
+                    <button id="sent-verify-email-btn" type="submit" class="btn save-edit-btn">
+                        發送驗證郵件
+                    </button>
+                </div>
+            </div>
+        </section>
+        <section class="phone-component m-3">
+            <div class="phone-component component-wrap">
+                <div class="phone-component-display-phone">
+                    <h4 class="gray-bold-text">電話號碼</h4>
+                    <p class="phone-number mb-0"><span>+886 </span><span> @Model.PhoneNumber</span></p>
+                </div>
+                <div class="phone-component-display-add">
+                    <span class="display-edit blue-bold-text" data-bs-toggle="modal" data-bs-target="#bbb"
+                          id="phone-edit">編輯</span>
+                </div>
+            </div>
+
+            <div class="phone-edit-component component-wrap">
+                @using (Html.BeginForm("MemberProfilePhone", "Account"))
+                {
+                    <div class="mb-3">
+                        <input type="hidden" name="Email" value="@Model.Email" />
+                        @*<label for="phone-number-by-country" class="form-label">國家/地區代碼</label>*@
+                        @*<select id="phone-number-by-country" class="form-select" aria-label="country-number-select">
+                                <option selected>請選擇國家/地區電話代碼（例如：台灣+886)</option>
+                                <option value="975">不丹 (+975)</option>
+                                <option value="86">中國 (+86)</option>
+                                <option value="236">中非共和國 (+236)</option>
+                                <option value="45">丹麥 (+45)</option>
+                                <option value="994">亞塞拜然 (+994)</option>
+                                <option value="374">亞美尼亞 (+374)</option>
+                                <option value="972">以色列 (+972)</option>
+                                <option value="964">伊拉克 (+964)</option>
+                                <option value="98">伊朗 (+98)</option>
+                                <option value="7">俄羅斯 (+7)</option>
+                                <option value="359">保加利亞 (+359)</option>
+                                <option value="385">克羅埃西亞 (+385)</option>
+                                <option value="354">冰島 (+354)</option>
+                                <option value="423">列支敦斯登 (+423)</option>
+                                <option value="218">利比亞 (+218)</option>
+                                <option value="242">剛果共和國 (+242)</option>
+                                <option value="243">剛果民主共和國 (+243)</option>
+                                <option value="241">加彭 (+241)</option>
+                                <option value="1">加拿大 (+1)</option>
+                                <option value="36">匈牙利 (+36)</option>
+                                <option value="850">北韓 (+850)</option>
+                                <option value="1670">北馬利安納群島 (+1670)</option>
+                                <option value="1868">千里達及托貝哥 (+1868)</option>
+                                <option value="500">南喬治島 (+500)</option>
+                                <option value="211">南蘇丹 (+211)</option>
+                                <option value="27">南非 (+27)</option>
+                                <option value="974">卡達 (+974)</option>
+                                <option value="62">印尼 (+62)</option>
+                                <option value="91">印度 (+91)</option>
+                                <option value="291">厄利垂亞 (+291)</option>
+                                <option value="593">厄瓜多 (+593)</option>
+                                <option value="53">古巴 (+53)</option>
+                                <option value="599">古拉索 (+599)</option>
+                                <option value="61">可可斯(基林)群島 (+61)</option>
+                                <option value="886">台灣 (+886)</option>
+                                <option value="268">史瓦濟蘭 (+268)</option>
+                                <option value="253">吉布地 (+253)</option>
+                                <option value="996">吉爾吉斯 (+996)</option>
+                                <option value="686">吉里巴斯 (+686)</option>
+                                <option value="688">吐瓦魯 (+688)</option>
+                                <option value="76">哈薩克 (+7)</option>
+                                <option value="57">哥倫比亞 (+57)</option>
+                                <option value="506">哥斯大黎加 (+506)</option>
+                                <option value="237">喀麥隆 (+237)</option>
+                                <option value="995">喬治亞 (+995)</option>
+                                <option value="1649">土克凱可群島 (+1649)</option>
+                                <option value="993">土庫曼 (+993)</option>
+                                <option value="90">土耳其 (+90)</option>
+                                <option value="255">坦尚尼亞 (+255)</option>
+                                <option value="20">埃及 (+20)</option>
+                                <option value="992">塔吉克 (+992)</option>
+                                <option value="221">塞內加爾 (+221)</option>
+                                <option value="248">塞席爾 (+248)</option>
+                                <option value="381">塞爾維亞 (+381)</option>
+                                <option value="52">墨西哥 (+52)</option>
+                                <option value="228">多哥 (+228)</option>
+                                <option value="1809">多明尼加共和國 (+1809)</option>
+                                <option value="1767">多米尼克 (+1767)</option>
+                                <option value="234">奈及利亞 (+234)</option>
+                                <option value="43">奧地利 (+43)</option>
+                                <option value="358">奧蘭群島 (+358)</option>
+                                <option value="58">委內瑞拉 (+58)</option>
+                                <option value="880">孟加拉國 (+880)</option>
+                                <option value="244">安哥拉 (+244)</option>
+                                <option value="1264">安圭拉 (+1264)</option>
+                                <option value="1268">安地卡及巴布達 (+1268)</option>
+                                <option value="376">安道爾 (+376)</option>
+                                <option value="504">宏都拉斯 (+504)</option>
+                                <option value="691">密克羅尼西亞聯邦 (+691)</option>
+                                <option value="856">寮國 (+856)</option>
+                                <option value="260">尚比亞 (+260)</option>
+                                <option value="505">尼加拉瓜 (+505)</option>
+                                <option value="227">尼日 (+227)</option>
+                                <option value="977">尼泊爾 (+977)</option>
+                                <option value="970">巴勒斯坦 (+970)</option>
+                                <option value="1242">巴哈馬群島 (+1242)</option>
+                                <option value="92">巴基斯坦 (+92)</option>
+                                <option value="675">巴布亞紐幾內亞 (+675)</option>
+                                <option value="595">巴拉圭 (+595)</option>
+                                <option value="507">巴拿馬 (+507)</option>
+                                <option value="973">巴林 (+973)</option>
+                                <option value="55">巴西 (+55)</option>
+                                <option value="1246">巴貝多 (+1246)</option>
+                                <option value="226">布吉納法索 (+226)</option>
+                                <option value="30">希臘 (+30)</option>
+                                <option value="680">帛琉 (+680)</option>
+                                <option value="224">幾內亞 (+224)</option>
+                                <option value="245">幾內亞比索 (+245)</option>
+                                <option value="682">庫克群島 (+682)</option>
+                                <option value="49">德國 (+49)</option>
+                                <option value="372">愛沙尼亞 (+372)</option>
+                                <option value="353">愛爾蘭 (+353)</option>
+                                <option value="690">托克勞 (+690)</option>
+                                <option value="371">拉脫維亞 (+371)</option>
+                                <option value="47">挪威 (+47)</option>
+                                <option value="420">捷克 (+420)</option>
+                                <option value="212">摩洛哥 (+212)</option>
+                                <option value="373">摩爾多瓦 (+373)</option>
+                                <option value="377">摩納哥 (+377)</option>
+                                <option value="963">敘利亞 (+963)</option>
+                                <option value="379">教廷/梵蒂岡 (+379)</option>
+                                <option value="679">斐濟 (+679)</option>
+                                <option value="421">斯洛伐克 (+421)</option>
+                                <option value="386">斯洛維尼亞 (+386)</option>
+                                <option value="4779">斯瓦巴和揚馬延島 (+4779)</option>
+                                <option value="94">斯里蘭卡 (+94)</option>
+                                <option value="65">新加坡 (+65)</option>
+                                <option value="687">新喀里多尼亞 (+687)</option>
+                                <option value="81">日本 (+81)</option>
+                                <option value="56">智利 (+56)</option>
+                                <option value="44">曼島 (+441624)</option>
+                                <option value="676">東加 (+676)</option>
+                                <option value="670">東帝汶 (+670)</option>
+                                <option value="235">查德 (+235)</option>
+                                <option value="855">柬埔寨 (+855)</option>
+                                <option value="1473">格瑞那達 (+1473)</option>
+                                <option value="299">格陵蘭島 (+299)</option>
+                                <option value="230">模里西斯 (+230)</option>
+                                <option value="32">比利時 (+32)</option>
+                                <option value="673">汶萊 (+673)</option>
+                                <option value="966">沙烏地阿拉伯 (+966)</option>
+                                <option value="33">法國 (+33)</option>
+                                <option value="689">法屬玻里尼西亞 (+689)</option>
+                                <option value="594">法屬蓋亞那 (+594)</option>
+                                <option value="298">法羅群島 (+298)</option>
+                                <option value="387">波士尼亞與赫塞哥維納 (+387)</option>
+                                <option value="1787">波多黎各 (+1787)</option>
+                                <option value="267">波札那 (+267)</option>
+                                <option value="5997">波納爾島 (+5997)</option>
+                                <option value="48">波蘭 (+48)</option>
+                                <option value="66">泰國 (+66)</option>
+                                <option value="509">海地 (+509)</option>
+                                <option value="44">澤西 (+441534)</option>
+                                <option value="61">澳洲 (+61)</option>
+                                <option value="853">澳門 (+853)</option>
+                                <option value="380">烏克蘭 (+380)</option>
+                                <option value="256">烏干達 (+256)</option>
+                                <option value="598">烏拉圭 (+598)</option>
+                                <option value="998">烏茲別克 (+998)</option>
+                                <option value="1876">牙買加 (+1876)</option>
+                                <option value="232">獅子山 (+232)</option>
+                                <option value="591">玻利維亞 (+591)</option>
+                                <option value="46">瑞典 (+46)</option>
+                                <option value="41">瑞士 (+41)</option>
+                                <option value="502">瓜地馬拉 (+502)</option>
+                                <option value="590">瓜德羅普群島 (+590)</option>
+                                <option value="681">瓦利斯和富圖納群島 (+681)</option>
+                                <option value="220">甘比亞 (+220)</option>
+                                <option value="262">留尼旺 (+262)</option>
+                                <option value="375">白俄羅斯 (+375)</option>
+                                <option value="1441">百慕達 (+1441)</option>
+                                <option value="64">皮特肯群島 (+64)</option>
+                                <option value="250">盧安達 (+250)</option>
+                                <option value="352">盧森堡 (+352)</option>
+                                <option value="350">直布羅陀 (+350)</option>
+                                <option value="500">福克蘭群島 (+500)</option>
+                                <option value="965">科威特 (+965)</option>
+                                <option value="383">科索沃共和國 (+383)</option>
+                                <option value="51">秘魯 (+51)</option>
+                                <option value="216">突尼西亞 (+ 216)</option>
+                                <option value="370">立陶宛 (+370)</option>
+                                <option value="962">約旦 (+962)</option>
+                                <option value="264">納米比亞 (+264)</option>
+                                <option value="683">紐埃島 (+683)</option>
+                                <option value="64">紐西蘭 (+64)</option>
+                                <option value="677">索羅門群島 (+677)</option>
+                                <option value="252">索馬利亞 (+252)</option>
+                                <option value="238">維德角 (+238)</option>
+                                <option value="95">緬甸 (+95)</option>
+                                <option value="40">羅馬尼亞 (+40)</option>
+                                <option value="1">美國 (+1)</option>
+                                <option value="1340">美屬維爾京群島 (+1340)</option>
+                                <option value="1684">美屬薩摩亞 (+1684)</option>
+                                <option value="262">美約特島 (+262)</option>
+                                <option value="39">義大利 (+39)</option>
+                                <option value="44">耿西 (+441481)</option>
+                                <option value="1869">聖克里斯多福及尼維斯/聖尼 (+1869)</option>
+                                <option value="239">聖多美及普林西比島 (+239)</option>
+                                <option value="590">聖巴泰勒米 (+590)</option>
+                                <option value="1784">聖文森及格瑞那丁 (+1784)</option>
+                                <option value="508">聖皮埃赫和密克隆 (+508)</option>
+                                <option value="61">聖誕島 (+61)</option>
+                                <option value="290">聖赫倫那 (+290)</option>
+                                <option value="1758">聖露西亞 (+1758)</option>
+                                <option value="1721">聖馬丁 (+1721)</option>
+                                <option value="590">聖馬丁 (+590)</option>
+                                <option value="378">聖馬利諾 (+378)</option>
+                                <option value="254">肯亞 (+254)</option>
+                                <option value="358">芬蘭 (+358)</option>
+                                <option value="44">英國 (+44)</option>
+                                <option value="246">英屬印度洋領土 (+246)</option>
+                                <option value="1284">英屬維爾京群島 (+1284)</option>
+                                <option value="222">茅利塔尼亞 (+222)</option>
+                                <option value="31">荷蘭 (+31)</option>
+                                <option value="258">莫三比亞 (+258)</option>
+                                <option value="63">菲律賓 (+63)</option>
+                                <option value="678">萬那杜 (+678)</option>
+                                <option value="967">葉門 (+967)</option>
+                                <option value="269">葛摩 (+269)</option>
+                                <option value="351">葡萄牙 (+351)</option>
+                                <option value="976">蒙古 (+976)</option>
+                                <option value="382">蒙特內哥羅/黑山 (+382)</option>
+                                <option value="1664">蒙特塞拉特 (+1664)</option>
+                                <option value="257">蒲隆地 (+257)</option>
+                                <option value="592">蓋亞那 (+592)</option>
+                                <option value="685">薩摩亞 (+685)</option>
+                                <option value="503">薩爾瓦多 (+503)</option>
+                                <option value="249">蘇丹 (+249)</option>
+                                <option value="597">蘇利南 (+597)</option>
+                                <option value="251">衣索比亞 (+251)</option>
+                                <option value="212">西撒哈拉 (+212)</option>
+                                <option value="34">西班牙 (+34)</option>
+                                <option value="672">諾福克島 (+672)</option>
+                                <option value="674">諾魯 (+674)</option>
+                                <option value="225">象牙海岸 (+225)</option>
+                                <option value="229">貝南 (+229)</option>
+                                <option value="501">貝里斯 (+501)</option>
+                                <option value="231">賴比瑞亞 (+231)</option>
+                                <option value="266">賴索托 (+266)</option>
+                                <option value="357">賽普勒斯 (+357)</option>
+                                <option value="240">赤道幾內亞 (+240)</option>
+                                <option value="84">越南 (+84)</option>
+                                <option value="263">辛巴威 (+263)</option>
+                                <option value="233">迦納 (+233)</option>
+                                <option value="1345">開曼群島 (+1345)</option>
+                                <option value="1671">關島 (+1671)</option>
+                                <option value="93">阿富汗 (+93)</option>
+                                <option value="971">阿拉伯聯合大公國 (+971)</option>
+                                <option value="968">阿曼 (+968)</option>
+                                <option value="54">阿根廷 (+54)</option>
+                                <option value="213">阿爾及利亞 (+213)</option>
+                                <option value="355">阿爾巴尼亞 (+355)</option>
+                                <option value="297">阿魯巴島 (+297)</option>
+                                <option value="82">韓國 (+82)</option>
+                                <option value="852">香港 (+852)</option>
+                                <option value="60">馬來西亞 (+60)</option>
+                                <option value="389">馬其頓 (+389)</option>
+                                <option value="223">馬利 (+223)</option>
+                                <option value="265">馬拉威 (+265)</option>
+                                <option value="596">馬提尼克島 (+596)</option>
+                                <option value="356">馬爾他 (+356)</option>
+                                <option value="960">馬爾地夫 (+960)</option>
+                                <option value="692">馬紹爾群島 (+692)</option>
+                                <option value="261">馬達加斯加 (+261)</option>
+                                <option value="961">黎巴嫩 (+961)</option>
+                            </select>*@
+                    </div>
+                    <div class="mb-3">
+                        <label for="telphonenumber" class="form-label">電話號碼</label>
+                        <input type="tel" class="form-control" id="telphonenumber" placeholder="電話號碼" value="@Model.PhoneNumber" name="PhoneNumber" />
+                    </div>
+
+                    <div>
+                        <button id="cancel-phone-btn" type="button" class="btn cancel-edit-btn" data-bs-dismiss="modal">
+                            取消
+                        </button>
+                        <button id="save-phone-btn" type="submit" class="btn save-edit-btn">
+                            儲存
+                        </button>
+                    </div>
+                }
+            </div>
+        </section>
+
+        <section class="password-component m-3 ">
+            <div class="text-success small mt-1">
+                @TempData["Success"]
+            </div>
+            <div class="text-danger small mt-1">
+                @TempData["Error"]
+            </div>
+            <div class="password-component component-wrap">
+                <div class="password-component-display-password">
+                    <h4 class="gray-bold-text">密碼</h4>
+                    <p>●●●●●●●●●●</p>
+                </div>
+
+                <div class="password-component-display-add">
+                    <span id="password-edit" class="display-add blue-bold-text" data-bs-toggle="modal"
+                          data-bs-toggle="modal" data-bs-target="#ccc">編輯</span>
+                </div>
+            </div>
+
+            <div class="password-edit-component component-wrap" id="Check">
+                @using (Html.BeginForm("MemberProfilePassword", "Account"))
+                {
+                    <div class="mb-3">
+                        <input type="hidden" name="Email" value="@Model.Email" />
+                        <label for="current-password" class="form-label">目前密碼</label>
+                        <input type="password" class="form-control" name="CheckPassword" id="current_password" placeholder="目前密碼" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="new-password" class="form-label">新密碼</label>
+                        <input v-model="inputData.password" type="password" class="form-control" name="NewPassword" id="new_password" placeholder="新密碼" />
+                        <div class="text-danger small mt-1">
+                            {{inputDataCheck.passwordErrorMsg}}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirm-new-password" class="form-label">確認新密碼</label>
+                        <input v-model="inputData.checkPassword" type="password" class="form-control" name="ConfirmPassword" id="confirm-new-password" placeholder="確認新密碼" />
+                        <div class="text-danger small mt-1">
+                            {{inputDataCheck.checkPasswordErrorMsg}}
+                        </div>
+                    </div>
+                    <div>
+                        <button id="cancel-password-btn" type="button" class="btn cancel-edit-btn" data-bs-dismiss="modal">
+                            取消
+                        </button>
+                        <button :disabled="addVerify==false" id="save-password-btn" type="submit" class="btn save-edit-btn">
+                            儲存
+                        </button>
+                    </div>
+                }
+            </div>
+        </section>
+    </section>
+    @*<section class="social_networks-link m-3 mb-5">
+            <h3 class="gray-header lead">社群網路連結</h3>
+            <section class="facebook-component">
+                <div class="facebook-component component-wrap">
+                    <div class="facebook-component-display">
+                        <h4 class="gray-bold-text">Facebook</h4>
+                        <p class="display-facebook-value">將Facebook帳號與本站連結，就可共用FB密碼快速登入！</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <section class="payment-methods m-3">
+            <h3 class="gray-header lead">付款方式</h3>
+            <div class="payment-component component-wrap">
+                <div class="payment-component-add">+</div>
+                <div class="payment-component-add-method">新增付款方式</div>
+            </div>
+        </section>
+
+        <section class="save-creditcard-info m-3 mb-5">
+            <div class="save-credit-component component-wrap">
+                <p class="gray-bold-text mb-0">幫我儲存信用卡的資料 <i class="fas fa-info-circle blue-bold-text"></i></p>
+
+                <!-- <div class="creditcard-icon-information">
+                                        將信用卡資料儲存在Agoda安全的伺服器上可以簡化<br>
+                                        您預定的程序，使訂房更便捷!儲存後若改變心意，<br>
+                                        也可以隨時更改設定。請注意，如果你選擇「不要」，<br>
+                                        之前所有已儲存的信用卡資料也會一同被刪除喔!
+                                    </div> -->
+
+                <div class="check_and_radios-button_on-or-button_off">
+                    <!-- <div class="button_off">
+                                              <div class="form-check form-switch">
+                                                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                                  <label class="form-check-label" for="flexSwitchCheckDefault">不要</label>
+                                              </div>
+                                          </div> -->
+
+                    <div class="button_on">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked />
+                            <label class="form-check-label gray-text" for="flexSwitchCheckChecked">好</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="check-status">
+                                        <i class="fas fa-check-circle"></i>
+                                        <div class="check-status-label">已儲存</div>
+                                    </div> -->
+            </div>
+        </section>
+
+        <section class="email_subscriptions-link m-3 mb-5">
+            <h3 class="gray-header lead">訂閱電子郵件</h3>
+            <div class="reminders-component component-wrap mb-3">
+                <p class="gray-bold-text mb-0">我希望預訂小幫手能提醒我重要消息</p>
+
+                <div class="check_and_radios-button_on-or-button_off">
+                    <!-- <div class="mt-2 button_off">
+                                              <div class="form-check form-switch">
+                                                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                                  <label class="form-check-label" for="flexSwitchCheckDefault">不要</label>
+                                              </div>
+                                          </div> -->
+
+                    <div class="button_on">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked />
+                            <label class="form-check-label gray-text" for="flexSwitchCheckChecked">好</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="check-status">
+                                        <i class="fas fa-check-circle"></i>
+                                        <div class="check-status-label">已儲存</div>
+                                    </div> -->
+            </div>
+            <div class="promotions-component component-wrap mb-3">
+                <p class="gray-bold-text mb-0">我想要收到Agoda的促銷情報</p>
+
+                <div class="check_and_radios-button_on-or-button_off">
+                    <!-- <div class="mt-2 button_off">
+                                              <div class="form-check form-switch">
+                                                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                                  <label class="form-check-label" for="flexSwitchCheckDefault">不要</label>
+                                              </div>
+                                          </div> -->
+
+                    <div class="button_on">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked />
+                            <label class="form-check-label gray-text" for="flexSwitchCheckChecked">好</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="check-status">
+                                        <i class="fas fa-check-circle"></i>
+                                        <div class="check-status-label">已儲存</div>
+                                    </div> -->
+            </div>
+        </section>*@
+</div>
+
+<script src="~/Scripts/vue.min.js"></script>
+<script>
+    let app = new Vue({
+        el: "#Check",
+        data: {
+            addVerify: true,
+            inputData: {
+                password: "",
+                checkpassword: "",
+                name: "",
+                tell: "",
+                address: "",
+            },
+            inputDataCheck: {
+                passwordError: false,
+                passwordErrorMsg: "",
+                checkpasswordError: false,
+                checkpasswordErrorMsg: "",
+            },
+        },
+        watch: {
+            "inputData.password": {
+                immediate: true,
+                handler: function () {
+                    this.inputDataCheck.checkpasswordError = false;
+                    this.inputDataCheck.checkpasswordErrorMsg = "";
+
+                    let passwordRegexp =
+                        /^(?!.*[^\x21-\x7e])(?=.*[\W])(?=.*[a-zA-Z])(?=.*\d).*$/;
+
+                    if (this.inputData.password.length < 8) {
+                        this.inputDataCheck.passwordError = true;
+                        this.inputDataCheck.passwordErrorMsg = "密碼須超過8位數";
+                    } else if (!passwordRegexp.test(this.inputData.password)) {
+                        this.inputDataCheck.passwordError = true;
+                        this.inputDataCheck.passwordErrorMsg =
+                            "密碼需要包含最少一位的大小寫英文字母與數字與一個以上的特殊符號";
+                    } else {
+                        this.inputDataCheck.passwordError = false;
+                        this.inputDataCheck.passwordErrorMsg = "";
+                    }
+
+                    this.checkAddVerify();
+                },
+            },
+            "inputData.checkPassword": {
+                immediate: true,
+                handler: function () {
+                    if (this.inputData.checkPassword != this.inputData.password) {
+                        this.inputDataCheck.checkPasswordError = true;
+                        this.inputDataCheck.checkPasswordErrorMsg =
+                            "密碼與第一次輸入不吻合";
+                    } else {
+                        this.inputDataCheck.checkPasswordError = false;
+                        this.inputDataCheck.checkPasswordErrorMsg = "";
+                    }
+                    this.checkAddVerify();
+                },
+            },
+        },
+        methods: {
+            checkAddVerify() {
+                for (let prop in this.inputDataCheck) {
+                    if (this.inputDataCheck[prop] == true) {
+                        this.addVerify = false;
+                        return;
+                    }
+                }
+                this.addVerify = true;
+            },
+        },
+    });
+</script>
+
+
+@section endJS{
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="~/Asset/js/MemberAccount/MemberProfile.js"></script>
+    <script>
+                //let links = ["booking", "inbox", "reviews", "profile"]
+                //let pages = ["booking-page", "inbox-page", "reviews-page", "profile-page"]
+                //function addCurrentPage(linkBox,currentPage) {
+                //    if (detailPage.style.display == 'block') {
+                //        linkBox.classList.add("currentPage")
+                //    }
+                //}
+
+                //function showPage(showPage, hidePage) {
+                //    showPage.style.display = "block";
+                //    hidePage.style.display = "none";
+                //}
+
+                //let bookingsLink = document.getElementById("bookings")
+                //bookingsLink.addEventListener('click', () => {
+                //    bookingPage.style.display = "block";
+                //    detailPage.style.display = "none";
+                //    addCurrentPage(bookingsLink);
+                //})
+                //links.forEach((link,index)=>{
+                //    let linkBox = document.getElementById(link)
+                //    linkBox.addEventListener('click', () => {
+                //        detailPage.style.display = "block";
+                //        bookingPage.style.display = "none";
+                //        addCurrentPage(profileLink);
+                //    })
+                //})
+
+    </script>
+
+
+}

@@ -1,0 +1,343 @@
+﻿
+
+/* -------------部分物件 共用的設定---------------- */
+/* 字的樣式，mb */
+.gray-header {
+    margin: 1rem 0;
+    font-size: 24px;
+    color: rgb(82, 82, 82);
+}
+
+.gray-text {
+    font-family: Montserrat,serif;
+    color: rgb(92, 92, 92);
+}
+
+.gray-bold-text, .form-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(70, 70, 70);
+}
+
+.blue-bold-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(63, 134, 241);
+}
+
+.form-label {
+    margin-bottom: 13px !important;
+}
+
+.form-control[type='text'] {
+    padding: 10px 10px;
+    font-size: 14px;
+    font-family: Montserrat,serif;
+    color: rgb(95, 95, 95);
+}
+
+/* 每一區塊的間距，陰影，寬度設定 */
+.component-wrap {
+    width: 830px;
+    padding: 25px 20px;
+    box-shadow: 0px 2px 6px 2px rgba(66, 66, 66, 0.137);
+}
+
+    .component-wrap:hover {
+        box-shadow: 0px 3px 6px 2px rgba(66, 66, 66, 0.39);
+    }
+
+/*每個表單都有的那2個按鈕*/
+.btn.cancel-edit-btn {
+    margin-right: 5px;
+    padding: 10px 45px;
+    font-weight: bold;
+    color: rgb(99, 155, 238);
+    background-color: #fff;
+    border: none;
+}
+
+    .btn.cancel-edit-btn:hover {
+        color: #fff;
+        background-color: rgb(99, 155, 238);
+    }
+
+.btn.save-edit-btn {
+    padding: 10px 45px;
+    font-weight: bold;
+    color: #fff;
+    background-color: rgb(83, 147, 243);
+    border: none;
+}
+
+    .btn.save-edit-btn:hover {
+        color: #fff;
+        background-color: rgb(134, 183, 255);
+    }
+
+/* --------------------------------------------------- */
+
+div.name-component {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-image: linear-gradient(120deg,rgb(191, 154, 250),rgb(209, 185, 247));
+}
+
+    div.name-component .name-component-display-icon {
+        margin-right: 20px;
+        width: 55px;
+        height: 55px;
+        text-align: center;
+        line-height: 55px;
+        background-color: rgb(146, 79, 235);
+        border-radius: 50%;
+    }
+
+        div.name-component .name-component-display-icon span {
+            font-size: 28px;
+            color: #fff;
+            font-weight: 700;
+            font-family: Montserrat, serif;
+        }
+
+    div.name-component .name-component-display-name p.display-name-value {
+        margin-bottom: 0;
+        font-family: Montserrat,serif;
+        font-size: 16px;
+        color: rgb(70, 70, 70);
+    }
+
+    div.name-component .name-component-display-edit {
+        position: absolute;
+        right: 30px;
+    }
+
+/* 0623 bear 新增 */
+div.name-edit-component {
+    display: none;
+    background-color: #fff;
+}
+
+.name-edit-component .form-control {
+    width: 500px;
+}
+
+div.name-component .name-component-display-edit span.display-edit:hover {
+    cursor: pointer;
+}
+
+div.email-component .email-component-display-email h4 {
+    margin-bottom: 15px;
+}
+
+div.email-not-verify-component {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-bottom: 15px;
+    border: 1px solid rgb(204, 203, 203);
+    border-left: 6px solid orange;
+}
+
+.email-not-verify-component i {
+    margin: 0 10px 7px 10px;
+    font-size: 12px;
+    color: orange;
+}
+
+.email-not-verify-component span {
+    font-size: 12px;
+    color: rgb(156, 156, 156);
+}
+
+#verify-email {
+    color: rgb(61, 138, 253);
+    cursor: pointer;
+}
+
+.display-email-value {
+    margin-bottom: 0;
+    font-family: Montserrat,serif;
+    font-size: 16px;
+    color: rgb(104, 104, 104);
+}
+.email-verify-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    margin-left: 20px;
+    line-height: 16px;
+    font-size: 12px;
+    background-color: rgb(36, 186, 206);
+    color: #fff;
+    border-radius: 3px;
+}
+div.verify-email-component {
+    display: none;
+}
+
+    div.verify-email-component .robot-error {
+        /* display: none; */
+        display: flex;
+        justify-content: space-between;
+        width: 500px;
+        padding: 10px 10px;
+        font-size: 14px;
+        border: 1px solid rgb(204, 157, 157);
+        border-radius: 3px;
+        background-color: rgb(248, 225, 225);
+    }
+
+.robot-error p {
+    color: rgb(201, 105, 105);
+}
+
+.robot-error i {
+    font-size: 20px;
+    color: rgb(199, 33, 33);
+}
+
+p.verify-explain {
+    font-size: 14px;
+    color: rgb(104, 104, 104);
+}
+
+    p.verify-explain strong {
+        color: rgb(82, 82, 82);
+    }
+
+/* 電話區塊 */
+div.phone-component {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+p.phone-number span {
+    margin-bottom: 0;
+    font-family: Montserrat,serif;
+    font-size: 16px;
+    color: rgb(104, 104, 104);
+}
+
+div.phone-component .phone-component-display-add {
+    position: absolute;
+    right: 30px;
+}
+
+    div.phone-component .phone-component-display-add span:hover {
+        cursor: pointer;
+    }
+
+div.phone-edit-component {
+    display: none;
+}
+
+    div.phone-edit-component .form-select,
+    .phone-edit-component .form-control {
+        width: 500px;
+        padding: 10px 15px;
+        font-size: 14px;
+        font-family: Montserrat,serif;
+        color: rgb(119, 119, 119);
+    }
+
+/* 密碼區塊 */
+div.password-component {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-component-display-password p {
+    font-size: 18px;
+    font-family: Montserrat,serif;
+    color: rgb(184, 184, 184);
+    letter-spacing: 3px;
+}
+
+div.password-component .password-component-display-add {
+    position: absolute;
+    right: 30px;
+}
+
+    div.password-component .password-component-display-add span:hover {
+        cursor: pointer;
+    }
+
+div.password-edit-component {
+    display: none;
+}
+
+    div.password-edit-component .form-control {
+        width: 400px;
+        padding: 10px 15px;
+        font-size: 14px;
+        font-family: Montserrat,serif;
+        color: rgb(119, 119, 119);
+    }
+
+div.facebook-component-display p {
+    margin-bottom: 0;
+    font-family: Montserrat,serif;
+    color: rgb(92, 92, 92);
+}
+
+section.payment-methods:hover {
+    cursor: pointer;
+}
+
+div.payment-component {
+    width: 270px;
+    height: 155px;
+}
+
+    div.payment-component div.payment-component-add {
+        font-size: 40px;
+        font-weight: 600;
+        text-align: center;
+        color: #5392f9;
+    }
+
+    div.payment-component div.payment-component-add-method {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.71;
+        text-align: center;
+        color: #5392f9;
+    }
+
+section.save-creditcard-info {
+    display: flex;
+}
+
+div.save-credit-component i:nth-child(2) {
+    padding-left: 3px;
+    margin-top: 23px;
+}
+
+.check_and_radios-button_on-or-button_off {
+    /* background-color: #ffd; */
+    /* 寬高自動 */
+}
+
+input.form-check-input:hover {
+    cursor: pointer;
+}
+
+div.promotions-component, div.reminders-component, div.save-credit-component {
+    display: flex;
+    justify-content: space-between;
+}
+
+    div.promotions-component p, div.reminders-component p, div.save-credit-component p {
+        margin-bottom: 0;
+    }
+
+div.button_on {
+    margin-right: 30px;
+}
+
+.phone-edit-component.component-wrap,
+div#Check{
+    background-color:#fff;
+}
